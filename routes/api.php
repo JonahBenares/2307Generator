@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PayeesController;
 use App\Http\Controllers\AtcController;
+use App\Http\Controllers\AccountantController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,3 +34,9 @@ Route::get('/get_all_atc',[AtcController::class,'all_atc']);
 Route::get('/search_atc',[AtcController::class,'search_atc']);
 Route::get('/edit_atc/{id}',[AtcController::class,'edit_atc']);
 Route::post('/update_atc/{id}',[AtcController::class,'update_atc']);
+
+Route::post('/add_accountant',[AccountantController::class,'add_accountant']);
+Route::get('/get_all_accountant',[AccountantController::class,'all_accountant']);
+Route::get('/search_accountant',[AccountantController::class,'search_accountant']);
+Route::get('/edit_accountant/{id}',[AccountantController::class,'edit_accountant']);
+Route::post('/update_accountant/{id}',[AccountantController::class,'update_accountant']);

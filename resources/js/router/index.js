@@ -94,17 +94,25 @@ const routes = [
     {
         path:'/accountant',
         component: accountantIndex,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
         path:'/accountant/new',
         component: accountantNew,
-
+        meta:{
+            requiresAuth:true
+        }
     },
     {
-        path:'/accountant/edit/',
+        path:'/accountant/edit/:id',
         component: accountantEdit,
         props:true,
+        meta:{
+            requiresAuth:true
+        }
 
     },
 

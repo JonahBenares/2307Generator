@@ -5,6 +5,28 @@ import axios from "axios";
 import {onMounted, ref} from "vue";
 import { useRouter } from "vue-router";
 
+	const router = useRouter() 
+	let accountants = ref([])
+	let searchAccountant=ref([]);
+
+	onMounted(async () => {
+		getAccountant()
+	})
+
+	const getAccountant = async (page = 1) => {
+		const response = await axios.get(`/api/get_all_accountant?page=${page}&filter=${searchAccountant.value}`);
+		accountants.value = response.data
+    }
+
+	const search = async () => {
+        let response = await fetch('/api/search_accountant?filter='+searchAccountant.value);
+        accountants.value = await response.json();
+	}
+
+	
+	const onEdit = (id) =>{
+		router.push('/accountant/edit/'+id)
+	}
 
 
 </script>
@@ -26,7 +48,7 @@ import { useRouter } from "vue-router";
 												<MagnifyingGlassIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></MagnifyingGlassIcon>
 											</div>
 										</div>
-										<input type="text" class="form-control border-0 rounded-none" id="search" placeholder="Type to search..." >
+										<input type="text" class="form-control border-0 rounded-none" id="search" placeholder="Type to search..." @keyup="search()" v-model="searchAccountant">
 									</div>
 									<span class="border-l ml-2  mr-1"></span>
 									<button class="btn btn-sm btn-success">
@@ -62,22 +84,29 @@ import { useRouter } from "vue-router";
 									</tr>
 								</thead>
 								<tbody>
-									<!-- <tr>
-										<td colspan="3" class="bg-yellow-100"></td>
-									</tr> -->
-									<tr >
-										<td class="p-1 px-3">asd</td>
-										<td class="p-1 px-3">asd</td>
-										<td class="p-1 px-3">asd</td>
-										<td class="p-1 px-3">asd</td>
+									<tr v-for="a in accountants.data">
+										<td class="p-1 px-3">{{ a.accountant_name }}</td>
+										<td class="p-1 px-3">{{ a.position }}</td>
+										<td class="p-1 px-3">{{ a.tin }}</td>
+										<td class="p-1 px-3" v-if="a.active == 1"><button class="btn btn-xs !text-xs btn-success">Active</button></td>
+										<td class="p-1 px-3" v-else><button class="btn btn-xs btn-danger !text-xs ">Inactive</button></td>
 										<td class="p-1 px-3">
-											<a href="/accountant/edit/" class="btn btn-xs btn-info btn-rounded  text-white">
+											<a @click="onEdit(a.id)"  class="btn btn-xs btn-info btn-rounded  text-white">
 												<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
 											</a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
+							<div class="flex justify-end p-2 border-t">
+								<nav aria-label="Page navigation example">
+									<TailwindPagination
+										:data="accountants"
+										:limit="1"
+										@pagination-change-page="getAccountant"
+									/>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>

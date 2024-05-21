@@ -153,7 +153,7 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="px-4 pb-4">
-							<a href="/print" class="btn btn-sm btn-success btn-block">Print All</a>
+							<a href="/print" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
 						</div>
 					</div>
 				</div>
