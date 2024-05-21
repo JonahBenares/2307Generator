@@ -1,6 +1,6 @@
 <script setup>
 	import navigation from '@/layouts/navigation.vue';
-	import { CheckCircleIcon, ExclamationCircleIcon, SparklesIcon, PlusIcon, XMarkIcon, MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, Bars3Icon} from '@heroicons/vue/24/solid'
+	import { CheckCircleIcon, ExclamationCircleIcon, SparklesIcon, PlusIcon, XMarkIcon, MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, PrinterIcon} from '@heroicons/vue/24/solid'
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter()
@@ -54,6 +54,14 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="" class="mb-0 text-sm">Amount</label>
+										<input type="text" class="form-control border">
+									</div>
+								</div>
+							</div>
+							<!-- <div class="row">
+								<div class="col-lg-12">
 									<table class="table table-bordered">
 										<tr class="bg-gray-50">
 											<td colspan="3" class="text-center">Amount of Income Payments</td>
@@ -90,7 +98,7 @@
 										</tr>
 									</table>
 								</div>
-							</div>
+							</div> -->
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group flex space-x-2">
@@ -113,30 +121,23 @@
 				<div class="col-lg-6">
 					<div class="card h-full">
 						<div class="mx-4 mt-4 p-3 h-full rounded overflow-y-hidden hover:overflow-y-scroll bg-gray-200 shadow-inner">
-							<a href="" class="!no-underline text-gray-700 hover:text-gray-700">
-								<div class="card mb-2 !shadow cursor-pointer hover:bg-yellow-100">
-									<div class="flex justify-between text-sm">
-										<span class="w-80 truncate overflow-ellipsis">Payee's Name</span>
-										<span>10/10/10 - 10/10/10</span>
+							<div class="card w-full mb-2 !shadow hover:bg-yellow-100">
+								<div class="row">
+									<div class="col-lg-10  cursor-pointer">
+										<a href="" class="!no-underline text-gray-700 hover:text-gray-700 ">
+											<div class="truncate overflow-ellipsis text-base font-bold leading-tight">Payee's Name asdasdasdasd as dasdasdasd daasd sdasd</div>
+											<div class="text-xs leading-tight">10/10/10/ - 10/10/10/</div>
+										</a>
+									</div>
+									<div class="col-lg-2">
+										<div class="flex justify-end">
+											<a href="/print" class="mt-1">
+												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PrinterIcon>
+											</a>
+										</div>
 									</div>
 								</div>
-							</a>
-							<a href="" class="!no-underline text-gray-700 hover:text-gray-700">
-								<div class="card mb-2 !shadow cursor-pointer hover:bg-yellow-100">
-									<div class="flex justify-between text-sm">
-										<span class="w-80 truncate overflow-ellipsis">Payee's Name</span>
-										<span>10/10/10 - 10/10/10</span>
-									</div>
-								</div>
-							</a>
-							<a href="" class="!no-underline text-gray-700 hover:text-gray-700">
-								<div class="card mb-2 !shadow cursor-pointer hover:bg-yellow-100">
-									<div class="flex justify-between text-sm">
-										<span class="w-80 truncate overflow-ellipsis">Payee's Name</span>
-										<span>10/10/10 - 10/10/10</span>
-									</div>
-								</div>
-							</a>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -45,9 +45,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-12">
+								<div class="col-lg-6">
 									<div class="form-group">
 										<label class="form-label">ATC</label>
+										<input type="text" class="form-control border" placeholder="">
+									</div>									
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="form-label">Percentage</label>
 										<input type="text" class="form-control border" placeholder="">
 									</div>									
 								</div>
