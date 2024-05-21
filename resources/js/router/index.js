@@ -39,33 +39,51 @@ const routes = [
     {
         path:'/supplier',
         component: supplierIndex,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
         path:'/supplier/new',
         component: supplierNew,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
-        path:'/supplier/edit/',
+        path:'/supplier/edit/:id',
         component: supplierEdit,
         props:true,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
         path:'/atc',
         component: atcIndex,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
         path:'/atc/new',
         component: atcNew,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     {
-        path:'/atc/edit/',
+        path:'/atc/edit/:id',
         component: atcEdit,
         props:true,
+        meta:{
+            requiresAuth:true
+        }
 
     },
 

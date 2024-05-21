@@ -1,8 +1,8 @@
 <script setup>
 	import navigation from '@/layouts/navigation.vue';
-	import { CheckCircleIcon, ExclamationCircleIcon, ArrowUturnLeftIcon, XCircleIcon } from '@heroicons/vue/24/solid'
+	import { CheckCircleIcon,  XCircleIcon } from '@heroicons/vue/24/solid'
 	import axios from 'axios';
-	import {onMounted, ref} from "vue";
+	import { ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter();
 
@@ -30,18 +30,12 @@
 			form.value.registered_address=''
 			form.value.tin=''
 			form.value.zip_code=''
-			document.getElementById("success").style.display="block"
-			document.getElementById("error").style.display="none"
-			setTimeout(() => {
-				document.getElementById("success").style.display="none"
-			}, 4000);
+			error.value=''
+		
 		}, function (err) {
+			success.value=''
 			error.value = err.response.data.message;
-			document.getElementById("error").style.display="block"
-			document.getElementById("success").style.display="none"
-			setTimeout(() => {
-				document.getElementById("error").style.display="none"
-			}, 4000);
+		
 		});
 
 	}

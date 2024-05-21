@@ -1,9 +1,32 @@
 <script setup>
-import navigation from '@/layouts/navigation.vue';
-import { PencilSquareIcon, Bars3Icon, PlusIcon, MagnifyingGlassIcon, ArrowUpTrayIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/solid'
-import axios from "axios";
-import {onMounted, ref} from "vue";
-import { useRouter } from "vue-router";
+	import navigation from '@/layouts/navigation.vue';
+	import { PencilSquareIcon, Bars3Icon, PlusIcon, MagnifyingGlassIcon, ArrowUpTrayIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/solid'
+	import axios from "axios";
+	import {onMounted, ref} from "vue";
+	import { useRouter } from "vue-router";
+	const router = useRouter() 
+	let atcs = ref([])
+	let searchATC=ref([]);
+
+	onMounted(async () => {
+		getATC()
+	})
+
+	const getATC = async (page = 1) => {
+		const response = await axios.get(`/api/get_all_atc?page=${page}&filter=${searchATC.value}`);
+		atcs.value = response.data
+    }
+
+	const search = async () => {
+        let response = await fetch('/api/search_atc?filter='+searchATC.value);
+        atcs.value = await response.json();
+	}
+
+	
+	const onEdit = (id) =>{
+		router.push('/atc/edit/'+id)
+	}
+
 
 
 
@@ -18,7 +41,7 @@ import { useRouter } from "vue-router";
 						<!-- <h5 class="font-bold " >Supplier</h5> -->
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
-								<h4 class="font-bold m-0 capitalize" >Schedule of Alphanumeric Tax Codes</h4>
+								<h4 class="font-bold m-0 capitalize" >Alphanumeric Tax Codes</h4>
 								<div class="flex justify-between space-x-1">
 									<div class="input-group border rounded w-80">
 										<div class="input-group-prepend">
@@ -26,7 +49,7 @@ import { useRouter } from "vue-router";
 												<MagnifyingGlassIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></MagnifyingGlassIcon>
 											</div>
 										</div>
-										<input type="text" class="form-control border-0 rounded-none" id="search" placeholder="Type to search..." >
+										<input type="text" class="form-control border-0 rounded-none" id="search" placeholder="Type to search..." @keyup="search()" v-model="searchATC" >
 									</div>
 									<span class="border-l ml-2  mr-1"></span>
 									<button class="btn btn-sm btn-success">
@@ -52,9 +75,9 @@ import { useRouter } from "vue-router";
 							<table class="table table-bor table-hover rounded ">
 								<thead>
 									<tr>
-										<th class="p-2 px-3 text-base" width="40%">Income Payments Subject to Expanded Withholding Tax</th>
 										<th class="p-2 px-3 text-base" width="10%">ATC</th>
-										<th class="p-2 px-3 text-base" width="10%">Percentage</th>
+										<th class="p-2 px-3 text-base" width="40%">Remarks</th>
+										<th class="p-2 px-3 text-base" width="10%">Tax Withheld</th>
 										<th class="p-2 px-3 text-base" width="1%" align="center">
 											<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
 										</th>
@@ -64,18 +87,27 @@ import { useRouter } from "vue-router";
 									<!-- <tr>
 										<td colspan="3" class="bg-yellow-100"></td>
 									</tr> -->
-									<tr >
-										<td class="p-1 px-3">asd</td>
-										<td class="p-1 px-3">asd</td>
-										<td class="p-1 px-3">asd</td>
+									<tr v-for="a in atcs.data">
+										<td class="p-1 px-3">{{ a.atc_code }}</td>
+										<td class="p-1 px-3">{{ a.remarks }}</td>
+										<td class="p-1 px-3">{{ a.percentage }}</td>
 										<td class="p-1 px-3">
-											<a href="/atc/edit/" class="btn btn-xs btn-info btn-rounded  text-white">
+											<a @click="onEdit(a.id)"  class="btn btn-xs btn-info btn-rounded  text-white">
 												<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
 											</a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
+							<div class="flex justify-end p-2 border-t">
+								<nav aria-label="Page navigation example">
+									<TailwindPagination
+										:data="atcs"
+										:limit="1"
+										@pagination-change-page="getATC"
+									/>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>
