@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
 import { HomeIcon , Cog8ToothIcon } from '@heroicons/vue/24/solid';
-import { PlusCircleIcon, BuildingStorefrontIcon, DocumentTextIcon, ClipboardDocumentListIcon  } from '@heroicons/vue/24/outline';
+import { PlusCircleIcon, BuildingStorefrontIcon, DocumentTextIcon, ClipboardDocumentListIcon, UserCircleIcon  } from '@heroicons/vue/24/outline';
 
 
 const router = useRouter();
@@ -22,6 +22,9 @@ const logout = () => {
 			<a class="navbar-brand mb-0 h1 d-none d-md-block w-60" >
 				<span class="!font-extrabold italic text-gray-700">2307</span>
 				<span class="font-extrabold italic text-blue-500">GENERATOR</span>
+				<span class="font-extrabold italic text-blue-500"> 
+					
+				</span>
 			</a>
 			<div class=" w-60 flex justify-center space-x-5">
 				<a href="/dashboard" class="!no-underline flex align-center space-x-1 px-2 py-1">
@@ -35,6 +38,10 @@ const logout = () => {
 				<a href="/atc" class="!no-underline flex align-center space-x-1 px-2 py-1">
 					<ClipboardDocumentListIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></ClipboardDocumentListIcon>
 					<span class="text-sm font-bold mt-1">ATC</span>
+				</a>
+				<a href="/accountant" class="!no-underline flex align-center space-x-1 px-2 py-1">
+					<UserCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></UserCircleIcon>
+					<span class="text-sm font-bold mt-1">Accountants</span>
 				</a>
 				<a href="/report" class="!no-underline flex align-center space-x-1 px-2 py-1">
 					<DocumentTextIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></DocumentTextIcon>

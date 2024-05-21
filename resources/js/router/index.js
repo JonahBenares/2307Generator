@@ -14,6 +14,10 @@ import atcIndex from '../components/atc/index.vue'
 import atcNew from '../components/atc/new.vue'
 import atcEdit from '../components/atc/edit.vue'
 
+import accountantIndex from '../components/accountant/index.vue'
+import accountantNew from '../components/accountant/new.vue'
+import accountantEdit from '../components/accountant/edit.vue'
+
 import reportIndex from '../components/report/index.vue'
 import reportPrint from '../components/report/Print.vue'
 
@@ -88,6 +92,23 @@ const routes = [
     },
 
     {
+        path:'/accountant',
+        component: accountantIndex,
+
+    },
+    {
+        path:'/accountant/new',
+        component: accountantNew,
+
+    },
+    {
+        path:'/accountant/edit/',
+        component: accountantEdit,
+        props:true,
+
+    },
+
+    {
         path:'/report',
         component: reportIndex,
 
@@ -116,6 +137,8 @@ router.beforeEach((to,from) => {
         return { name: 'login'}
     } 
 })
+
+
 
 // router.beforeEach((to, from, next) => {
 //     const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
