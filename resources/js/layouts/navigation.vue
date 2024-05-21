@@ -30,7 +30,7 @@ const logout = () => {
 				</a>
 				<a href="/supplier" class="!no-underline flex align-center space-x-1 px-2 py-1">
 					<BuildingStorefrontIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></BuildingStorefrontIcon>
-					<span class="text-sm font-bold mt-1">Supplier</span>
+					<span class="text-sm font-bold mt-1">Payee</span>
 				</a>
 				<a href="/atc" class="!no-underline flex align-center space-x-1 px-2 py-1">
 					<ClipboardDocumentListIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></ClipboardDocumentListIcon>

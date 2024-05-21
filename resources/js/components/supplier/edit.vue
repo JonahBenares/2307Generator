@@ -33,7 +33,7 @@
 					<div class="card">
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
-								<h4 class="font-bold m-0" >Supplier <small>Update</small></h4>
+								<h4 class="font-bold m-0" >Payee <small>Update</small></h4>
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
