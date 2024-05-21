@@ -63,14 +63,6 @@ class AuthController extends Controller
    
     }
 
-    public function dashboard(){
-        $credentials=[
-            'name' => Auth::user()->name,
-            'temp_password' => Auth::user()->temp_password,
-        ];
-        return response()->json($credentials);
-   }
-
    public function change_password(){
         $credentials=[
             'id' => Auth::user()->id,
@@ -94,101 +86,10 @@ class AuthController extends Controller
             'temp_password'=>null,
             'change_password'=>1
         ];
-        // $validated=$this->validate($request,[
-        //     'password'=>['required','min:6','max:10'],
-        //     // 'temp_password'=>null,
-        //     // 'change_password'=>1
-        // ]);
-        // $validated=[
-        //     //'password' => $request->password,
-        //     'temp_password'=>null,
-        //     'change_password'=>1
-        // ];
-        //return $validated;
+     
         $employees->update($validated);
     }
 
-    public function get_backorder_list(){
-        //$items = ReceiveItems::with(['receive_head', 'receive_details'])->wherecolumn('exp_quantity','!=','rec_quantity')->get();
-
-        $query = ReceiveItems::with(['receive_head', 'receive_details'])->wherecolumn('exp_quantity','!=','rec_quantity');
-        $query->whereHas('receive_head', function ($query)  {
-            $query->where('closed', '=', '1');
-            $query->where('draft', '=', '0');
-        });
-          
-        $items = $query->get();
-        $BackorderItems=array();
-        foreach($items AS $i){
-               
-            $total_bo = BackorderItems::where('receive_items_id','=',$i->id)->sum('bo_quantity');
-        
-            $total_qty = $i->rec_quantity + $total_bo;
-            $remaining_qty =$i->exp_quantity - $total_qty;
-            if($i->exp_quantity != $total_qty || $i->exp_quantity > $total_qty){
-                    $BackorderItems[] = [
-                        'headid'=>$i->receive_head_id,
-                        'po_no'=>$i->receive_head->po_no,
-                        'pr_no'=>$i->receive_details->pr_no,
-                        'item_desc'=>$i->item_description,
-                        'exp_qty'=>$i->exp_quantity,
-                        'rec_qty'=>$i->rec_quantity,
-                        'bo_qty'=>$total_bo,
-                    ];
-                
-            }
-
-        }
-
-        return response()->json($BackorderItems);
-    }
-
-    public function get_reminder_list(Request $request){
-        $filter=$request->get('filter');
-        $head = Reminders::when($request->get('filter'), function ($query, $filter) {
-            $query->where('reminder_date', 'LIKE', '%' . $filter . '%')
-            //->orWhere('receive_date', 'LIKE', '%' . $filter . '%')
-            ->orWhere('title', 'LIKE', '%' . $filter . '%')
-            ->orWhere('notes', 'LIKE', '%' . $filter . '%')
-            ->orWhere('person_to_notify_name', 'LIKE', '%' . $filter . '%');
-        })->where('done','=','0')->paginate(10);
-
-        return response()->json([
-            'head'=>$head
-          ],200);
-        // return response()->json($head);
-    }
-
-    public function add_reminder(ReminderRequest $request){
-        $added_by_id = Auth::id();
-
-        $validated=$request->validated();
-        $validated['person_to_notify_name']=User::where('id',$request->person_to_notify_id)->value('name');
-        $validated['added_by_id']= $added_by_id;
-        $validated['added_by_name']=User::where('id',$added_by_id)->value('name');
-        $reminder=Reminders::create($validated);
-    }
-
-    public function done_reminder($id){
-        $head=Reminders::where('id',$id)->first();
-        $data = [
-            'done'=>'1'
-        ];
-        $head->update($data);
-    }
-
-    public function edit_reminder($id){
-        $reminder_update = Reminders::find($id);
-        return response()->json([
-            'reminder_update'=>$reminder_update
-        ],200);
-    }
-
-    public function update_reminder(ReminderRequest $request, $id){
-        $reminder=Reminders::where('id',$id)->first();
-        $validated=$request->validated();
-        $validated['person_to_notify_name']=User::where('id',$request->person_to_notify_id)->value('name');
-        $reminder->update($validated);
-    }
+    
 
 }

@@ -21,20 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'department_id',
-        'position',
-        'contact_no',
-        'access',
-        'temp_password',
-        'change_password',
-        'acknowledge_flag',
-        'approved_flag',
-        'requested_flag',
-        'released_flag',
-        'reviewed_flag',
-        'delivered_flag',
-        'inspected_flag',
-        'noted_flag'
     ];
 
     /**
@@ -58,7 +44,4 @@ class User extends Authenticatable
         'access' => 'integer',
     ];
 
-    public function department(){
-        return $this->belongsTo(department::class, 'department_id');
-    }
 }

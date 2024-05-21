@@ -18,7 +18,7 @@ import { useRouter } from "vue-router";
 						<!-- <h5 class="font-bold " >Supplier</h5> -->
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
-								<h4 class="font-bold m-0" >Supplier</h4>
+								<h4 class="font-bold m-0" >Payees</h4>
 								<div class="flex justify-between space-x-1">
 									<div class="input-group border rounded w-80">
 										<div class="input-group-prepend">
