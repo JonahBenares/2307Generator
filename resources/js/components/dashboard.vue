@@ -398,7 +398,7 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="px-4 pb-4">
-							<a @click="saveSet()" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
+							<a href="/print_all/1" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
 						</div>
 					</div>
 				</div>
