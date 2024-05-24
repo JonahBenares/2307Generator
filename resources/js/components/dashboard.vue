@@ -71,7 +71,7 @@
 			details.value = response.data.details
 			form.value.id = response.data.head_id
 
-			console.log(response.data.details)
+			//console.log(response.data.details)
 		// } else {
 			
 		// 	const response = await axios.get(`/api/get_drafts/${props.id}`);
@@ -174,6 +174,7 @@
 		
 			success.value='You have successfully added a new 2307!'
 			form.value=ref([])
+			rows.value=ref([])
 			error.value=''
 			form.value.id = response.data
 			getDrafts()
@@ -189,9 +190,9 @@
 	const saveSet = () => {
 
 		axios.get("/api/save_set/"+props.id).then(function (response) {
-			alert("List of 2307 have been successfully saved!");
-			//router.push('/dashboard/new')
-			window.location.href ='/dashboard/new'
+			// alert("List of 2307 have been successfully saved!");
+			router.push('/print_all/new'+props.id)
+			//window.location.href ='/dashboard/new'
 		});
 	}
 </script>
@@ -398,7 +399,7 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="px-4 pb-4">
-							<a href="/print_all/1" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
+							<a @click = "saveSet()" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
 						</div>
 					</div>
 				</div>
