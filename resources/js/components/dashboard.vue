@@ -58,7 +58,7 @@
     }
 
 	const getAmount = async () => {
-		const response = await axios.get(`/api/get_amount/${props.id}`);
+		const response = await axios.get(`/api/get_amount`);
 		rows.value = response.data
     }
 
@@ -174,7 +174,7 @@
 		
 			success.value='You have successfully added a new 2307!'
 			form.value=ref([])
-			rows.value=ref([])
+			rows=ref([])
 			error.value=''
 			form.value.id = response.data
 			getDrafts()
@@ -191,7 +191,7 @@
 
 		axios.get("/api/save_set/"+props.id).then(function (response) {
 			// alert("List of 2307 have been successfully saved!");
-			router.push('/print_all/new'+props.id)
+			router.push('/print_all/'+props.id)
 			//window.location.href ='/dashboard/new'
 		});
 	}

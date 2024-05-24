@@ -94,7 +94,7 @@
 						<div class="tax-quarter">
 							
 							<span v-for="t in d.tax">{{ t }}<br></span>
-						
+							
 							{{ d.totaltax }}<br> <!-- (DIRI LNG BUTANG ANG FINAL TAX) -->
 						</div>
 						<div class="final-tax"></div><!-- (ND LNG D PAG BUTANG ANG FINAL TAX) -->
