@@ -64,8 +64,9 @@ class DashboardController extends Controller
 
     }
 
-    public function get_amount($id){
-        $amount = GenerationAmount::where('generation_head_id','=', $id)->get();
+    public function get_amount(){
+        $user_id = Auth::id();
+        $amount = GenerationAmount::where('generation_id','=', '0')->where('user_id','=',$user_id)->get();
         return response()->json($amount);
 
     }
@@ -93,9 +94,9 @@ class DashboardController extends Controller
         //if($id == 'new'){
 
             $head_id = $request->input('generation_head_id');
-           
+            $user_id = Auth::id();
             $rows = $request->input('amount');
-            generations::create([
+            $gen_id = generations::insertGetId([
                 'generation_head_id'=>$request->input('generation_head_id'),
                 'date_from'=>$request->input('date_from'),
                 'date_to'=>$request->input('date_to'),
@@ -121,7 +122,9 @@ class DashboardController extends Controller
             foreach(json_decode($rows) AS $r){
                 GenerationAmount::create([
                     'generation_head_id'=>$head_id,
-                    'amount'=>$r->amount
+                    'generation_id'=>$gen_id,
+                    'amount'=>$r->amount,
+                    'user_id'=>$user_id
                 ]);
             }
             
@@ -152,9 +155,9 @@ class DashboardController extends Controller
 
     public function get_print_details($id){
         $details = generations::where('id','=',$id)->get();
-        $amounts = GenerationAmount::where('generation_head_id','=',$id)->get();
+        $amounts = GenerationAmount::where('generation_id','=',$id)->get();
         foreach($details AS $d){
-
+            
             $month= date("n",strtotime($d->date_to));
             $yearQuarter = ceil($month / 3);
             $first = array(1,4,7,10);

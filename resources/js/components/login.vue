@@ -17,7 +17,7 @@
                 //alert(response.data.message)
                if(response.data.message == 'User login successfully'){
                  localStorage.setItem('token', response.data.data.token)
-                 router.push('/dashboard')
+                 router.push('/dashboard/new')
                } else {
                   error.value = response.data.message;
                }
