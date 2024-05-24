@@ -92,15 +92,15 @@
 						<div class="grand-total">{{  d.grandtotal }}</div>
 
 						<div class="tax-quarter">
-							
 							<span v-for="t in d.tax">{{ t }}<br></span>
-							
-							{{ d.totaltax }}<br> <!-- (DIRI LNG BUTANG ANG FINAL TAX) -->
 						</div>
-						<div class="final-tax"></div><!-- (ND LNG D PAG BUTANG ANG FINAL TAX) -->
+
+						<div class="finaltax">{{ d.totaltax }}</div> <!-- para ni sa printing nga class naka-->
+						<div class="final-tax ">{{ d.totaltax }}</div><!-- para ni ya sa view nga class-->
 						
 						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>
+						<div class="accountant_tin"> {{ d.tin }}</div>
 						<div class="ref-number">{{ d.reference_number }}</div>
 						
 

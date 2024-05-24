@@ -399,7 +399,7 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="px-4 pb-4">
-							<a @click = "saveSet()" class="btn btn-sm btn-success btn-block">Save Set and Print All</a>
+							<a @click = "saveSet()" class="btn btn-sm btn-success btn-block text-white">Save Set and Print All</a>
 						</div>
 					</div>
 				</div>
