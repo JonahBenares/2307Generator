@@ -19,7 +19,8 @@ import accountantNew from '../components/accountant/new.vue'
 import accountantEdit from '../components/accountant/edit.vue'
 
 import reportIndex from '../components/report/index.vue'
-import reportPrint from '../components/report/Print.vue'
+import reportPrint from '../components/report/print.vue'
+import reportPrintAll from '../components/report/print_all.vue'
 
 
 import notFound from '../components/notFound.vue'
@@ -32,7 +33,7 @@ const routes = [
     },
     {
         path:'/dashboard/:id',
-        props:true,
+        props: true,
         name: 'dashboard',
         component: dashboard,
         meta:{
@@ -126,6 +127,16 @@ const routes = [
     {
         path:'/print/:id',
         component: reportPrint,
+        props:true,
+        meta:{
+            requiresAuth:true
+        }
+
+    },
+
+    {
+        path:'/print_all/:id',
+        component: reportPrintAll,
         props:true,
         meta:{
             requiresAuth:true
