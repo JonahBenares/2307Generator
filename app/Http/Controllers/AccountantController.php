@@ -10,13 +10,33 @@ class AccountantController extends Controller
 {
     public function add_accountant(Request $request){
 
+    
+
         $validated=$this->validate($request,[
             'accountant_name'=>['unique:accountants','required','string'],
             'position'=>['string'],
             'tin'=>['required'],
             'active'=>['string'],
+            'signature'=>['required']
         ]);
-        Accountant::create($validated);
+
+        if($request->file('signature')){
+            $imagename=time().'_'.$request->file('signature')->getClientOriginalName();
+            $request->file('signature')->storeAs('images',$imagename);
+            //$validated['photo']=$imagename;
+        } else {
+            $imagename='';
+        }
+
+
+       // $validated['photo']=$imagename;
+        Accountant::create([
+            'accountant_name'=>$request->input('accountant_name'),
+            'position'=>$request->input('position'),
+            'tin'=>$request->input('tin'),
+            'active'=>$request->input('active'),
+            'signature'=>$imagename
+        ]);
     }
 
     public function all_accountant(Request $request){

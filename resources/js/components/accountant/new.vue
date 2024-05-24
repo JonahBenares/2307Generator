@@ -2,7 +2,7 @@
 	import navigation from '@/layouts/navigation.vue';
 	import { CheckCircleIcon, ExclamationCircleIcon, ArrowUturnLeftIcon, XCircleIcon } from '@heroicons/vue/24/solid'
 	import axios from 'axios';
-	import {onMounted, ref} from "vue";
+	import {onMounted, ref, watch} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter();
 
@@ -10,10 +10,42 @@
 		accountant_name:'',
 		position:'',
 		tin:'',
+		signature:'',
 		active:'1'
 	})
 	let error = ref('')
 	let success = ref('')
+	let imageFile1=ref("");
+    let imageUrl1=ref("");
+    let error_image=ref('')
+
+	const upload_image = (event) => {
+        let file = event.target.files[0];
+        if(event.target.files.length===0){
+            imageFile1.value='';
+            imageUrl1.value='';
+            return;
+        }else if(file['size'] < 1000000){
+            imageFile1.value = event.target.files[0];
+            error_image.value=''
+        }else{
+            error_image.value='File size can not be bigger than 1 MB'
+            imageUrl1.value='';
+        }
+    }
+    watch(imageFile1, (imageFile1) => {
+        if(!(imageFile1 instanceof File)){
+            return;
+        }
+        let fileReader1 = new FileReader();
+        fileReader1.readAsDataURL(imageFile1)
+        fileReader1.addEventListener("load", () => {
+            imageUrl1.value=fileReader1.result
+        })
+
+     
+    })
+
 
 	const onSave = () => {
 
@@ -22,8 +54,13 @@
 		formData.append('position', form.value.position)
 		formData.append('tin', form.value.tin)
 		formData.append('active', form.value.active)
+		formData.append('signature', imageFile1.value)
 
-		axios.post("/api/add_accountant",formData).then(function () {
+		axios.post("/api/add_accountant",formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function (response) {
 			success.value='You have successfully added new data!'
 			form.value.accountant_name=''
 			form.value.position=''
@@ -102,6 +139,24 @@
 										</select>
 									</div>									
 								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="text-lg">Upload Photo</label>
+											<p class="text-danger" v-if='error_image'>{{ error_image }}</p>
+											<input type="file" class="form-control" accept="image/*" id="image1" @change="upload_image">
+											
+											<div class="mt-2" v-if="imageUrl1 == ''">
+												<img :src="'/images/'+form.signature"  v-if="form.signature != ''" class="rounded shadow-md border-white border w-full"/>
+												<img :src="'/images/default.png'"  v-else class="rounded shadow-md border-white border w-30"/>
+											</div> 
+											<div class="mt-2" v-else>
+											<img :src="imageUrl1"  class="rounded shadow-md border-white border w-full"/> 
+										</div>
+									</div>									
+								</div>
+								
 							</div>
 							<div class="pt-4 mb-2 flex justify-end">
 								<button  @click="onSave()" class="btn btn-sm btn-primary btn-block ">Submit</button>

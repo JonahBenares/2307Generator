@@ -3,15 +3,37 @@
 	import navigation from '@/layouts/navigation.vue';
 	import { CheckCircleIcon, TrashIcon, PlusIcon, XMarkIcon, PencilSquareIcon, ArrowUturnLeftIcon, ExclamationTriangleIcon, CheckIcon  } from '@heroicons/vue/24/solid'
 	import { useRouter } from "vue-router"
+	import moment from 'moment'
+
+	let details = ref([])
 	onMounted(async () => {
 		//printDiv()
+		getPrintDetails()
 	})
-	
-	
-	
+
+	const props = defineProps({
+		id:{
+			type:String,
+			default:''
+		}
+	})
+
+	const getPrintDetails = async () => {
+		const response = await axios.get(`/api/get_print_details/${props.id}`);
+		details.value = response.data
+		
+	}
 	const printDiv = () => {
 		window.print()
 	}
+
+	const format_date = (value) => {
+		if (value) {
+		return moment(String(value)).format('MMDDYYYY')
+		}
+	}
+
+
 </script>
 
 <template>
@@ -24,19 +46,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="">
+			<div class="" v-for="d in details">
 				<page size="Legal" class="page-break">
 					<div class="p-2 !relative text-center bg-gren-900">
 						<img src="../../../images/form2307.jpg" alt="" class="">
-						<div class="date-from">09122024</div>
-						<div class="date-to">02232024</div>
-						<div class="payee-tin1">022</div>
-						<div class="payee-tin2">032</div>
+						<div class="date-from">{{ format_date(d.date_from) }}</div>
+						<div class="date-to">{{ format_date(d.date_to) }}</div>
+						<div :class="'payee-tin'+i" v-for="(tin,i) in (d.tin.split('-'))">{{ tin }}</div>
+						<!-- <div class="payee-tin2">032</div>
 						<div class="payee-tin3">042</div>
-						<div class="payee-tin4">05020</div>
-						<div class="payee-name">GREENLANE  HARDWARE & CONSTRUCTION SUPPLY INC. GREENLANE  HARDWARE & CONSTRUCTION SUPPLY INC.</div>
-						<div class="payee-address">LACSON STREET, BACOLOD CITY</div>
-						<div class="payee-zip">6100</div>
+						<div class="payee-tin4">05020</div> -->
+						<div class="payee-name">{{ d.payee_name }}</div>
+						<div class="payee-address">{{ d.registered_address }}</div>
+						<div class="payee-zip">{{ d.zip_code }}</div>
 						<div class="payee-foreign">X</div>
 
 						<div class="payor-tin1">022</div>
@@ -47,41 +69,38 @@
 						<div class="payor-address">LACSON STREET, BACOLOD CITY</div>
 						<div class="payor-zip">6100</div>
 						<!-- <div class="">Ref Number</div> -->
-						<div class="income-payments">Income payment made by top withholding agents to their local/resident supplier of goods other than those covered by other rates of withholding tax Income payment made by top withholding agents to their local/resident supplier of goods other than those covered by other rates of withholding tax</div>
-						<div class="atc">WC158</div>
+						<div class="income-payments">{{ d.atc_remarks }}</div>
+						<div class="atc">{{ d.atc_code }}</div>
 						<div class="first-quarter">
-							1001<br>
-							1009<br>
+							<span v-for="first in d.firstmonth">{{ first }}<br></span>
 						</div>
-						<div class="first-total">--</div>
+						<div class="first-total">{{ d.totalfirst }}</div>
 
-						<div class="second-quarter">--</div>
-						<div class="second-total">--</div>
+						<div class="second-quarter">
+							<span v-for="second in d.secondmonth">{{ second }}<br></span>
+						</div>
+						<div class="second-total">{{ d.totalsecond }}</div>
 
-						<div class="third-quarter">--</div>
-						<div class="third-total">--</div>
+						<div class="third-quarter">
+							<span v-for="third in d.thirdmonth">{{ third }}<br></span>
+						</div>
+						<div class="third-total">{{ d.totalthird }}</div>
 
-						<div class="sub-total">--</div>
-						<div class="grand-total">--</div>
+						<div class="sub-total" >
+							<span v-for="s in d.subtotal">{{ s }}<br></span>
+						</div>
+						<div class="grand-total">{{  d.grandtotal }}</div>
 
 						<div class="tax-quarter">
-							1001<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							99999<br> <!-- (DIRI LNG BUTANG ANG FINAL TAX) -->
+							
+							<span v-for="t in d.tax">{{ t }}<br></span>
+						
+							{{ d.totaltax }}<br> <!-- (DIRI LNG BUTANG ANG FINAL TAX) -->
 						</div>
 						<div class="final-tax"></div><!-- (ND LNG D PAG BUTANG ANG FINAL TAX) -->
 						
-						<img src="../../../images/sign_Lacambra.png" alt="" class="esignature">
-
-						<div class="ref-number">PO PHRS23-1639-1026-CNPR  / 01-20-24</div>
+						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
+						<div class="ref-number">{{ d.reference_number }}</div>
 						
 
 					</div>

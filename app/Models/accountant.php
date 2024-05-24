@@ -12,6 +12,7 @@ class accountant extends Model
         'accountant_name',
         'position',
         'tin',
+        'signature',
         'active'
     ];
 }

@@ -31,7 +31,8 @@ const routes = [
         component: loginForm,
     },
     {
-        path:'/dashboard',
+        path:'/dashboard/:id',
+        props:true,
         name: 'dashboard',
         component: dashboard,
         meta:{
@@ -123,8 +124,12 @@ const routes = [
     },
 
     {
-        path:'/print',
+        path:'/print/:id',
         component: reportPrint,
+        props:true,
+        meta:{
+            requiresAuth:true
+        }
 
     },
     

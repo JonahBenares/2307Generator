@@ -107,6 +107,21 @@
 									</div>									
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="text-lg">Upload Photo</label>
+											<input type="file" class="form-control" accept="image/*" id="image1" @change="upload_image" disabled >
+											
+											<div class="mt-2" v-if="form.signature == null">
+												<img :src="'/images/default.png'" class="rounded shadow-md border-white border w-30"/>
+											</div> 
+											<div class="mt-2" v-else>
+											<img :src="'/images/'+form.signature"  class="rounded shadow-md border-white border w-full"/> 
+											</div>
+									</div>									
+								</div>
+							</div>
 							<div class="pt-4 mb-2 flex justify-end">
 								<button @click="onEdit(form.id)"  class="btn btn-primary btn-sm btn-block ">Update</button>
 							</div>
