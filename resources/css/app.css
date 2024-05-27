@@ -11251,7 +11251,20 @@ display: none;
         text-align: center;
         /* background: #fffa00d1;  */
     }
-
+    .accountant_position{
+        position: absolute;
+        width:400px!important;
+        left: 340px!important;
+        top: 1377px!important;
+        padding: 0px 8px!important;
+        line-height: 30px!important;
+        font-size: 15px!important;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 500;
+        color: #000;
+        /* background: #fffa00d1;  */
+    }
     .accountant_tin{
         position: absolute;
         width:400px!important;
@@ -11664,6 +11677,20 @@ display: none;
     width:650px;
     left: 325px;
     top: 1620px;
+    padding: 0px 8px;
+    line-height: 30px;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500;
+    color: #000;
+    /* background: #fffa00d1; */
+}
+.accountant_position{
+    position: absolute;
+    width:650px;
+    left: 325px;
+    top: 1643px;
     padding: 0px 8px;
     line-height: 30px;
     font-size: 17px;
