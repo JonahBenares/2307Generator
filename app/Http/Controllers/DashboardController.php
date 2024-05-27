@@ -27,7 +27,7 @@ class DashboardController extends Controller
       
     }
 
-    public function get_drafts($id){
+    public function get_drafts($id, $detail_id){
         $user_id = Auth::id();
       
         $exist_head = GenerationHead::where('user_id','=', $user_id)->where('status','=','0')->exists();
@@ -44,10 +44,45 @@ class DashboardController extends Controller
         }
         
 
+        if($detail_id != 0){
+            foreach(generations::where('generation_head_id','=',$head_id)->where('id','=',$detail_id)->get() AS $g){
+                $edit_details = [
+                    'detail_id'=>$g->id,
+                    'generation_head_id'=>$g->generation_head_id,
+                    'date_from'=>$g->date_from,
+                    'date_to'=>$g->date_to,
+                    'payee_id'=>$g->payee_id,
+                    'payee_name'=>$g->payee_name,
+                    'registered_address'=>$g->registered_address,
+                    'tin'=>$g->tin,
+                    'zip_code'=>$g->zip_code,
+                    'atc_id'=>$g->atc_id,
+                    'atc_code'=>$g->atc_code,
+                    'atc_remarks'=>$g->atc_remarks,
+                    'atc_percentage'=>$g->atc_percentage,
+                    'include_sign'=>$g->include_sign,
+                    'reference_number'=>$g->reference_number,
+                    'accountant_id'=>$g->accountant_id,
+                    'accountant_name'=>$g->accountant_name,
+                    'accountant_position'=>$g->accountant_position,
+                    'accountant_tin'=>$g->accountant_tin,
+                    'accountant_sign'=>$g->accountant_sign,
+                ];
+            }
+
+         // $rows =  GenerationAmount::where('generation_id','=',$detail_id);
+        } else {
+            $edit_details = array();
+            // $rows=[];
+        }
+
+
         return response()->json([
             'head_id'=>$head_id,
             'head'=>$head,
-            'details'=>$details
+            'details'=>$details,
+            'edit_details'=>$edit_details,
+           // 'rows'=>$rows
          ]);
 
     }
@@ -64,9 +99,9 @@ class DashboardController extends Controller
 
     }
 
-    public function get_amount(){
+    public function get_amount($detail_id){
         $user_id = Auth::id();
-        $amount = GenerationAmount::where('generation_id','=', '0')->where('user_id','=',$user_id)->get();
+        $amount = GenerationAmount::where('generation_id','=', $detail_id)->where('user_id','=',$user_id)->get();
         return response()->json($amount);
 
     }
@@ -132,6 +167,57 @@ class DashboardController extends Controller
      
         
     }
+
+    public function edit_generation(GenerationRequest $request){
+
+        //
+           //if($id == 'new'){
+                $detail_id = $request->input('detail_id');
+               $head_id = $request->input('generation_head_id');
+               $user_id = Auth::id();
+               $rows = $request->input('amount');
+
+               $update_gen = generations::find($detail_id);
+
+               $update_gen->update([
+                    'date_from'=>$request->input('date_from'),
+                    'date_to'=>$request->input('date_to'),
+                    'payee_id'=>$request->input('payee_id'),
+                    'payee_name'=>$request->input('payee_name'),
+                    'registered_address'=>$request->input('registered_address'),
+                    'tin'=>$request->input('tin'),
+                    'zip_code'=>$request->input('zip_code'),
+                    'atc_id'=>$request->input('atc_id'),
+                    'atc_code'=>$request->input('atc_code'),
+                    'atc_remarks'=>$request->input('atc_remarks'),
+                    'atc_percentage'=>$request->input('atc_percentage'),
+                    'include_sign'=>$request->input('include_sign'),
+                    'reference_number'=>$request->input('reference_number'),
+                    'accountant_id'=>$request->input('accountant_id'),
+                    'accountant_name'=>$request->input('accountant_name'),
+                    'accountant_position'=>$request->input('accountant_position'),
+                    'accountant_tin'=>$request->input('accountant_tin'),
+                    'accountant_sign'=>$request->input('accountant_sign'),
+                ]);
+
+                $amount = GenerationAmount::where('generation_id', '=', $detail_id);
+                $amount->delete();
+
+
+               foreach(json_decode($rows) AS $r){
+                   GenerationAmount::create([
+                       'generation_head_id'=>$head_id,
+                       'generation_id'=>$detail_id,
+                       'amount'=>$r->amount,
+                       'user_id'=>$user_id
+                   ]);
+               }
+               
+               return $head_id;
+        
+           
+       }
+
 
     public function add_head(){
         $user_id = Auth::id();

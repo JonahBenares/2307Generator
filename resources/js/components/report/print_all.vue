@@ -51,7 +51,7 @@
 			<div class="" v-for="d in details">
 				<page size="Legal" class="page-break">
 					<div class="p-2 !relative text-center bg-gren-900">
-						<img src="../../../images/form2307.png" alt="" class="">
+						<img src="../../../images/form2307.jpg" alt="" class="">
 						<div class="date-from">{{ format_date(d.date_from) }}</div>
 						<div class="date-to">{{ format_date(d.date_to) }}</div>
 						<div :class="'payee-tin'+i" v-for="(tin,i) in (d.tin.split('-'))">{{ tin }}</div>
@@ -103,6 +103,8 @@
 						
 						<img :src="'/images/'+d.accountant_signature" v-if="d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>
+						<div class="accountant_position"> {{ d.accountant_position}}</div>
+						<div class="accountant_tin"> {{ d.tin }}</div>
 						<div class="ref-number">{{ d.reference_number }}</div>
 						
 

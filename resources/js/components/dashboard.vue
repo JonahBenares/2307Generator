@@ -14,7 +14,8 @@
 	let error = ref('')
 	let success = ref('')
 	let form = ref({
-		id:props.id,
+		generation_head_id:props.id,
+		detail_id:'',
 		date_from:'',
 		date_to:'',
 		payee_id:'',
@@ -48,6 +49,10 @@
 		id:{
 			type:String,
 			default:''
+		},
+		detail_id:{
+			type:String,
+			default:''
 		}
 	})
 
@@ -58,7 +63,7 @@
     }
 
 	const getAmount = async () => {
-		const response = await axios.get(`/api/get_amount`);
+		const response = await axios.get(`/api/get_amount/${props.detail_id}`);
 		rows.value = response.data
     }
 
@@ -66,10 +71,22 @@
 	const getDrafts = async () => {
 
 		//if(props.id == 'new'){
-			const response = await axios.get(`/api/get_drafts/${props.id}`);
+			const response = await axios.get(`/api/get_drafts/${props.id}/${props.detail_id}`);
 			head.value = response.data.head
 			details.value = response.data.details
-			form.value.id = response.data.head_id
+
+			// if(response.data.edit_details == ''){
+			// 	form.value.id = response.data.head_id
+			// } else {
+				if(props.detail_id != 0){
+				form.value = response.data.edit_details
+				} else{
+					form.value.generation_head_id = response.data.head_id
+				}
+				//rows.value = response.data.rows
+			//}
+
+			console.log(response.data.rows)
 
 			//console.log(response.data.details)
 		// } else {
@@ -140,7 +157,7 @@
     
 		const formData= new FormData()
 		//formData.append('id', form.value.id)
-		formData.append('generation_head_id', form.value.id)
+		formData.append('generation_head_id', form.value.generation_head_id)
 		formData.append('date_from', form.value.date_from)
 		formData.append('date_to', form.value.date_to)
 		formData.append('payee_id', form.value.payee_id)
@@ -163,10 +180,8 @@
 		let include_sign=document.getElementById('include_sign');
 			if(include_sign.checked){
 				var sign=1
-				
 			}else{
 				var sign=0
-				
 			}
 			formData.append('include_sign',sign)
 
@@ -179,14 +194,63 @@
 			form.value.id = response.data
 			getDrafts()
 			getAccountant()
-			router.push('/dashboard/'+response.data)
+			router.push('/dashboard/'+response.data+'/0')
 			
 		}, function (err) {
 			error.value = err.response.data.message;
-			
 		});
+	}
+
+	const onEdit = () => {
+    
+		const formData= new FormData()
+		formData.append('generation_head_id', form.value.generation_head_id)
+		formData.append('detail_id', form.value.detail_id)
+		formData.append('date_from', form.value.date_from)
+		formData.append('date_to', form.value.date_to)
+		formData.append('payee_id', form.value.payee_id)
+		formData.append('payee_name', form.value.payee_name)
+		formData.append('registered_address', form.value.registered_address)
+		formData.append('tin', form.value.tin)
+		formData.append('zip_code', form.value.zip_code)
+		formData.append('atc_id', form.value.atc_id)
+		formData.append('atc_code', form.value.atc_code)
+		formData.append('atc_remarks', form.value.atc_remarks)
+		formData.append('atc_percentage', form.value.atc_percentage)
+		formData.append('reference_number', form.value.reference_number)
+		formData.append('accountant_id', form.value.accountant_id)
+		formData.append('accountant_name', form.value.accountant_name)
+		formData.append('accountant_position', form.value.accountant_position)
+		formData.append('accountant_tin', form.value.accountant_tin)
+		formData.append('accountant_sign', form.value.accountant_sign)
+		formData.append('amount', JSON.stringify(rows.value))
+		let include_sign=document.getElementById('include_sign');
+			if(include_sign.checked){
+				var sign=1
+			}else{
+				var sign=0
+			}
+			formData.append('include_sign',sign)
+
+			axios.post("/api/edit_generation/",formData).then(function (response) {
+			
+				success.value='You have successfully updated the 2307 file!'
+				form.value=ref([])
+				rows=ref([])
+				error.value=''
+				form.value.generation_head_id = response.data
+				
+				router.push('/dashboard/'+response.data+'/0')
+				getDrafts()
+				getAccountant()
+				
+			}, function (err) {
+				error.value = err.response.data.message;
+				
+			});
 
 	}
+
 
 	const saveSet = () => {
 
@@ -290,49 +354,11 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="row">
-								<div class="col-lg-12">
-									<table class="table table-bordered">
-										<tr class="bg-gray-50">
-											<td colspan="3" class="text-center">Amount of Income Payments</td>
-										</tr>
-										<tr class="bg-gray-50">
-											<td>1st Month of the Quarter</td>
-											<td>2nd Month of the Quarter</td>
-											<td>3rd Month of the Quarter</td>
-										</tr>
-										<tr>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-										</tr>
-										<tr>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-										</tr>
-										<tr>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-										</tr>
-										<tr>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-										</tr>
-										<tr>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-											<td class="p-0"><input type="text" class="form-control text-center"></td>
-										</tr>
-									</table>
-								</div>
-							</div> -->
+							
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group flex space-x-2">
-										<input type="checkbox" id="include_sign" v-model="form.include_sign" value="1">
+										<input type="checkbox" id="include_sign" v-model="form.include_sign"  true-value="1" false-value="0">
 										<label for="" class="mb-0 text-sm">Include Corporate Accountant's Signature</label>
 									</div>
 								</div>
@@ -356,7 +382,8 @@
 							<input type="hidden" v-model="form.accountant_tin">
 							<input type="hidden" v-model="form.accountant_position">
 							<input type="hidden" v-model="form.accountant_sign">
-							<input type="hidden" v-model="form.id">
+							<input type="hidden" v-model="form.generation_head_id">
+							<input type="hidden" v-model="form.detail_id">
 						</div>
 					</div>
 				</div>
@@ -367,7 +394,7 @@
 								
 								<div class="row" >
 									<div class="col-lg-10  cursor-pointer">
-										<a href="" class="!no-underline text-gray-700 hover:text-gray-700 ">
+										<a :href="'/dashboard/'+ props.id + '/' + d.id " class="!no-underline text-gray-700 hover:text-gray-700 ">
 											<div class="truncate overflow-ellipsis text-base font-bold leading-tight">Payee's Name: {{ d.payee_name }}</div>
 											<div class="text-xs leading-tight">{{ d.date_from }} - {{ d.date_to }}</div>
 										</a>
@@ -392,8 +419,12 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="px-4 pb-4">
-							<button @click="onSave()"  class="btn btn-primary btn-sm btn-block ">Add New</button>
+						<div class="px-4 pb-4" v-if="props.detail_id == 0">
+							<button @click="onSave()"   class="btn btn-primary btn-sm btn-block ">Add New</button>
+						</div>
+						<div class="flex justify-between space-x-1  pb-4 px-4" v-else>
+							<span class="w-full"><a :href="'/dashboard/'+ props.id + '/0'" class="btn btn-danger btn-sm btn-block ">Cancel Update</a></span>
+							<span class="w-full"><button @click="onEdit(props.detail_id)"   class="btn btn-primary btn-sm btn-block ">Save Changes</button></span>
 						</div>
 					</div>
 				</div>

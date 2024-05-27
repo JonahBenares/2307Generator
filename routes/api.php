@@ -43,11 +43,12 @@ Route::get('/edit_accountant/{id}',[AccountantController::class,'edit_accountant
 Route::post('/update_accountant/{id}',[AccountantController::class,'update_accountant']);
 
 Route::get('/get_dropdown',[DashboardController::class,'get_dropdown']);
-Route::get('/get_drafts/{id}',[DashboardController::class,'get_drafts']);
+Route::get('/get_drafts/{id}/{detail_id}',[DashboardController::class,'get_drafts']);
 Route::get('/get_atc_details/{id}',[DashboardController::class,'get_atc_details']);
 Route::get('/get_payee_details/{id}',[DashboardController::class,'get_payee_details']);
-Route::get('/get_amount',[DashboardController::class,'get_amount']);
+Route::get('/get_amount/{detail_id}',[DashboardController::class,'get_amount']);
 Route::post('/add_generation',[DashboardController::class,'add_generation']);
+Route::post('/edit_generation',[DashboardController::class,'edit_generation']);
 Route::get('/get_accountant_details',[DashboardController::class,'get_accountant_details']);
 Route::get('/get_print_details/{id}',[DashboardController::class,'get_print_details']);
 Route::get('/save_set/{id}',[DashboardController::class,'save_set']);

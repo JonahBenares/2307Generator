@@ -27,7 +27,7 @@ const logout = () => {
 				</span>
 			</a>
 			<div class=" w-60 flex justify-center space-x-5">
-				<a href="/dashboard" class="!no-underline flex align-center space-x-1 px-2 py-1">
+				<a href="/dashboard/new/0" class="!no-underline flex align-center space-x-1 px-2 py-1">
 					<PlusCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PlusCircleIcon>
 					<span class="text-sm font-bold mt-1">New</span>
 				</a>

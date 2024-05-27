@@ -32,7 +32,7 @@ const routes = [
         component: loginForm,
     },
     {
-        path:'/dashboard/:id',
+        path:'/dashboard/:id/:detail_id',
         props: true,
         name: 'dashboard',
         component: dashboard,

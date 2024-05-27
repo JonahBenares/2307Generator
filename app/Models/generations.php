@@ -32,4 +32,9 @@ class generations extends Model
         'accountant_sign',
         'user_id',
     ];
+
+    public function generation_amount()
+    {
+        return $this->belongsTo(GenerationAmount::class, 'generation_id');
+    }
 }
