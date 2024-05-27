@@ -178,6 +178,7 @@
 			error.value=''
 			form.value.id = response.data
 			getDrafts()
+			getAccountant()
 			router.push('/dashboard/'+response.data)
 			
 		}, function (err) {

@@ -8,7 +8,7 @@
 	let details = ref([])
 	onMounted(async () => {
 		//printDiv()
-		getPrintDetails()
+		getPrintAll()
 	})
 
 	const props = defineProps({
@@ -18,9 +18,11 @@
 		}
 	})
 
-	const getPrintDetails = async () => {
-		const response = await axios.get(`/api/get_print_details/${props.id}`);
+	const getPrintAll = async () => {
+		const response = await axios.get(`/api/get_print_all/${props.id}`);
 		details.value = response.data
+
+		console.log(response.data)
 		
 	}
 	const printDiv = () => {
@@ -99,7 +101,7 @@
 						</div>
 						<div class="final-tax"></div><!-- (ND LNG D PAG BUTANG ANG FINAL TAX) -->
 						
-						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
+						<img :src="'/images/'+d.accountant_signature" v-if="d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>
 						<div class="ref-number">{{ d.reference_number }}</div>
 						

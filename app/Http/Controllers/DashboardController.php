@@ -260,4 +260,120 @@ class DashboardController extends Controller
         ]);
 
     }
+
+
+    public function get_print_all($id){
+        $details = generations::where('generation_head_id','=',$id)->get();
+        
+        foreach($details AS $d){
+            $firstmonth=array();
+            $secondmonth=array();
+            $thirdmonth=array();
+            $tax =array();
+            $subtotal =array();
+
+            
+            // reset($firstmonth);
+            // reset($secondmonth);
+            // reset($thirdmonth);
+         
+            $amounts = GenerationAmount::where('generation_id','=',$d->id)->get();
+
+            $month= date("n",strtotime($d->date_to));
+            $yearQuarter = ceil($month / 3);
+            $first = array(1,4,7,10);
+            $second = array(2,5,8,11);
+            $third = array(3,6,9,12);
+
+
+            if(in_array($month, $first)){
+                foreach($amounts AS $a){
+                    $firstmonth[] = $a->amount;
+                }
+                $total_first = array_sum($firstmonth);
+            } else{
+                $firstmonth=[];
+                $total_first="";
+            }
+
+            if(in_array($month, $second)){
+                foreach($amounts AS $a){
+                    $secondmonth[] = $a->amount;
+                }
+                $total_second = array_sum($secondmonth);
+            } else{
+                $secondmonth=[];
+                $total_second="";
+            }
+
+            if(in_array($month, $third)){
+                foreach($amounts AS $a){
+                    $thirdmonth[] = $a->amount;
+                }
+                $total_third = array_sum($thirdmonth);
+            } else{
+                $thirdmonth=[];
+                $total_third="";
+            }
+            foreach($amounts AS $a){
+                $tax[] = ($a->amount * $d->atc_percentage);
+            }
+            $total_tax = array_sum($tax);
+
+            if(!empty($firstmonth)){
+                foreach($firstmonth AS $f){
+                    $subtotal[]=$f;
+                }
+            }
+            if(!empty($secondmonth)){
+                foreach($secondmonth AS $s){
+                    $subtotal[]=$s;
+                }
+            }
+            if(!empty($thirdmonth)){
+                foreach($thirdmonth AS $t){
+                    $subtotal[]=$t;
+                }
+            }
+             
+            $grandtotal = array_sum($subtotal);
+
+            if($d->include_sign == 1){
+                $sign = $d->accountant_sign;
+            } else {
+                $sign = "";
+            }
+
+
+            $data[] = [
+                'generation_head_id'=>$d->generation_head,
+                'date_from'=>$d->date_from,
+                'date_to'=>$d->date_to,
+                'payee_name'=>$d->payee_name,
+                'registered_address'=>$d->registered_address,
+                'tin'=>$d->tin,
+                'zip_code'=>$d->zip_code,
+                'atc_code'=>$d->atc_code,
+                'atc_remarks'=>$d->atc_remarks,
+                'firstmonth'=>$firstmonth,
+                'secondmonth'=>$secondmonth,
+                'thirdmonth'=>$thirdmonth,
+                'subtotal'=>$subtotal,
+                'grandtotal'=>$grandtotal,
+                'totalfirst'=>$total_first,
+                'totalsecond'=>$total_second,
+                'totalthird'=> $total_third,
+                'tax'=>$tax,
+                'totaltax'=>$total_tax,
+                'accountant_name'=>$d->accountant_name,
+                'accountant_tin'=>$d->accountant_tin,
+                'accountant_position'=>$d->accountant_position,
+                'accountant_signature'=>$sign,
+                'reference_number'=>$d->reference_number
+            ];
+
+          
+        }
+        return response()->json($data);
+    }
 }
