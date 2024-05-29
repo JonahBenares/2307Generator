@@ -15,4 +15,8 @@ class GenerationHead extends Model
         'user_id',
         'status'
     ];
+
+    public function generations(){
+        return $this->hasMany(generations::class, 'id');
+    }
 }

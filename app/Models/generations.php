@@ -37,4 +37,9 @@ class generations extends Model
     {
         return $this->belongsTo(GenerationAmount::class, 'generation_id');
     }
+
+    public function generation_head()
+    {
+        return $this->belongsTo(GenerationHead::class, 'generation_head_id');
+    }
 }

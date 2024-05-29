@@ -100,7 +100,7 @@
 						
 						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>
-						<div class="accountant_tin"> {{ d.tin }}</div>
+						<div class="accountant_tin"> {{ d.accountant_position }}</div>
 						<div class="accountant_position"> {{ d.tin }}</div>
 						<div class="ref-number">{{ d.reference_number }}</div>
 						

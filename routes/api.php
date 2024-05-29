@@ -7,6 +7,7 @@ use App\Http\Controllers\PayeesController;
 use App\Http\Controllers\AtcController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,3 +54,6 @@ Route::get('/get_accountant_details',[DashboardController::class,'get_accountant
 Route::get('/get_print_details/{id}',[DashboardController::class,'get_print_details']);
 Route::get('/save_set/{id}',[DashboardController::class,'save_set']);
 Route::get('/get_print_all/{id}',[DashboardController::class,'get_print_all']);
+
+Route::get('/get_payees',[ReportController::class,'get_payees']);
+Route::post('/search_generation',[ReportController::class,'search_generation']);
