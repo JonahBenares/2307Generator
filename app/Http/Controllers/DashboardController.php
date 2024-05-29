@@ -245,41 +245,44 @@ class DashboardController extends Controller
         foreach($details AS $d){
             
             $month= date("n",strtotime($d->date_to));
+
+           
             $yearQuarter = ceil($month / 3);
+         
             $first = array(1,4,7,10);
             $second = array(2,5,8,11);
             $third = array(3,6,9,12);
 
+           
+            $firstmonth=[];
+            $total_first="";
+            $secondmonth=[];
+            $total_second="";
+            $thirdmonth=[];
+            $total_third="";
 
-            if(in_array($month, $first)){
+            if(in_array($yearQuarter, $first)){
+
                 foreach($amounts AS $a){
                     $firstmonth[] = $a->amount;
                 }
                 $total_first = array_sum($firstmonth);
-            } else{
-                $firstmonth=[];
-                $total_first="";
-            }
+            } 
+               
 
-            if(in_array($month, $second)){
+            if(in_array($yearQuarter, $second)){
                 foreach($amounts AS $a){
                     $secondmonth[] = $a->amount;
                 }
                 $total_second = array_sum($secondmonth);
-            } else{
-                $secondmonth=[];
-                $total_second="";
-            }
+            } 
 
-            if(in_array($month, $third)){
+            if(in_array($yearQuarter, $third)){
                 foreach($amounts AS $a){
                     $thirdmonth[] = $a->amount;
                 }
                 $total_third = array_sum($thirdmonth);
-            } else{
-                $thirdmonth=[];
-                $total_third="";
-            }
+            } 
             foreach($amounts AS $a){
                 $tax[] = ($a->amount * $d->atc_percentage);
             }
@@ -371,36 +374,34 @@ class DashboardController extends Controller
             $second = array(2,5,8,11);
             $third = array(3,6,9,12);
 
+            $firstmonth=[];
+            $total_first="";
+            $secondmonth=[];
+            $total_second="";
+            $thirdmonth=[];
+            $total_third="";
 
-            if(in_array($month, $first)){
+            if(in_array($yearQuarter, $first)){
                 foreach($amounts AS $a){
                     $firstmonth[] = $a->amount;
                 }
                 $total_first = array_sum($firstmonth);
-            } else{
-                $firstmonth=[];
-                $total_first="";
             }
 
-            if(in_array($month, $second)){
+            if(in_array($yearQuarter, $second)){
                 foreach($amounts AS $a){
                     $secondmonth[] = $a->amount;
                 }
                 $total_second = array_sum($secondmonth);
-            } else{
-                $secondmonth=[];
-                $total_second="";
-            }
+            } 
 
-            if(in_array($month, $third)){
+            if(in_array($yearQuarter, $third)){
                 foreach($amounts AS $a){
                     $thirdmonth[] = $a->amount;
                 }
                 $total_third = array_sum($thirdmonth);
-            } else{
-                $thirdmonth=[];
-                $total_third="";
-            }
+            } 
+
             foreach($amounts AS $a){
                 $tax[] = ($a->amount * $d->atc_percentage);
             }

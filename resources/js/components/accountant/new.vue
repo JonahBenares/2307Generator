@@ -143,7 +143,7 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="text-lg">Upload Photo</label>
+										<label class="form-label">Upload Signature</label>
 											<p class="text-danger" v-if='error_image'>{{ error_image }}</p>
 											<input type="file" class="form-control" accept="image/*" id="image1" @change="upload_image">
 											

@@ -21,6 +21,7 @@
 	const getPrintDetails = async () => {
 		const response = await axios.get(`/api/get_print_details/${props.id}`);
 		details.value = response.data
+		//alert(response.data)
 		
 	}
 	const printDiv = () => {
