@@ -245,14 +245,14 @@ class DashboardController extends Controller
         foreach($details AS $d){
             
             $month= date("n",strtotime($d->date_to));
-
+            //echo $month;
            
-            $yearQuarter = ceil($month / 3);
+            //$yearQuarter = $month / 3;
          
             $first = array(1,4,7,10);
             $second = array(2,5,8,11);
             $third = array(3,6,9,12);
-
+           
            
             $firstmonth=[];
             $total_first="";
@@ -261,7 +261,7 @@ class DashboardController extends Controller
             $thirdmonth=[];
             $total_third="";
 
-            if(in_array($yearQuarter, $first)){
+            if(in_array($month, $first)){
 
                 foreach($amounts AS $a){
                     $firstmonth[] = $a->amount;
@@ -270,14 +270,14 @@ class DashboardController extends Controller
             } 
                
 
-            if(in_array($yearQuarter, $second)){
+            if(in_array($month, $second)){
                 foreach($amounts AS $a){
                     $secondmonth[] = $a->amount;
                 }
                 $total_second = array_sum($secondmonth);
             } 
 
-            if(in_array($yearQuarter, $third)){
+            if(in_array($month, $third)){
                 foreach($amounts AS $a){
                     $thirdmonth[] = $a->amount;
                 }
@@ -370,6 +370,8 @@ class DashboardController extends Controller
 
             $month= date("n",strtotime($d->date_to));
             $yearQuarter = ceil($month / 3);
+
+            //echo $yearQuarter;
             $first = array(1,4,7,10);
             $second = array(2,5,8,11);
             $third = array(3,6,9,12);
@@ -381,21 +383,21 @@ class DashboardController extends Controller
             $thirdmonth=[];
             $total_third="";
 
-            if(in_array($yearQuarter, $first)){
+            if(in_array($month, $first)){
                 foreach($amounts AS $a){
                     $firstmonth[] = $a->amount;
                 }
                 $total_first = array_sum($firstmonth);
             }
 
-            if(in_array($yearQuarter, $second)){
+            if(in_array($month, $second)){
                 foreach($amounts AS $a){
                     $secondmonth[] = $a->amount;
                 }
                 $total_second = array_sum($secondmonth);
             } 
 
-            if(in_array($yearQuarter, $third)){
+            if(in_array($month, $third)){
                 foreach($amounts AS $a){
                     $thirdmonth[] = $a->amount;
                 }
