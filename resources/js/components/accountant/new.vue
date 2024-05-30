@@ -66,6 +66,8 @@
 			form.value.position=''
 			form.value.tin=''
 			form.value.active='1'
+			form.value.signature=''
+			imageUrl1.value=''
 			error.value=''
 		
 		}, function (err) {
