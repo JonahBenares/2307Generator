@@ -11229,7 +11229,23 @@ display: none;
         text-align: right;
         /* background: #fffa00d1;   */
     }
+    .esignature{
+        height:80px!important;
+        z-index: 100;
+        border: 0px solid;
+        /* background: #fffa00d1;  */
+        /* border: 1px solid #000  */
+    }
     
+    .esig-container{
+        position: absolute;
+        width: 97%!important;
+        bottom: 345px!important;   
+        display: flex;
+        justify-content: center;
+        /* background: #fffa00d1;    */
+    }
+/*     
     
     .esignature{
         position: absolute;
@@ -11237,7 +11253,7 @@ display: none;
         left: 415px!important;
         top: 1325px!important;
         border: 0px solid;
-    }
+    } */
 
     .accountant{
         position: absolute;
@@ -11664,12 +11680,22 @@ display: none;
     /* background: #fffa00d1;   */
 }
 .esignature{
-    position: absolute;
-    width:250px;
-    left: 525px;
-    top: 1585px;
+    /* position: absolute; */
+    height:80px!important;
+    /* left: 525px; */
     z-index: 100;
     border: 0px solid;
+    /* background: #fffa00d1;  */
+    /* border: 1px solid #000  */
+}
+
+.esig-container{
+    position: absolute;
+    width: 98.5%;
+    bottom: 415px;   
+    display: flex;
+    justify-content: center;
+    /* background: #fffa00d1;    */
 }
 
 .accountant{

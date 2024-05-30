@@ -60,7 +60,7 @@
 		<div class="container-fluid px-4 py-3">
 			<div class="row">
 				<div class="col-md-12 col-lg-12 ">
-					<div class="card">
+					<div class="card !shadow-lg">
 						<!-- <h5 class="font-bold " >Supplier</h5> -->
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
