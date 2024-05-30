@@ -107,6 +107,7 @@
 						<div class="esig-container">
 							<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						</div>
+						
 						<div class="accountant"> {{ d.accountant_name }}</div>
 						<div class="accountant_position"> {{ d.accountant_position }}</div>
 						<div class="accountant_tin"> {{ d.accountant_tin }}</div>
