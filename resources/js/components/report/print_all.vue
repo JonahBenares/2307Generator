@@ -103,8 +103,8 @@
 						
 						<img v-if="d.accountant_signature" :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>
-						<div class="accountant_tin"> {{ d.accountant_position }}</div>
-						<div class="accountant_position"> {{ d.accountant_tin }}</div>
+						<div class="accountant_position"> {{ d.accountant_position }}</div>
+						<div class="accountant_tin"> {{ d.accountant_tin }}</div>
 						<div class="ref-number">{{ d.reference_number }}</div>
 						
 

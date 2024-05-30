@@ -36,7 +36,7 @@ import { useRouter } from "vue-router";
 		<div class="container-fluid px-4 py-3">
 			<div class="row">
 				<div class="col-md-12 col-lg-12 ">
-					<div class="card">
+					<div class="card !shadow-lg">
 						<!-- <h5 class="font-bold " >Supplier</h5> -->
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
@@ -75,9 +75,9 @@ import { useRouter } from "vue-router";
 								<thead>
 									<tr>
 										<th class="p-2 px-3 text-base" width="40%">Accountant Name</th>
-										<th class="p-2 px-3 text-base" width="10%">Position</th>
-										<th class="p-2 px-3 text-base" width="10%">TIN</th>
-										<th class="p-2 px-3 text-base" width="10%">Status</th>
+										<th class="p-2 px-3 text-base" width="25%">Position</th>
+										<th class="p-2 px-3 text-base" width="15%">TIN</th>
+										<th class="p-2 px-3 text-base" width="5%" align="center">Status</th>
 										<th class="p-2 px-3 text-base" width="1%" align="center">
 											<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
 										</th>
@@ -88,8 +88,8 @@ import { useRouter } from "vue-router";
 										<td class="p-1 px-3">{{ a.accountant_name }}</td>
 										<td class="p-1 px-3">{{ a.position }}</td>
 										<td class="p-1 px-3">{{ a.tin }}</td>
-										<td class="p-1 px-3" v-if="a.active == 1"><button class="btn btn-xs !text-xs btn-success">Active</button></td>
-										<td class="p-1 px-3" v-else><button class="btn btn-xs btn-danger !text-xs ">Inactive</button></td>
+										<td class="p-1 px-3" align="center" v-if="a.active == 1"><button class="btn btn-xs !text-xs btn-success !py-0">Active</button></td>
+										<td class="p-1 px-3" align="center" v-else><button class="btn btn-xs btn-danger !text-xs !py-0 ">Inactive</button></td>
 										<td class="p-1 px-3">
 											<a @click="onEdit(a.id)"  class="btn btn-xs btn-info btn-rounded  text-white">
 												<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>

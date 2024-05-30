@@ -267,7 +267,7 @@
     <navigation>
 		<div class="container-fluid px-4 py-3">
 			<div class="row">
-				<div class="alert alert-success" role="alert"  v-if="success" id="success">
+				<div class="alert alert-success !shadow-lg" role="alert"  v-if="success" id="success">
 						<div class="flex justify-start space-x-2">
 							<CheckCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-11 h-11"/>
 							<div class="pt-1">
@@ -276,7 +276,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="alert alert-danger" role="alert" v-if="error" id="error">
+					<div class="alert alert-danger !shadow-lg" role="alert" v-if="error" id="error">
 						<div class="flex justify-start space-x-2">
 							<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-11 h-11"/>
 							<div class="pt-1">
@@ -286,7 +286,7 @@
 						</div>
 					</div>
 				<div class="col-lg-6">
-					<div class="card">
+					<div class="card !shadow-lg">
 						<div class="px-4 pt-4">
 							<div class="row">
 								<div class="col-lg-6">
@@ -409,7 +409,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="card h-full">
+					<div class="card h-full !shadow-lg">
 						<div class="mx-4 mt-4 p-3 h-full rounded overflow-y-hidden hover:overflow-y-scroll bg-gray-200 shadow-inner">
 							<div class="card w-full mb-2 !shadow hover:bg-yellow-100"  v-for="d in details">
 								
@@ -439,7 +439,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="card">
+					<div class="card !shadow-lg">
 						<div class="px-4 pb-4" v-if="props.detail_id == 0">
 							<button @click="onSave()"   class="btn btn-primary btn-sm btn-block ">Add New</button>
 						</div>
@@ -450,7 +450,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="card">
+					<div class="card !shadow-lg">
 						<div class="px-4 pb-4">
 							<a @click = "saveSet()" class="btn btn-sm btn-success btn-block text-white">Save Set and Print All</a>
 						</div>
