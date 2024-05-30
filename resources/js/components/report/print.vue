@@ -101,18 +101,12 @@
 							<br></span>
 						</div>
 
-<<<<<<< HEAD
 						<div class="finaltax">{{ parseFloat(d.totaltax).toFixed(2) }}</div> <!-- para ni sa printing nga class naka-->
 						<div class="final-tax ">{{ parseFloat(d.totaltax).toFixed(2) }}</div><!-- para ni ya sa view nga class-->
 						
-						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
-=======
-						<div class="finaltax">{{ d.totaltax }}</div> <!-- para ni sa printing nga class naka-->
-						<div class="final-tax ">{{ d.totaltax }}</div><!-- para ni ya sa view nga class-->
 						<div class="esig-container">
 							<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						</div>
->>>>>>> 5311c4e4823474b111d44d85c87ce14d00179dfb
 						<div class="accountant"> {{ d.accountant_name }}</div>
 						<div class="accountant_position"> {{ d.accountant_position }}</div>
 						<div class="accountant_tin"> {{ d.accountant_tin }}</div>
