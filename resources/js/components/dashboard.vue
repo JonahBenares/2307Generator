@@ -138,6 +138,7 @@
        rows.value.push(
            {
 			id:"",
+			quarter_month:"",
             amount:"",
            }
        );
@@ -336,12 +337,33 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-12">
-									<label for="" class="pl-2 mb-0 text-sm">Amount</label>
+								<div class="col-lg-6">
+									<div class="form-group flex space-x-2">
+										<label for="" class="pl-2 mb-0 text-sm">Quarter of the Month</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group flex space-x-2">
+										<label for="" class="pl-2 mb-0 text-sm">Amount</label>
+									</div>
 								</div>
 							</div>
+						
 							<div class="row" v-for="(r, a) in rows">
-								<div class="col-lg-12">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<div class="flex justify-between space-x-1">
+											<select class="form-control border" v-model="r.quarter_month">
+												<option value=""></option>
+												<option value="1">First Month</option>
+												<option value="2">Second Month</option>
+												<option value="3">Third Month</option>
+											</select>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
 									<div class="form-group">
 										<div class="flex justify-between space-x-1">
 											<input type="hidden" class="form-control border" v-model="r.id">
@@ -350,7 +372,6 @@
 												<XMarkIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"></XMarkIcon>
 											</button>
 										</div>
-										
 									</div>
 								</div>
 							</div>
