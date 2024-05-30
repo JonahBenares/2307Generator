@@ -11698,7 +11698,7 @@ display: none;
     bottom: 415px;   
     display: flex;
     justify-content: center;
-    background: #fffa0069;   
+    /* background: #fffa0069;    */
 }
 
 .accountant{
