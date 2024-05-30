@@ -10866,7 +10866,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 18px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .date-to{
         position: absolute;
@@ -10878,7 +10878,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 16px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
 
     .payee-tin0{
@@ -10891,7 +10891,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payee-tin1{
         position: absolute;
@@ -10903,7 +10903,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payee-tin2{
         position: absolute;
@@ -10915,7 +10915,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payee-tin3{
         position: absolute;
@@ -10927,7 +10927,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 24px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payee-name{
         position: absolute;
@@ -10940,7 +10940,7 @@ display: none;
         font-size: 17px!important;
         text-align: left;
         text-transform: uppercase;
-        /* background: #fffa00d1; */
+        background: none!important;
         /* line-height: 20px; */
     }
     .payee-address{
@@ -10954,7 +10954,7 @@ display: none;
         font-size: 17px!important;
         text-align: left;
         text-transform: uppercase;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payee-zip{
         position: absolute;
@@ -10968,7 +10968,7 @@ display: none;
         text-align: left;
         text-transform: uppercase;
         letter-spacing: 13px!important;
-        /* background: #fffa00d1;  */
+        background: none!important;
     }
     .payee-foreign{
         position: absolute;
@@ -10981,7 +10981,7 @@ display: none;
         font-size: 17px!important;
         text-align: left;
         text-transform: uppercase;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-tin0{
         position: absolute;
@@ -10993,7 +10993,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-tin1{
         position: absolute;
@@ -11005,7 +11005,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-tin2{
         position: absolute;
@@ -11017,7 +11017,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 20px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-tin3{
         position: absolute;
@@ -11029,7 +11029,7 @@ display: none;
         font-family: 'Times New Roman', Times, serif;
         font-size: 19px!important;
         letter-spacing: 24px!important;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
 
     .payor-name{
@@ -11043,7 +11043,7 @@ display: none;
         font-size: 17px!important;
         text-align: left;
         text-transform: uppercase;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-address{
         position: absolute;
@@ -11056,7 +11056,7 @@ display: none;
         font-size: 17px!important;
         text-align: left;
         text-transform: uppercase;
-        /* background: #fffa00d1; */
+        background: none!important;
     }
     .payor-zip{
         position: absolute;
@@ -11070,7 +11070,7 @@ display: none;
         text-align: left;
         text-transform: uppercase;
         letter-spacing: 13px!important;
-        /* background: #fffa00d1;  */
+        background: none!important;
     }
 
     .income-payments{
@@ -11084,7 +11084,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: left;
-        /* background: #fffa00d1;   */
+        background: none!important;
     }
     .atc{
         position: absolute;
@@ -11097,7 +11097,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: left;
-        /* background: #fffa00d1;   */
+        background: none!important;
     }
     .first-quarter{
         position: absolute;
@@ -11110,7 +11110,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;   */
+        background: none!important;
     }
     .first-total{
         position: absolute;
@@ -11123,7 +11123,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;   */
+        background: none!important;
     }
     .second-quarter{
         position: absolute;
@@ -11136,7 +11136,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;     */
+        background: none!important;
     }
     .second-total{
         position: absolute;
@@ -11149,7 +11149,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;    */
+        background: none!important;
     }
     .third-quarter{
         position: absolute;
@@ -11162,7 +11162,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;     */
+        background: none!important;
     }
     .third-total{
         position: absolute;
@@ -11175,7 +11175,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;    */
+        background: none!important;
     }
     .sub-total{
         position: absolute;
@@ -11188,7 +11188,7 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;     */
+        background: none!important;
     }
     .grand-total{
         position: absolute;
@@ -11201,10 +11201,10 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;     */
+        background: none!important;
     }
     .finaltax{
-        /* background: #fffa00d1;     */
+        background: none!important;
         position: absolute;
         top: 902px!important;
         right: 20px!important;
@@ -11227,13 +11227,13 @@ display: none;
         line-height: 25px!important;
         font-size: 14px!important;
         text-align: right;
-        /* background: #fffa00d1;   */
+        background: none!important;
     }
     .esignature{
         height:80px!important;
         z-index: 100;
         border: 0px solid;
-        /* background: #fffa00d1;  */
+        background: none!important;
         /* border: 1px solid #000  */
     }
     
@@ -11243,7 +11243,7 @@ display: none;
         bottom: 345px!important;   
         display: flex;
         justify-content: center;
-        /* background: #fffa00d1;    */
+        background: none!important;
     }
 /*     
     
@@ -11265,7 +11265,7 @@ display: none;
         font-size: 15px!important;
         text-transform: uppercase;
         text-align: center;
-        /* background: #fffa00d1;  */
+        background: none!important;
     }
     .accountant_position{
         position: absolute;
@@ -11279,7 +11279,7 @@ display: none;
         text-align: center;
         font-weight: 500;
         color: #000;
-        /* background: #fffa00d1;  */
+        background: none!important;
     }
     .accountant_tin{
         position: absolute;
@@ -11293,7 +11293,10 @@ display: none;
         text-align: center;
         font-weight: 500;
         color: #000;
-        /* background: #fffa00d1;  */
+        background: none!important;
+    }
+    .ref-number{
+        background: none!important;
     }
 }
 
@@ -11307,7 +11310,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-     background: #fffa00d1;
+    background: #fffa0069;
 }
 .date-to{
     position: absolute;
@@ -11319,7 +11322,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 17px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payee-tin0{
     position: absolute;
@@ -11331,7 +11334,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payee-tin1{
     position: absolute;
@@ -11343,7 +11346,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payee-tin2{
     position: absolute;
@@ -11355,7 +11358,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payee-tin3{
     position: absolute;
@@ -11367,7 +11370,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 27px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 
 
@@ -11382,7 +11385,7 @@ display: none;
     font-size: 20px;
     text-align: left;
     text-transform: uppercase;
-    background: #fffa00d1;
+    background: #fffa0069;
     /* line-height: 20px; */
 }
 .payee-address{
@@ -11396,7 +11399,7 @@ display: none;
     font-size: 20px;
     text-align: left;
     text-transform: uppercase;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payee-zip{
     position: absolute;
@@ -11410,7 +11413,7 @@ display: none;
     text-align: left;
     text-transform: uppercase;
     letter-spacing: 15px;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .payee-foreign{
     position: absolute;
@@ -11423,7 +11426,7 @@ display: none;
     font-size: 20px;
     text-align: left;
     text-transform: uppercase;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 
 
@@ -11438,7 +11441,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payor-tin1{
     position: absolute;
@@ -11450,7 +11453,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payor-tin2{
     position: absolute;
@@ -11462,7 +11465,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 20px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payor-tin3{
     position: absolute;
@@ -11474,7 +11477,7 @@ display: none;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     letter-spacing: 27px;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payor-name{
     position: absolute;
@@ -11487,7 +11490,7 @@ display: none;
     font-size: 20px;
     text-align: left;
     text-transform: uppercase;
-    background: #fffa00d1;
+    background: #fffa0069;
     /* line-height: 20px; */
 }
 .payor-address{
@@ -11501,7 +11504,7 @@ display: none;
     font-size: 20px;
     text-align: left;
     text-transform: uppercase;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .payor-zip{
     position: absolute;
@@ -11515,7 +11518,7 @@ display: none;
     text-align: left;
     text-transform: uppercase;
     letter-spacing: 15px;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 
 .income-payments{
@@ -11529,7 +11532,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: left;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .atc{
     position: absolute;
@@ -11542,7 +11545,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: center;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .first-quarter{
     position: absolute;
@@ -11555,7 +11558,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .first-total{
     position: absolute;
@@ -11568,7 +11571,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .second-quarter{
     position: absolute;
@@ -11581,7 +11584,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .second-total{
     position: absolute;
@@ -11594,7 +11597,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .third-quarter{
     position: absolute;
@@ -11607,7 +11610,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .third-total{
     position: absolute;
@@ -11620,7 +11623,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .sub-total{
     position: absolute;
@@ -11633,7 +11636,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .grand-total{
     position: absolute;
@@ -11646,7 +11649,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 
 .tax-quarter{
@@ -11660,7 +11663,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .finaltax{
     display: none;
@@ -11677,7 +11680,7 @@ display: none;
     line-height: 30px;
     font-size: 17px;
     text-align: right;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 .esignature{
     /* position: absolute; */
@@ -11685,7 +11688,7 @@ display: none;
     /* left: 525px; */
     z-index: 100;
     border: 0px solid;
-    /* background: #fffa00d1;  */
+    background: none!important;
     /* border: 1px solid #000  */
 }
 
@@ -11695,7 +11698,7 @@ display: none;
     bottom: 415px;   
     display: flex;
     justify-content: center;
-    /* background: #fffa00d1;    */
+    /* background: #fffa0069;    */
 }
 
 .accountant{
@@ -11710,7 +11713,7 @@ display: none;
     text-align: center;
     font-weight: 500;
     color: #000;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .accountant_position{
     position: absolute;
@@ -11724,7 +11727,7 @@ display: none;
     text-align: center;
     font-weight: 500;
     color: #000;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .accountant_tin{
     position: absolute;
@@ -11738,7 +11741,7 @@ display: none;
     text-align: center;
     font-weight: 500;
     color: #000;
-    background: #fffa00d1;
+    background: #fffa0069;
 }
 .ref-number{
     position: absolute;
@@ -11751,7 +11754,7 @@ display: none;
     line-height: 30px;
     font-size: 15px;
     text-align: left;
-    background: #fffa00d1;  
+    background: #fffa0069;  
 }
 page {
     size: 8.5in;
