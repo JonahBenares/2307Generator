@@ -12,6 +12,7 @@ class GenerationAmount extends Model
     protected $fillable = [
         'generation_head_id',
         'generation_id',
+        'quarter_month',
         'amount',
         'user_id'
     ];

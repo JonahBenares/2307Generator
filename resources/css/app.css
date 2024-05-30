@@ -10983,7 +10983,7 @@ display: none;
         text-transform: uppercase;
         /* background: #fffa00d1; */
     }
-    .payor-tin1{
+    .payor-tin0{
         position: absolute;
         width:85px!important;
         left: 360px!important;
@@ -10995,7 +10995,7 @@ display: none;
         letter-spacing: 20px!important;
         /* background: #fffa00d1; */
     }
-    .payor-tin2{
+    .payor-tin1{
         position: absolute;
         width:85px!important;
         left: 470px!important;
@@ -11007,7 +11007,7 @@ display: none;
         letter-spacing: 20px!important;
         /* background: #fffa00d1; */
     }
-    .payor-tin3{
+    .payor-tin2{
         position: absolute;
         width:85px!important;
         left: 580px!important;
@@ -11019,7 +11019,7 @@ display: none;
         letter-spacing: 20px!important;
         /* background: #fffa00d1; */
     }
-    .payor-tin4{
+    .payor-tin3{
         position: absolute;
         width:160px!important;
         left: 690px!important;
@@ -11412,7 +11412,7 @@ display: none;
 
 
 
-.payor-tin1{
+.payor-tin0{
     position: absolute;
     width:100px;
     left: 430px;
@@ -11424,7 +11424,7 @@ display: none;
     letter-spacing: 20px;
     /* background: #fffa00d1; */
 }
-.payor-tin2{
+.payor-tin1{
     position: absolute;
     width:100px;
     left: 560px;
@@ -11436,7 +11436,7 @@ display: none;
     letter-spacing: 20px;
     /* background: #fffa00d1; */
 }
-.payor-tin3{
+.payor-tin2{
     position: absolute;
     width:100px;
     left: 692px;
@@ -11448,7 +11448,7 @@ display: none;
     letter-spacing: 20px;
     /* background: #fffa00d1; */
 }
-.payor-tin4{
+.payor-tin3{
     position: absolute;
     width:190px;
     left: 822px;

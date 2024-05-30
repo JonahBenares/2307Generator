@@ -61,31 +61,32 @@
 						<div class="payee-address">{{ d.registered_address }}</div>
 						<div class="payee-zip">{{ d.zip_code }}</div>
 						<div class="payee-foreign">X</div>
-
-						<div class="payor-tin1">022</div>
+						<div :class="'payor-tin'+i" v-for="(comp_tin,i) in (d.company_tin.split('-'))">{{ comp_tin }}</div>
+						<!-- <div class="payor-tin1">022</div>
 						<div class="payor-tin2">032</div>
 						<div class="payor-tin3">042</div>
-						<div class="payor-tin4">05020</div>
-						<div class="payor-name">GREENLANE  HARDWARE & CONSTRUCTION SUPPLY INC. GREENLANE  HARDWARE & CONSTRUCTION SUPPLY INC.</div>
-						<div class="payor-address">LACSON STREET, BACOLOD CITY</div>
-						<div class="payor-zip">6100</div>
+						<div class="payor-tin4">05020</div> -->
+						<div class="payor-name">{{ d.company_name }}</div>
+						<div class="payor-address">{{ d.company_address}}</div>
+						<div class="payor-zip">{{ d.company_zip }}</div>
 						<!-- <div class="">Ref Number</div> -->
 						<div class="income-payments">{{ d.atc_remarks }}</div>
 						<div class="atc">{{ d.atc_code }}</div>
 						<div class="first-quarter">
-							<span v-for="first in d.firstmonth">{{ first }}<br></span>
+							
+							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
 						</div>
-						<div class="first-total">{{ d.totalfirst }}</div>
+						<div class="first-total" >{{ d.subtotal_first }}</div>
 
 						<div class="second-quarter">
-							<span v-for="second in d.secondmonth">{{ second }}<br></span>
+							<span v-for="second in d.secondmonth">{{ second.amount }}<br></span>
 						</div>
-						<div class="second-total">{{ d.totalsecond }}</div>
+						<div class="second-total" >{{ d.subtotal_second }}</div>
 
 						<div class="third-quarter">
-							<span v-for="third in d.thirdmonth">{{ third }}<br></span>
+							<span v-for="third in d.thirdmonth">{{ third.amount }}<br></span>
 						</div>
-						<div class="third-total">{{ d.totalthird }}</div>
+						<div class="third-total" >{{ d.subtotal_third }}</div>
 
 						<div class="sub-total" >
 							<span v-for="s in d.subtotal">{{ s }}<br></span>

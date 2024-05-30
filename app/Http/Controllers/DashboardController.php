@@ -12,6 +12,7 @@ use App\Models\GenerationAmount;
 use App\Http\Requests\GenerationRequest;
 use Illuminate\Support\Facades\Auth;
 
+
 class DashboardController extends Controller
 {
     public function get_dropdown(){
@@ -158,6 +159,7 @@ class DashboardController extends Controller
                 GenerationAmount::create([
                     'generation_head_id'=>$head_id,
                     'generation_id'=>$gen_id,
+                    'quarter_month'=>$r->quarter_month,
                     'amount'=>$r->amount,
                     'user_id'=>$user_id
                 ]);
@@ -208,6 +210,7 @@ class DashboardController extends Controller
                    GenerationAmount::create([
                        'generation_head_id'=>$head_id,
                        'generation_id'=>$detail_id,
+                       'quarter_month'=>$r->quarter_month,
                        'amount'=>$r->amount,
                        'user_id'=>$user_id
                    ]);
@@ -241,77 +244,57 @@ class DashboardController extends Controller
 
     public function get_print_details($id){
         $details = generations::where('id','=',$id)->get();
-        $amounts = GenerationAmount::where('generation_id','=',$id)->get();
-        foreach($details AS $d){
-            
-            $month= date("n",strtotime($d->date_to));
-            //echo $month;
-           
-            //$yearQuarter = $month / 3;
+        $firstmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','1')->get();
+        $secondmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','2')->get();
+        $thirdmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','3')->get();
+
+        $subtotal_first=array();
+        $subtotal_second=array();
+        $subtotal_third=array();
+      
          
-            $first = array(1,4,7,10);
-            $second = array(2,5,8,11);
-            $third = array(3,6,9,12);
-           
-           
-            $firstmonth=[];
-            $total_first="";
-            $secondmonth=[];
-            $total_second="";
-            $thirdmonth=[];
-            $total_third="";
-
-            if(in_array($month, $first)){
-
-                foreach($amounts AS $a){
-                    $firstmonth[] = $a->amount;
-                }
-                $total_first = array_sum($firstmonth);
-            } 
-               
-
-            if(in_array($month, $second)){
-                foreach($amounts AS $a){
-                    $secondmonth[] = $a->amount;
-                }
-                $total_second = array_sum($secondmonth);
-            } 
-
-            if(in_array($month, $third)){
-                foreach($amounts AS $a){
-                    $thirdmonth[] = $a->amount;
-                }
-                $total_third = array_sum($thirdmonth);
-            } 
-            foreach($amounts AS $a){
-                $tax[] = ($a->amount * $d->atc_percentage);
+        if(!empty($firstmonth)){
+            foreach($firstmonth AS $f){
+                $subtotal_first[]=$f->amount;
             }
-            $total_tax = array_sum($tax);
+        }
+        if(!empty($secondmonth)){
+            foreach($secondmonth AS $s){
+                $subtotal_second[]=$s->amount;
+            }
+        }
+        if(!empty($thirdmonth)){
+            foreach($thirdmonth AS $t){
+                $subtotal_third[]=$t->amount;
+            }
+        }
+       
+        $grandtotal = array_sum($subtotal_first) + array_sum($subtotal_second) + array_sum($subtotal_third);
 
-            if(!empty($firstmonth)){
-                foreach($firstmonth AS $f){
-                    $subtotal[]=$f;
-                }
-            }
-            if(!empty($secondmonth)){
-                foreach($secondmonth AS $s){
-                    $subtotal[]=$s;
-                }
-            }
-            if(!empty($thirdmonth)){
-                foreach($thirdmonth AS $t){
-                    $subtotal[]=$t;
-                }
-            }
-             
-            $grandtotal = array_sum($subtotal);
-
+        
+        foreach($details AS $d){
+          
             if($d->include_sign == 1){
                 $sign = $d->accountant_sign;
             } else {
                 $sign = "";
             }
+            //$tax=0;
+            $tax=array();
+            for($x=0;$x<=1;$x++){
+                if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
+                else  $subtotal_f = 0;
 
+                if(!empty($subtotal_second[$x])) $subtotal_s =$subtotal_second[$x];
+                else  $subtotal_s = 0;
+
+                if(!empty($subtotal_third[$x])) $subtotal_t =$subtotal_third[$x];
+                else  $subtotal_t = 0;
+               
+                $tax[] = ($subtotal_f + $subtotal_s + $subtotal_t) * $d->atc_percentage;
+            }      
+
+            $total_tax = array_sum($tax);
             $data[] = [
                 'generation_head_id'=>$d->generation_head,
                 'date_from'=>$d->date_from,
@@ -325,18 +308,21 @@ class DashboardController extends Controller
                 'firstmonth'=>$firstmonth,
                 'secondmonth'=>$secondmonth,
                 'thirdmonth'=>$thirdmonth,
-                'subtotal'=>$subtotal,
+                'subtotal_first'=>array_sum($subtotal_first),
+                'subtotal_second'=>array_sum($subtotal_second),
+                'subtotal_third'=>array_sum($subtotal_third),
                 'grandtotal'=>$grandtotal,
-                'totalfirst'=>$total_first,
-                'totalsecond'=>$total_second,
-                'totalthird'=> $total_third,
                 'tax'=>$tax,
                 'totaltax'=>$total_tax,
                 'accountant_name'=>$d->accountant_name,
                 'accountant_tin'=>$d->accountant_tin,
                 'accountant_position'=>$d->accountant_position,
                 'accountant_signature'=>$sign,
-                'reference_number'=>$d->reference_number
+                'reference_number'=>$d->reference_number,
+                'company_name'=>COMPANY_NAME,
+                'company_address'=>COMPANY_ADDRESS,
+                'company_tin'=>COMPANY_TIN,
+                'company_zip'=>COMPANY_ZIP,
             ];
         }
         return response()->json($data);
@@ -355,85 +341,55 @@ class DashboardController extends Controller
         $details = generations::where('generation_head_id','=',$id)->get();
         
         foreach($details AS $d){
-            $firstmonth=array();
-            $secondmonth=array();
-            $thirdmonth=array();
-            $tax =array();
-            $subtotal =array();
 
-            
-            // reset($firstmonth);
-            // reset($secondmonth);
-            // reset($thirdmonth);
-         
-            $amounts = GenerationAmount::where('generation_id','=',$d->id)->get();
-
-            $month= date("n",strtotime($d->date_to));
-            $yearQuarter = ceil($month / 3);
-
-            //echo $yearQuarter;
-            $first = array(1,4,7,10);
-            $second = array(2,5,8,11);
-            $third = array(3,6,9,12);
-
-            $firstmonth=[];
-            $total_first="";
-            $secondmonth=[];
-            $total_second="";
-            $thirdmonth=[];
-            $total_third="";
-
-            if(in_array($month, $first)){
-                foreach($amounts AS $a){
-                    $firstmonth[] = $a->amount;
-                }
-                $total_first = array_sum($firstmonth);
-            }
-
-            if(in_array($month, $second)){
-                foreach($amounts AS $a){
-                    $secondmonth[] = $a->amount;
-                }
-                $total_second = array_sum($secondmonth);
-            } 
-
-            if(in_array($month, $third)){
-                foreach($amounts AS $a){
-                    $thirdmonth[] = $a->amount;
-                }
-                $total_third = array_sum($thirdmonth);
-            } 
-
-            foreach($amounts AS $a){
-                $tax[] = ($a->amount * $d->atc_percentage);
-            }
-            $total_tax = array_sum($tax);
-
+            $firstmonth = GenerationAmount::where('generation_id','=',$d->id)->where('quarter_month','=','1')->get();
+            $secondmonth = GenerationAmount::where('generation_id','=',$d->id)->where('quarter_month','=','2')->get();
+            $thirdmonth = GenerationAmount::where('generation_id','=',$d->id)->where('quarter_month','=','3')->get();
+    
+            $subtotal_first=array();
+            $subtotal_second=array();
+            $subtotal_third=array();
+          
+             
             if(!empty($firstmonth)){
                 foreach($firstmonth AS $f){
-                    $subtotal[]=$f;
+                    $subtotal_first[]=$f->amount;
                 }
             }
             if(!empty($secondmonth)){
                 foreach($secondmonth AS $s){
-                    $subtotal[]=$s;
+                    $subtotal_second[]=$s->amount;
                 }
             }
             if(!empty($thirdmonth)){
                 foreach($thirdmonth AS $t){
-                    $subtotal[]=$t;
+                    $subtotal_third[]=$t->amount;
                 }
             }
-             
-            $grandtotal = array_sum($subtotal);
+           
+            $grandtotal = array_sum($subtotal_first) + array_sum($subtotal_second) + array_sum($subtotal_third);
 
             if($d->include_sign == 1){
                 $sign = $d->accountant_sign;
             } else {
                 $sign = "";
             }
+            //$tax=0;
+            $tax=array();
+            for($x=0;$x<=1;$x++){
+                if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
+                else  $subtotal_f = 0;
 
+                if(!empty($subtotal_second[$x])) $subtotal_s =$subtotal_second[$x];
+                else  $subtotal_s = 0;
 
+                if(!empty($subtotal_third[$x])) $subtotal_t =$subtotal_third[$x];
+                else  $subtotal_t = 0;
+               
+                $tax[] = ($subtotal_f + $subtotal_s + $subtotal_t) * $d->atc_percentage;
+            }      
+
+            $total_tax = array_sum($tax);
             $data[] = [
                 'generation_head_id'=>$d->generation_head,
                 'date_from'=>$d->date_from,
@@ -447,20 +403,22 @@ class DashboardController extends Controller
                 'firstmonth'=>$firstmonth,
                 'secondmonth'=>$secondmonth,
                 'thirdmonth'=>$thirdmonth,
-                'subtotal'=>$subtotal,
+                'subtotal_first'=>array_sum($subtotal_first),
+                'subtotal_second'=>array_sum($subtotal_second),
+                'subtotal_third'=>array_sum($subtotal_third),
                 'grandtotal'=>$grandtotal,
-                'totalfirst'=>$total_first,
-                'totalsecond'=>$total_second,
-                'totalthird'=> $total_third,
                 'tax'=>$tax,
                 'totaltax'=>$total_tax,
                 'accountant_name'=>$d->accountant_name,
                 'accountant_tin'=>$d->accountant_tin,
                 'accountant_position'=>$d->accountant_position,
                 'accountant_signature'=>$sign,
-                'reference_number'=>$d->reference_number
+                'reference_number'=>$d->reference_number,
+                'company_name'=>COMPANY_NAME,
+                'company_address'=>COMPANY_ADDRESS,
+                'company_tin'=>COMPANY_TIN,
+                'company_zip'=>COMPANY_ZIP,
             ];
-
           
         }
         return response()->json($data);
