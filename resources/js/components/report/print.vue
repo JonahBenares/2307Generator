@@ -76,29 +76,33 @@
 							
 							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
 						</div>
-						<div class="first-total" >{{ d.subtotal_first }}</div>
+						<div class="first-total" v-if="d.firstmonth !=0">{{ d.subtotal_first }}</div>
 
 						<div class="second-quarter">
 							<span v-for="second in d.secondmonth">{{ second.amount }}<br></span>
 						</div>
-						<div class="second-total" >{{ d.subtotal_second }}</div>
+						<div class="second-total"  v-if="d.secondmonth !=0">{{ d.subtotal_second }}</div>
 
 						<div class="third-quarter">
 							<span v-for="third in d.thirdmonth">{{ third.amount }}<br></span>
 						</div>
-						<div class="third-total" >{{ d.subtotal_third }}</div>
+						<div class="third-total" v-if="d.thirdmonth !=0">{{ d.subtotal_third }}</div>
 
 						<div class="sub-total" >
-							<span v-for="s in d.subtotal">{{ s }}<br></span>
+							<span v-for="s in d.subtotal" >
+								<span v-if="s != 0">{{ parseFloat(s).toFixed(2) }}</span>
+							<br></span>
 						</div>
-						<div class="grand-total">{{  d.grandtotal }}</div>
+						<div class="grand-total" v-if="d.grandtotal !=0">{{ parseFloat(d.grandtotal).toFixed(2) }}</div>
 
 						<div class="tax-quarter">
-							<span v-for="t in d.tax">{{ t }}<br></span>
+							<span v-for="t in d.tax">
+								<span v-if="t != 0">{{ parseFloat(t).toFixed(2) }}</span>
+							<br></span>
 						</div>
 
-						<div class="finaltax">{{ d.totaltax }}</div> <!-- para ni sa printing nga class naka-->
-						<div class="final-tax ">{{ d.totaltax }}</div><!-- para ni ya sa view nga class-->
+						<div class="finaltax">{{ parseFloat(d.totaltax).toFixed(2) }}</div> <!-- para ni sa printing nga class naka-->
+						<div class="final-tax ">{{ parseFloat(d.totaltax).toFixed(2) }}</div><!-- para ni ya sa view nga class-->
 						
 						<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						<div class="accountant"> {{ d.accountant_name }}</div>

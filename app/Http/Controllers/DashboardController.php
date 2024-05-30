@@ -270,7 +270,7 @@ class DashboardController extends Controller
         }
        
         $grandtotal = array_sum($subtotal_first) + array_sum($subtotal_second) + array_sum($subtotal_third);
-
+      
         
         foreach($details AS $d){
           
@@ -281,6 +281,7 @@ class DashboardController extends Controller
             }
             //$tax=0;
             $tax=array();
+            $subtotal=array();
             for($x=0;$x<=1;$x++){
                 if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
                 else  $subtotal_f = 0;
@@ -292,6 +293,7 @@ class DashboardController extends Controller
                 else  $subtotal_t = 0;
                
                 $tax[] = ($subtotal_f + $subtotal_s + $subtotal_t) * $d->atc_percentage;
+                $subtotal[] = $subtotal_f + $subtotal_s + $subtotal_t;
             }      
 
             $total_tax = array_sum($tax);
@@ -308,9 +310,10 @@ class DashboardController extends Controller
                 'firstmonth'=>$firstmonth,
                 'secondmonth'=>$secondmonth,
                 'thirdmonth'=>$thirdmonth,
-                'subtotal_first'=>array_sum($subtotal_first),
-                'subtotal_second'=>array_sum($subtotal_second),
-                'subtotal_third'=>array_sum($subtotal_third),
+                'subtotal_first'=>number_format(array_sum($subtotal_first),2),
+                'subtotal_second'=>number_format(array_sum($subtotal_second),2),
+                'subtotal_third'=>number_format(array_sum($subtotal_third),2),
+                'subtotal'=>$subtotal,
                 'grandtotal'=>$grandtotal,
                 'tax'=>$tax,
                 'totaltax'=>$total_tax,
@@ -376,6 +379,7 @@ class DashboardController extends Controller
             }
             //$tax=0;
             $tax=array();
+            $subtotal=array();
             for($x=0;$x<=1;$x++){
                 if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
                 else  $subtotal_f = 0;
@@ -387,6 +391,7 @@ class DashboardController extends Controller
                 else  $subtotal_t = 0;
                
                 $tax[] = ($subtotal_f + $subtotal_s + $subtotal_t) * $d->atc_percentage;
+                $subtotal[] = $subtotal_f + $subtotal_s + $subtotal_t;
             }      
 
             $total_tax = array_sum($tax);
@@ -406,6 +411,7 @@ class DashboardController extends Controller
                 'subtotal_first'=>array_sum($subtotal_first),
                 'subtotal_second'=>array_sum($subtotal_second),
                 'subtotal_third'=>array_sum($subtotal_third),
+                'subtotal'=>$subtotal,
                 'grandtotal'=>$grandtotal,
                 'tax'=>$tax,
                 'totaltax'=>$total_tax,
