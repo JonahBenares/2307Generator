@@ -90,18 +90,25 @@
 						<div class="third-total" >{{ d.subtotal_third }}</div>
 
 						<div class="sub-total" >
-							<span v-for="s in d.subtotal">{{ s }}<br></span>
+							<span v-for="s in d.subtotal" >
+								<span v-if="s != 0">{{ parseFloat(s).toFixed(2) }}</span>
+							<br></span>
 						</div>
-						<div class="grand-total">{{  d.grandtotal }}</div>
+						<div class="grand-total" v-if="d.grandtotal !=0">{{ parseFloat(d.grandtotal).toFixed(2) }}</div>
 
 						<div class="tax-quarter">
-							<span v-for="t in d.tax">{{ t }}<br></span>
+							<span v-for="t in d.tax">
+								<span v-if="t != 0">{{ parseFloat(t).toFixed(2) }}</span>
+							<br></span>
 						</div>
 
-						<div class="finaltax">{{ d.totaltax }}</div> <!-- para ni sa printing nga class naka-->
-						<div class="final-tax ">{{ d.totaltax }}</div><!-- para ni ya sa view nga class-->
+						<div class="finaltax">{{ parseFloat(d.totaltax).toFixed(2) }}</div> <!-- para ni sa printing nga class naka-->
+						<div class="final-tax ">{{ parseFloat(d.totaltax).toFixed(2) }}</div><!-- para ni ya sa view nga class-->
 						
-						<img v-if="d.accountant_signature" :src="'/images/'+d.accountant_signature" alt="" class="esignature">
+						<div class="esig-container">
+							<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
+						</div>
+						
 						<div class="accountant"> {{ d.accountant_name }}</div>
 						<div class="accountant_position"> {{ d.accountant_position }}</div>
 						<div class="accountant_tin"> {{ d.accountant_tin }}</div>
