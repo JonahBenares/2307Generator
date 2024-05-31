@@ -66,7 +66,7 @@
 			form.value.position=''
 			form.value.tin=''
 			form.value.active='1'
-			form.value.signature=''
+			document.getElementById('image1').value=''
 			imageUrl1.value=''
 			error.value=''
 		

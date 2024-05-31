@@ -70,34 +70,17 @@
 	
 	const getDrafts = async () => {
 
-		//if(props.id == 'new'){
+		
 			const response = await axios.get(`/api/get_drafts/${props.id}/${props.detail_id}`);
 			head.value = response.data.head
 			details.value = response.data.details
 
-			// if(response.data.edit_details == ''){
-			// 	form.value.id = response.data.head_id
-			// } else {
-				if(props.detail_id != 0){
+			if(props.detail_id != 0){
 				form.value = response.data.edit_details
-				} else{
-					form.value.generation_head_id = response.data.head_id
-				}
-				//rows.value = response.data.rows
-			//}
-
-			console.log(response.data.rows)
-
-			//console.log(response.data.details)
-		// } else {
+			} else{
+				form.value.generation_head_id = response.data.head_id
+			}
 			
-		// 	const response = await axios.get(`/api/get_drafts/${props.id}`);
-		// 	head.value = response.data.head
-		// 	details.value = response.data.details
-		// 	form.value.id = response.data.head_id
-		
-		// }
-		
     }
 
 	const getAccountant = async () => {
@@ -306,6 +289,11 @@
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label for="" class="mb-0 text-sm">Payee's Name</label>
+										<!-- <input type="datalist" class="border-b w-full text-sm pt-1 pl-1  mt-2" id='prno' list="payees" placeholder="Payee"  v-model="form.payee_id"  @change="get_payee_details($event)">	 -->
+										<!-- <datalist id="payees">
+											<option :value="p.id + '~' + p.payee_name"  v-for="p in payees">{{ p.payee_name + ' - ' + p.tin  }}</option>
+										</datalist> -->
+
 										<select class="form-control border"  v-model="form.payee_id"  @change="get_payee_details($event)">
 											<option value="">Select Payee</option>
 											<option v-for="p in payees" :value="p.id">{{ p.payee_name }}</option>

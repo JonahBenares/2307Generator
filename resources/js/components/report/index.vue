@@ -26,32 +26,29 @@
 
 	const onSearch = () => {
     
-	const formData= new FormData()
-	formData.append('date_form', form.value.date_form)
-	formData.append('date_to', form.value.date_to)
-	formData.append('date_encoded', form.value.date_encoded)
-	formData.append('payee', form.value.payee)
+		const formData= new FormData()
+		formData.append('date_form', form.value.date_form)
+		formData.append('date_to', form.value.date_to)
+		formData.append('date_encoded', form.value.date_encoded)
+		formData.append('payee', form.value.payee)
 
-		axios.post("/api/search_generation/",formData).then(function (response) {
-		
-			rows.value = response.data
-			
-			// success.value='You have successfully updated the 2307 file!'
-			// form.value=ref([])
-			// rows=ref([])
-			// error.value=''
-			// form.value.generation_head_id = response.data
-			
-			// router.push('/dashboard/'+response.data+'/0')
-			// getDrafts()
-			// getAccountant()
-			
-		}, function (err) {
-			error.value = err.response.data.message;
-			
-		});
+			axios.post("/api/search_generation/",formData).then(function (response) {
+				rows.value = response.data
+			}, function (err) {
+				error.value = err.response.data.message;
+				
+			});
+	}
 
-}
+	const onEdit = (head_id, detail_id) => {
+
+		axios.get("/api/edit_generation/"+head_id+"/"+detail_id).then(function (response) {
+				router.push('/dashboard/'+head_id+'/'+detail_id)
+			}, function (err) {
+				error.value = err.response.data.message;
+				
+			});
+	}
 
 </script>
 
@@ -124,7 +121,7 @@
 										<td class="p-1 px-3">{{ r.date_period }}</td>
 										<td class="p-1 px-3">
 											<div class="flex justify-center space-x-1">
-												<a :href="'/print/'+r.id" class="btn btn-xs btn-info btn-rounded text-white" target='_blank' >
+												<a @click="onEdit(r.generation_head_id, r.id)" class="btn btn-xs btn-info btn-rounded text-white" target='_blank' >
 													<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
 												</a>
 												<a :href="'/print/'+r.id" class="btn btn-xs btn-success btn-rounded text-white" target='_blank' >

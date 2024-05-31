@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\generations;
+use App\Models\GenerationHead;
 use App\Models\Payees;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,7 @@ class ReportController extends Controller
           
             foreach($gen_list AS $gl){
                 $genarray[]=[
+                    'generation_head_id'=>$gl->generation_head_id,
                     'id'=>$gl->id,
                     'payee_name'=>$gl->payee_name,
                     'date_encoded'=>$gl->generation_head->date_encoded,
@@ -55,5 +57,13 @@ class ReportController extends Controller
             
              return response()->json($genarray);
       
+    }
+
+    public function edit_generation($head_id, $detail_id){
+       $update= GenerationHead::find($head_id);
+        
+        $update->update([
+            'status'=>'0'
+        ]);
     }
 }
