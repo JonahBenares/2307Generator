@@ -62,8 +62,8 @@ const logout = () => {
 						leave-to-class="opacity-0 scale-95"
 					>
 					<div class="dropdown-menu dropdown-menu-right" v-show="dropdown">
-						<a class="dropdown-item" href="/change_password/">Change password</a>
-						<div class="dropdown-divider"></div>
+						<!-- <a class="dropdown-item" href="/change_password/">Change password</a>
+						<div class="dropdown-divider"></div> -->
 						<a class="dropdown-item text-danger" href="#"  >Sign out</a>
 					</div>
 					</Transition>

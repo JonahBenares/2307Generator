@@ -272,16 +272,16 @@
 					<div class="card !shadow-lg">
 						<div class="px-4 pt-4">
 							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="" class="mb-0 text-sm">Date From</label>
-										<input type="date" class="form-control border" v-model="form.date_from">
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="" class="mb-0 text-sm">Date To</label>
-										<input type="date" class="form-control border" v-model="form.date_to">
+								<div class="col-lg-12">
+									<div class="flex justify-between space-x-1">
+										<div class="form-group w-full">
+											<label for="" class="mb-0 text-sm">Date From</label>
+											<input type="date" class="form-control border" v-model="form.date_from">
+										</div>
+										<div class="form-group w-full">
+											<label for="" class="mb-0 text-sm">Date To</label>
+											<input type="date" class="form-control border" v-model="form.date_to">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -325,21 +325,17 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group flex space-x-2">
-										<label for="" class="pl-2 mb-0 text-sm">Quarter of the Month</label>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group flex space-x-2">
-										<label for="" class="pl-2 mb-0 text-sm">Amount</label>
+								<div class="col-lg-12">
+									<div class="flex justify-between space-x-1">
+										<label for="" class="pl-2 mb-0 text-sm w-[50%] ">Quarter of the Month</label>
+										<label for="" class=" mb-0 text-sm w-[50%] ">Amount</label>
 									</div>
 								</div>
 							</div>
 						
 							<div class="row" v-for="(r, a) in rows">
-								<div class="col-lg-6">
-									<div class="form-group">
+								<div class="col-lg-12">
+									<div class="form-group mb-1">
 										<div class="flex justify-between space-x-1">
 											<select class="form-control border" v-model="r.quarter_month">
 												<option value=""></option>
@@ -347,13 +343,6 @@
 												<option value="2">Second Month</option>
 												<option value="3">Third Month</option>
 											</select>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<div class="flex justify-between space-x-1">
 											<input type="hidden" class="form-control border" v-model="r.id">
 											<input type="text" class="form-control border" v-model="r.amount">
 											<button class="btn btn-xs btn-danger"  @click="removeRow(a, r.id)"  >
@@ -363,7 +352,7 @@
 									</div>
 								</div>
 							</div>
-							
+							<br>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group flex space-x-2">
