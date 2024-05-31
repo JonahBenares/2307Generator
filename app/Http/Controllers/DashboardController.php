@@ -396,7 +396,7 @@ class DashboardController extends Controller
             //$tax=0;
             $tax=array();
             $subtotal=array();
-            for($x=0;$x<=1;$x++){
+            for($x=0;$x<=10;$x++){
                 if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
                 else  $subtotal_f = 0;
 
