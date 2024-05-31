@@ -50,7 +50,7 @@
 			<div class="" v-for="d in details">
 				<page size="Legal" class="page-break">
 					<div class="p-2 !relative text-center bg-gren-900">
-						<!-- <img src="../../../images/form2307.jpg" alt="" class=""> -->
+						<img src="../../../images/form2307.jpg" alt="" class="">
 						<div class="date-from">{{ format_date(d.date_from) }}</div>
 						<div class="date-to">{{ format_date(d.date_to) }}</div>
 						<div :class="'payee-tin'+i" v-for="(tin,i) in (d.tin.split('-'))">{{ tin }}</div>
