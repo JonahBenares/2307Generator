@@ -50,7 +50,7 @@
 			<div class="" v-for="d in details">
 				<page size="Legal" class="page-break">
 					<div class="p-2 !relative text-center bg-gren-900">
-						<img src="../../../images/form2307.jpg" alt="" class="">
+						<!-- <img src="../../../images/form2307.jpg" alt="" class=""> -->
 						<div class="date-from">{{ format_date(d.date_from) }}</div>
 						<div class="date-to">{{ format_date(d.date_to) }}</div>
 						<div :class="'payee-tin'+i" v-for="(tin,i) in (d.tin.split('-'))">{{ tin }}</div>
@@ -71,21 +71,27 @@
 						<div class="payor-zip">{{ d.company_zip }}</div>
 						<!-- <div class="">Ref Number</div> -->
 						<div class="income-payments">{{ d.atc_remarks }}</div>
-						<div class="atc">{{ d.atc_code }}</div>
+						<div class="atc" >
+							<span v-for="l in d.loop">{{ d.atc_code }}<br></span>
+							</div>
 						<div class="first-quarter">
 							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
 						</div>
 						<div class="first-total" v-if="d.firstmonth !=0">{{ d.subtotal_first }}</div>
+						<div class="third-total" v-else>-</div>
 
 						<div class="second-quarter">
 							<span v-for="second in d.secondmonth">{{ second.amount }}<br></span>
 						</div>
 						<div class="second-total"  v-if="d.secondmonth !=0">{{ d.subtotal_second }}</div>
+						<div class="third-total" v-else>-</div>
 
 						<div class="third-quarter">
 							<span v-for="third in d.thirdmonth">{{ third.amount }}<br></span>
 						</div>
 						<div class="third-total" v-if="d.thirdmonth !=0">{{ d.subtotal_third }}</div>
+						<div class="third-total" v-else>-</div>
+
 
 						<div class="sub-total" >
 							<span v-for="s in d.subtotal" >

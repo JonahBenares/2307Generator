@@ -252,22 +252,30 @@ class DashboardController extends Controller
         $subtotal_second=array();
         $subtotal_third=array();
       
-         
+        $flength=0;
+        $slength=0;
+        $tlength=0;
         if(!empty($firstmonth)){
             foreach($firstmonth AS $f){
                 $subtotal_first[]=$f->amount;
+                $flength++;
             }
         }
         if(!empty($secondmonth)){
             foreach($secondmonth AS $s){
                 $subtotal_second[]=$s->amount;
+                $slength++;
             }
         }
         if(!empty($thirdmonth)){
             foreach($thirdmonth AS $t){
                 $subtotal_third[]=$t->amount;
+                $tlength++;
             }
         }
+
+        $length = array($flength, $slength, $tlength);
+        $max = max($length);
        
         $grandtotal = array_sum($subtotal_first) + array_sum($subtotal_second) + array_sum($subtotal_third);
       
@@ -282,7 +290,7 @@ class DashboardController extends Controller
             //$tax=0;
             $tax=array();
             $subtotal=array();
-            for($x=0;$x<=1;$x++){
+            for($x=0;$x<=10;$x++){
                 if(!empty($subtotal_first[$x])) $subtotal_f =$subtotal_first[$x];
                 else  $subtotal_f = 0;
 
@@ -304,6 +312,7 @@ class DashboardController extends Controller
                 'payee_name'=>$d->payee_name,
                 'registered_address'=>$d->registered_address,
                 'tin'=>$d->tin,
+                'loop'=>$max,
                 'zip_code'=>$d->zip_code,
                 'atc_code'=>$d->atc_code,
                 'atc_remarks'=>$d->atc_remarks,
