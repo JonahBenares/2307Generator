@@ -320,7 +320,7 @@
 										<label for="" class="mb-0 text-sm">ATC</label>
 										<select class="form-control border"  v-model="form.atc_id" @change="get_atc_details($event)">
 											<option value="">Select ATC Code</option>
-											<option v-for="a in atc" :value="a.id ">{{ a.atc_code }}</option>
+											<option v-for="a in atc" :value="a.id ">{{ a.atc_code + ' (' + a.percentage + ')' }}</option>
 										</select>
 									</div>
 									<div class="form-group">
