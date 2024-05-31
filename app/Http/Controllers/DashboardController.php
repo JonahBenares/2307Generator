@@ -361,24 +361,31 @@ class DashboardController extends Controller
             $subtotal_first=array();
             $subtotal_second=array();
             $subtotal_third=array();
-          
+            $flength=0;
+            $slength=0;
+            $tlength=0;
              
             if(!empty($firstmonth)){
                 foreach($firstmonth AS $f){
                     $subtotal_first[]=$f->amount;
+                    $flength++;
                 }
             }
             if(!empty($secondmonth)){
                 foreach($secondmonth AS $s){
                     $subtotal_second[]=$s->amount;
+                    $slength++;
                 }
             }
             if(!empty($thirdmonth)){
                 foreach($thirdmonth AS $t){
                     $subtotal_third[]=$t->amount;
+                    $tlength++;
                 }
             }
-           
+            $length = array($flength, $slength, $tlength);
+            $max = max($length);
+
             $grandtotal = array_sum($subtotal_first) + array_sum($subtotal_second) + array_sum($subtotal_third);
 
             if($d->include_sign == 1){
@@ -411,6 +418,7 @@ class DashboardController extends Controller
                 'payee_name'=>$d->payee_name,
                 'registered_address'=>$d->registered_address,
                 'tin'=>$d->tin,
+                'loop'=>$max,
                 'zip_code'=>$d->zip_code,
                 'atc_code'=>$d->atc_code,
                 'atc_remarks'=>$d->atc_remarks,

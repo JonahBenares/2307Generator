@@ -78,13 +78,13 @@
 							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
 						</div>
 						<div class="first-total" v-if="d.firstmonth !=0">{{ d.subtotal_first }}</div>
-						<div class="third-total" v-else>-</div>
+						<div class="first-total" v-else>-</div>
 
 						<div class="second-quarter">
 							<span v-for="second in d.secondmonth">{{ second.amount }}<br></span>
 						</div>
 						<div class="second-total"  v-if="d.secondmonth !=0">{{ d.subtotal_second }}</div>
-						<div class="third-total" v-else>-</div>
+						<div class="second-total" v-else>-</div>
 
 						<div class="third-quarter">
 							<span v-for="third in d.thirdmonth">{{ third.amount }}<br></span>

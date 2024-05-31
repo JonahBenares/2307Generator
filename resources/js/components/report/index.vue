@@ -96,7 +96,7 @@
 								</div>
 								<div class="w-1/12">
 									<br>
-									<a @click="onSearch()" class="btn btn-sm btn-primary w-full">
+									<a @click="onSearch()" class="btn btn-sm btn-primary w-full text-white">
 										<div class="flex justify-center space-x-1" >
 											<MagnifyingGlassIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></MagnifyingGlassIcon>
 											<span>Search</span>
@@ -110,8 +110,10 @@
 										<th class="p-2 px-3 text-base" width="35%">Payee's Name</th>
 										<th class="p-2 px-3 text-base" width="10%">Date Encoded</th>
 										<th class="p-2 px-3 text-base" width="15%">Period</th>
-										<th class="p-2 px-3 text-base" width="1%" align="center">
-											<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
+										<th class="p-2 px-3 text-base text-center" width="1%" align="center">
+											<center>
+												<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
+											</center>
 										</th>
 									</tr>
 								</thead>
@@ -121,9 +123,14 @@
 										<td class="p-1 px-3">{{ r.date_encoded }}</td>
 										<td class="p-1 px-3">{{ r.date_period }}</td>
 										<td class="p-1 px-3">
-											<a :href="'/print/'+r.id" class="btn btn-xs btn-success btn-rounded text-white" target='_blank' >
-												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PrinterIcon>
-											</a>
+											<div class="flex justify-center space-x-1">
+												<a :href="'/print/'+r.id" class="btn btn-xs btn-info btn-rounded text-white" target='_blank' >
+													<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
+												</a>
+												<a :href="'/print/'+r.id" class="btn btn-xs btn-success btn-rounded text-white" target='_blank' >
+													<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PrinterIcon>
+												</a>
+											</div>
 										</td>
 									</tr>
 								</tbody>
