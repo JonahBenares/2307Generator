@@ -57,3 +57,4 @@ Route::get('/get_print_all/{id}',[DashboardController::class,'get_print_all']);
 
 Route::get('/get_payees',[ReportController::class,'get_payees']);
 Route::post('/search_generation',[ReportController::class,'search_generation']);
+Route::get('/edit_generation/{head_id}/{detail_id}',[ReportController::class,'edit_generation']);
