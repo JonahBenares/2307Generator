@@ -64,7 +64,7 @@ const logout = () => {
 					<div class="dropdown-menu dropdown-menu-right" v-show="dropdown">
 						<!-- <a class="dropdown-item" href="/change_password/">Change password</a>
 						<div class="dropdown-divider"></div> -->
-						<a class="dropdown-item text-danger" href="#"  >Sign out</a>
+						<a class="dropdown-item text-danger" @click="logout"  >Sign out</a>
 					</div>
 					</Transition>
 				</li>

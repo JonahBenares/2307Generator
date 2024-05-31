@@ -289,15 +289,28 @@
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label for="" class="mb-0 text-sm">Payee's Name</label>
-										<!-- <input type="datalist" class="border-b w-full text-sm pt-1 pl-1  mt-2" id='prno' list="payees" placeholder="Payee"  v-model="form.payee_id"  @change="get_payee_details($event)">	 -->
-										<!-- <datalist id="payees">
-											<option :value="p.id + '~' + p.payee_name"  v-for="p in payees">{{ p.payee_name + ' - ' + p.tin  }}</option>
-										</datalist> -->
-
+									
 										<select class="form-control border"  v-model="form.payee_id"  @change="get_payee_details($event)">
 											<option value="">Select Payee</option>
 											<option v-for="p in payees" :value="p.id">{{ p.payee_name }}</option>
 										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="" class="mb-0 text-sm">Payee's TIN</label>
+										<input type="text" class="form-control border !bg-gray-50"  v-model="form.tin" disabled>
+										
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="" class="mb-0 text-sm">Payee's Registered Address</label>
+										<input type="text"  class="form-control border !bg-gray-50" v-model="form.registered_address" disabled>
 									</div>
 								</div>
 							</div>
@@ -372,8 +385,6 @@
 							<input type="hidden" v-model="form.atc_percentage">
 							<input type="hidden" v-model="form.atc_code">
 							<input type="hidden" v-model="form.payee_name">
-							<input type="hidden" v-model="form.registered_address">
-							<input type="hidden" v-model="form.tin">
 							<input type="hidden" v-model="form.zip_code">
 							<input type="hidden" v-model="form.accountant_id">
 							<input type="hidden" v-model="form.accountant_name">
