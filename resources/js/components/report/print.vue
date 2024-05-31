@@ -73,7 +73,6 @@
 						<div class="income-payments">{{ d.atc_remarks }}</div>
 						<div class="atc">{{ d.atc_code }}</div>
 						<div class="first-quarter">
-							
 							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
 						</div>
 						<div class="first-total" v-if="d.firstmonth !=0">{{ d.subtotal_first }}</div>
@@ -107,6 +106,7 @@
 						<div class="esig-container">
 							<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">
 						</div>
+
 						<div class="accountant"> {{ d.accountant_name }}</div>
 						<div class="accountant_position"> {{ d.accountant_position }}</div>
 						<div class="accountant_tin"> {{ d.accountant_tin }}</div>
