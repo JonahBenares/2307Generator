@@ -1,6 +1,6 @@
 <script setup>
 	import navigation from '@/layouts/navigation.vue';
-	import { CheckCircleIcon, ExclamationCircleIcon, SparklesIcon, PlusIcon, XMarkIcon, MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, PrinterIcon} from '@heroicons/vue/24/solid'
+	import { CheckCircleIcon, ExclamationCircleIcon, TrashIcon, PlusIcon, XMarkIcon, MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, PrinterIcon} from '@heroicons/vue/24/solid'
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter()
@@ -398,9 +398,12 @@
 										</a>
 									</div>
 									<div class="col-lg-2">
-										<div class="flex justify-end">
+										<div class="flex justify-end space-x-2">
 											<a :href="'/print/'+ d.id" class="mt-1" target="_blank">
 												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PrinterIcon>
+											</a>
+											<a href="" class="mt-1 !text-red-500">
+												<TrashIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></TrashIcon>
 											</a>
 										</div>
 									</div>

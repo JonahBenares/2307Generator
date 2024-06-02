@@ -1,6 +1,6 @@
 <script setup>
 	import navigation from '@/layouts/navigation.vue';
-	import { PencilSquareIcon, Bars3Icon, PlusIcon, MagnifyingGlassIcon, PrinterIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/solid'
+	import { PencilSquareIcon, Bars3Icon, TrashIcon, MagnifyingGlassIcon, PrinterIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/solid'
 	import axios from "axios";
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
@@ -126,6 +126,9 @@
 												</a>
 												<a :href="'/print/'+r.id" class="btn btn-xs btn-success btn-rounded text-white" target='_blank' >
 													<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PrinterIcon>
+												</a>
+												<a href="" class="btn btn-xs btn-danger btn-rounded text-white"  >
+													<TrashIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></TrashIcon>
 												</a>
 											</div>
 										</td>
