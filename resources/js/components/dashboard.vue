@@ -357,7 +357,7 @@
 												<option value="3">Third Month</option>
 											</select>
 											<input type="hidden" class="form-control border" v-model="r.id">
-											<input type="text" class="form-control border" v-model="r.amount">
+											<input type="number" class="form-control border" maxlength="15" v-model="r.amount">
 											<button class="btn btn-xs btn-danger"  @click="removeRow(a, r.id)"  >
 												<XMarkIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"></XMarkIcon>
 											</button>
