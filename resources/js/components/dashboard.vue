@@ -23,6 +23,7 @@
 		registered_address:'',
 		tin:'',
 		zip_code:'',
+		tax_payer:'',
 		atc_id:'',
 		atc_code:'',
 		remarks:'',
@@ -112,6 +113,7 @@
 			form.value.registered_address = response.data[0]['registered_address']
 			form.value.tin = response.data[0]['tin']
 			form.value.zip_code = response.data[0]['zip_code']
+			form.value.tax_type = response.data[0]['tax_type']
 		});
 		
 	}
@@ -149,6 +151,7 @@
 		formData.append('registered_address', form.value.registered_address)
 		formData.append('tin', form.value.tin)
 		formData.append('zip_code', form.value.zip_code)
+		formData.append('tax_type', form.value.tax_type)
 		formData.append('atc_id', form.value.atc_id)
 		formData.append('atc_code', form.value.atc_code)
 		formData.append('atc_remarks', form.value.atc_remarks)
@@ -197,6 +200,7 @@
 		formData.append('registered_address', form.value.registered_address)
 		formData.append('tin', form.value.tin)
 		formData.append('zip_code', form.value.zip_code)
+		formData.append('tax_type', form.value.tax_type)
 		formData.append('atc_id', form.value.atc_id)
 		formData.append('atc_code', form.value.atc_code)
 		formData.append('atc_remarks', form.value.atc_remarks)
@@ -386,6 +390,7 @@
 							<input type="hidden" v-model="form.atc_code">
 							<input type="hidden" v-model="form.payee_name">
 							<input type="hidden" v-model="form.zip_code">
+							<input type="hidden" v-model="form.tax_type">
 							<input type="hidden" v-model="form.accountant_id">
 							<input type="hidden" v-model="form.accountant_name">
 							<input type="hidden" v-model="form.accountant_tin">

@@ -74,19 +74,20 @@
 						<div class="income-payments">{{ d.atc_remarks }}</div>
 						<div class="atc"><span v-for="l in d.loop">{{ d.atc_code }}<br></span></div>
 						<div class="first-quarter">
-							<span v-for="first in d.firstmonth">{{ first.amount }}<br></span>
+							<!-- <span v-for="first in d.firstmonth">{{ first.amount }}<br></span> -->
+							<span v-for="first in d.firstmonth"> {{ d.tax_type === "Vat" ? parseFloat(first.amount / 1.12).toFixed(2) : parseFloat(first.amount).toFixed(2) }} <br></span>
 						</div>
 						<div class="first-total" v-if="d.firstmonth !=0">{{ parseFloat(d.subtotal_first).toFixed(2) }}</div>
 						<div class="first-total" v-else>-</div>
 
 						<div class="second-quarter">
-							<span v-for="second in d.secondmonth">{{ second.amount }}<br></span>
+							<span v-for="second in d.secondmonth">{{ d.tax_type === "Vat" ? parseFloat(second.amount / 1.12).toFixed(2) : parseFloat(second.amount).toFixed(2) }}<br></span>
 						</div>
 						<div class="second-total"  v-if="d.secondmonth !=0">{{ parseFloat(d.subtotal_second).toFixed(2) }}</div>
 						<div class="second-total" v-else>-</div>
 
 						<div class="third-quarter">
-							<span v-for="third in d.thirdmonth">{{ third.amount }}<br></span>
+							<span v-for="third in d.thirdmonth">{{ d.tax_type === "Vat" ? parseFloat(third.amount / 1.12).toFixed(2) : parseFloat(third.amount).toFixed(2) }}<br></span>
 						</div>
 						<div class="third-total" v-if="d.thirdmonth !=0">{{ parseFloat(d.subtotal_third).toFixed(2) }}</div>
 						<div class="third-total" v-else>-</div>
