@@ -13,5 +13,6 @@ class Payees extends Model
         'registered_address',
         'tin',
         'zip_code',
+        'tax_type',
     ];
 }

@@ -15,6 +15,7 @@ class PayeesController extends Controller
             'registered_address'=>['string'],
             'tin'=>['required'],
             'zip_code'=>['string'],
+            'tax_type'=>['required'],
         ]);
         Payees::create($validated);
     }
@@ -26,6 +27,7 @@ class PayeesController extends Controller
                     ->orWhere('tin','LIKE',"%$filter%")
                     ->orWhere('registered_address','LIKE',"%$filter%")
                     ->orWhere('zip_code','LIKE',"%$filter%")
+                    ->orWhere('tax_type','LIKE',"%$filter%")
                     ->orderBy('payee_name','ASC')->paginate(10);
             
         }else{
@@ -43,6 +45,7 @@ class PayeesController extends Controller
             ->orWhere('tin','LIKE',"%$filter%")
             ->orWhere('registered_address','LIKE',"%$filter%")
             ->orWhere('zip_code','LIKE',"%$filter%")
+            ->orWhere('tax_type','LIKE',"%$filter%")
             ->orderBy('payee_name','ASC')->paginate(10);
            
         }else{
@@ -67,7 +70,8 @@ class PayeesController extends Controller
             ->ignore($id)],
             'registered_address'=>['string'],
             'tin'=>['required'],
-            'zip_code'=>['string']
+            'zip_code'=>['string'],
+            'tax_type'=>['string']
         ]);
 
         $payees->update($validated);

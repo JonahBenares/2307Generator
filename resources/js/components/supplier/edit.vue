@@ -34,6 +34,7 @@
 		formData.append('registered_address', form.value.registered_address)
 		formData.append('tin', form.value.tin)
 		formData.append('zip_code', form.value.zip_code)
+		formData.append('tax_type', form.value.tax_type)
 		axios.post(`/api/update_payee/${form.value.id}`,formData).then(function () {
 			success.value='You have successfully updated the data!'
 			error.value=''
@@ -101,6 +102,16 @@
 									<div class="form-group">
 										<label class="form-label">ZIP Code</label>
 										<input type="text" class="form-control border" placeholder="ZIP Code" v-model="form.zip_code">
+									</div>									
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label class="form-label">Tax Type</label>
+										
+										<select type="text" class="form-control border" v-model="form.tax_type">
+											<option value="Vat">Vat</option>
+											<option value="Non-vat">Non-vat</option>
+										</select>
 									</div>									
 								</div>
 							</div>

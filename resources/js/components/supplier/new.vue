@@ -11,7 +11,8 @@
 		payee_name:'',
 		registered_address:'',
 		tin:'',
-		zip_code:''
+		zip_code:'',
+		tax_type:''
 	})
 	let error = ref('')
 	let success = ref('')
@@ -23,6 +24,7 @@
 		formData.append('registered_address', form.value.registered_address)
 		formData.append('tin', form.value.tin)
 		formData.append('zip_code', form.value.zip_code)
+		formData.append('tax_type', form.value.tax_type)
 
 		axios.post("/api/add_payee",formData).then(function () {
 			success.value='You have successfully added new data!'
@@ -30,6 +32,7 @@
 			form.value.registered_address=''
 			form.value.tin=''
 			form.value.zip_code=''
+			form.value.tax_type=''
 			error.value=''
 		
 		}, function (err) {
@@ -97,6 +100,16 @@
 									<div class="form-group">
 										<label class="form-label">ZIP Code</label>
 										<input type="text" class="form-control border" placeholder="ZIP Code" v-model="form.zip_code">
+									</div>									
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label class="form-label">Tax Type</label>
+										
+										<select type="text" class="form-control border" v-model="form.tax_type">
+											<option value="Vat">Vat</option>
+											<option value="Non-vat">Non-vat</option>
+										</select>
 									</div>									
 								</div>
 							</div>

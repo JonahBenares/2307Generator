@@ -77,7 +77,8 @@ import { useRouter } from "vue-router";
 										<th class="p-2 px-3 text-base" width="40%">Payee's Name</th>
 										<th class="p-2 px-3 text-base" width="30%">Registered Address</th>
 										<th class="p-2 px-3 text-base" width="20%">TIN</th>
-										<th class="p-2 px-3 text-base" width="10%">ZIP Code</th>
+										<th class="p-2 px-3 text-base" width="5%">ZIP Code</th>
+										<th class="p-2 px-3 text-base" width="15%">Tax Type</th>
 										<th class="p-2 px-3 text-base" width="1" align="center">
 											<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
 										</th>
@@ -89,6 +90,7 @@ import { useRouter } from "vue-router";
 										<td class="p-1 px-3">{{ p.registered_address }}</td>
 										<td class="p-1 px-3">{{ p.tin }}</td>
 										<td class="p-1 px-3">{{ p.zip_code }}</td>
+										<td class="p-1 px-3">{{ p.tax_type }}</td>
 										<td class="p-1 px-3">
 											<a @click="onEdit(p.id)"  class="btn btn-xs btn-info btn-rounded  text-white">
 												<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
