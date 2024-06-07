@@ -17,6 +17,7 @@ class generations extends Model
         'registered_address',
         'tin',
         'zip_code',
+        'tax_type',
         'atc_id',
         'atc_code',
         'atc_remarks',
