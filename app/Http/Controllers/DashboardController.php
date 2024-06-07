@@ -28,6 +28,21 @@ class DashboardController extends Controller
       
     }
 
+    public function dashboard(){
+        if(Auth::check()){
+            $credentials=[
+                'name' => Auth::user()?->name,
+                'temp_password' => Auth::user()?->temp_password,
+            ];
+        }else{
+            $credentials=[
+                'name' => '',
+                'temp_password' => '',
+            ];
+        }
+        return response()->json($credentials);
+   }
+
     public function get_drafts($id, $detail_id){
         $user_id = Auth::id();
       

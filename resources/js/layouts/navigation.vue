@@ -1,18 +1,31 @@
 <script setup >
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from "vue-router";
 import { HomeIcon , Cog8ToothIcon } from '@heroicons/vue/24/solid';
 import { PlusCircleIcon, BuildingStorefrontIcon, DocumentTextIcon, ClipboardDocumentListIcon, UserCircleIcon  } from '@heroicons/vue/24/outline';
 
-
 const router = useRouter();
 
 const dropdown = ref(false);
+let credentials=ref([])
+
+onMounted(async () => {
+		getDashboard()
+	})
 
 const logout = () => {
 	localStorage.removeItem('token')
 	router.push('/')
 }
+
+const getDashboard = async () => {
+		const response = await fetch(`/api/dashboard`);
+		credentials.value = await response.json();
+		if(!credentials.value.name){
+			alert('You have been logged out due to inactivity.')
+			router.push('/')
+		}
+	}
 
 </script>
 
