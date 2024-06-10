@@ -32,6 +32,7 @@ class generations extends Model
         'accountant_tin',
         'accountant_sign',
         'user_id',
+        'cancelled',
     ];
 
     public function generation_amount()

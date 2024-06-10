@@ -75,39 +75,39 @@
 							<span v-for="l in d.loop">{{ d.atc_code }}<br></span>
 							</div>
 						<div class="first-quarter">
-							<span v-for="first in d.firstmonth"> {{ d.tax_type === "Vat" ? parseFloat(first.amount / 1.12).toFixed(2) : parseFloat(first.amount).toFixed(2) }} <br></span>
+							<span v-for="first in d.firstmonth"> {{ d.tax_type === "Vat" ? (first.amount / 1.12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : (first.amount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }} <br></span>
 						</div>
-						<div class="first-total" v-if="d.firstmonth !=0">{{ parseFloat(d.subtotal_first).toFixed(2) }}</div>
+						<div class="first-total" v-if="d.firstmonth !=0">{{ (d.subtotal_first).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div>
 						<div class="first-total" v-else>-</div>
 
 						<div class="second-quarter">
-							<span v-for="second in d.secondmonth">{{ d.tax_type === "Vat" ? parseFloat(second.amount / 1.12).toFixed(2) : parseFloat(second.amount).toFixed(2) }}<br></span>
+							<span v-for="second in d.secondmonth">{{ d.tax_type === "Vat" ? (second.amount / 1.12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : (second.amount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}<br></span>
 						</div>
-						<div class="second-total"  v-if="d.secondmonth !=0">{{ parseFloat(d.subtotal_second).toFixed(2) }}</div>
+						<div class="second-total"  v-if="d.secondmonth !=0">{{ (d.subtotal_second).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div>
 						<div class="second-total" v-else>-</div>
 
 						<div class="third-quarter">
-							<span v-for="third in d.thirdmonth">{{ d.tax_type === "Vat" ? parseFloat(third.amount / 1.12).toFixed(2) : parseFloat(third.amount).toFixed(2) }}<br></span>
+							<span v-for="third in d.thirdmonth">{{ d.tax_type === "Vat" ? (third.amount / 1.12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : (third.amount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}<br></span>
 						</div>
-						<div class="third-total" v-if="d.thirdmonth !=0">{{ parseFloat(d.subtotal_third).toFixed(2) }}</div>
+						<div class="third-total" v-if="d.thirdmonth !=0">{{ (d.subtotal_third).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div>
 						<div class="third-total" v-else>-</div>
 
 
 						<div class="sub-total" >
 							<span v-for="s in d.subtotal" >
-								<span v-if="s != 0">{{ parseFloat(s).toFixed(2) }}</span>
+								<span v-if="s != 0">{{ (s).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</span>
 							<br></span>
 						</div>
-						<div class="grand-total" v-if="d.grandtotal !=0">{{ parseFloat(d.grandtotal).toFixed(2) }}</div>
+						<div class="grand-total" v-if="d.grandtotal !=0">{{ (d.grandtotal).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div>
 
 						<div class="tax-quarter">
 							<span v-for="t in d.tax">
-								<span v-if="t != 0">{{ parseFloat(t).toFixed(2) }}</span>
+								<span v-if="t != 0">{{ (t).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</span>
 							<br></span>
 						</div>
 
-						<div class="finaltax">{{ parseFloat(d.totaltax).toFixed(2) }}</div> <!-- para ni sa printing nga class naka-->
-						<div class="final-tax ">{{ parseFloat(d.totaltax).toFixed(2) }}</div><!-- para ni ya sa view nga class-->
+						<div class="finaltax">{{ (d.totaltax).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div> <!-- para ni sa printing nga class naka-->
+						<div class="final-tax ">{{ (d.totaltax).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</div><!-- para ni ya sa view nga class-->
 						
 						<div class="esig-container">
 							<img :src="'/images/'+d.accountant_signature" alt="" class="esignature">

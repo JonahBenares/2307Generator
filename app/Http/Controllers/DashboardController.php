@@ -51,7 +51,7 @@ class DashboardController extends Controller
         if($exist_head){
             $head_id = GenerationHead::where('user_id','=', $user_id)->where('status','=','0')->value('id');
             $head = GenerationHead::where('user_id','=', $user_id)->where('status','=','0')->get();
-            $details = generations::where('generation_head_id','=',$head_id)->get();
+            $details = generations::where('generation_head_id','=',$head_id)->where('cancelled','=','0')->get();
             
         } else {
             $head_id = $this->add_head();
@@ -61,7 +61,7 @@ class DashboardController extends Controller
         
 
         if($detail_id != 0){
-            foreach(generations::where('generation_head_id','=',$head_id)->where('id','=',$detail_id)->get() AS $g){
+            foreach(generations::where('generation_head_id','=',$head_id)->where('id','=',$detail_id)->where('cancelled','=','0')->get() AS $g){
                 $edit_details = [
                     'detail_id'=>$g->id,
                     'generation_head_id'=>$g->generation_head_id,
@@ -490,5 +490,13 @@ class DashboardController extends Controller
           
         }
         return response()->json($data);
+    }
+
+    public function cancel_generation($id){
+        $cancel_head=generations::where('id',$id)->first();
+        $cancel_data = [
+            'cancelled'=>'1'
+        ];
+        $cancel_head->update($cancel_data);
     }
 }

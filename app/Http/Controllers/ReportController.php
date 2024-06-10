@@ -18,7 +18,7 @@ class ReportController extends Controller
     public function search_generation(Request $request){
        //return $request->get('date_encoded');
         $genarray=array();
-        $query = generations::with(['generation_head']);
+        $query = generations::with(['generation_head'])->where('cancelled', '0');
         $query->whereHas('generation_head', function ($query) {
             $query->where('status', '1');
         });

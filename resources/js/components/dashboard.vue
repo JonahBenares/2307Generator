@@ -1,6 +1,7 @@
 <script setup>
 	import navigation from '@/layouts/navigation.vue';
-	import { CheckCircleIcon, ExclamationCircleIcon, TrashIcon, PlusIcon, XMarkIcon, MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, PrinterIcon} from '@heroicons/vue/24/solid'
+	import { CheckCircleIcon, ExclamationCircleIcon, TrashIcon, PlusIcon, XMarkIcon, XCircleIcon,  MagnifyingGlassIcon, InboxArrowDownIcon, EyeIcon, PrinterIcon} from '@heroicons/vue/24/solid'
+import { CanceledError } from 'axios';
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter()
@@ -248,6 +249,15 @@
 			//window.location.href ='/dashboard/new'
 		});
 	}
+
+	const cancelGeneration = (id) => {
+		if(confirm("Are you sure you want to cancel this 2307 file?")){
+			axios.post('/api/cancel_generation/'+id).then(function (response) {
+						update.value='You have successfully cancelled the 2307 file!'
+						getDrafts();
+					});
+		}
+	}
 </script>
 
 <template>
@@ -418,8 +428,8 @@
 											<a :href="'/print/'+ d.id" class="mt-1" target="_blank">
 												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PrinterIcon>
 											</a>
-											<a href="" class="mt-1 !text-red-500">
-												<TrashIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></TrashIcon>
+											<a href="" @click="cancelGeneration(d.id)" class="mt-1 !text-red-500">
+												<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></XCircleIcon>
 											</a>
 										</div>
 									</div>
