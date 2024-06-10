@@ -16,4 +16,14 @@ class GenerationAmount extends Model
         'amount',
         'user_id'
     ];
+
+    public function generation()
+    {
+        return $this->belongsTo(generations::class);
+    }
+
+    public function generation_head()
+    {
+        return $this->belongsTo(GenerationHead::class);
+    }
 }
