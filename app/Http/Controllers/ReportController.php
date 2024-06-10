@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\generations;
 use App\Models\GenerationHead;
+use App\Models\GenerationAmount;
 use App\Models\Payees;
+use App\Models\AmountUpdateLogs;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -46,13 +48,43 @@ class ReportController extends Controller
             $gen_list=$query->get();
           
             foreach($gen_list AS $gl){
-                $genarray[]=[
-                    'generation_head_id'=>$gl->generation_head_id,
-                    'id'=>$gl->id,
-                    'payee_name'=>$gl->payee_name,
-                    'date_encoded'=>$gl->generation_head->date_encoded,
-                    'date_period'=>$gl->date_from . " to " . $gl->date_to
-                ];
+                $amount_list = GenerationAmount::where('generation_id',$gl->id)->groupBy('generation_id','quarter_month')->get();
+
+                foreach($amount_list AS $al){
+                    $total_amount = GenerationAmount::where('generation_id','=',$gl->id)->where('quarter_month','=',$al->quarter_month)->sum('amount');
+                    if($gl->tax_type == 'Vat'){
+                        $total_tax_base = $total_amount / 1.12;
+                    }else{
+                        $total_tax_base = $total_amount;
+                    }
+
+                    $ewt = $total_tax_base * $gl->atc_percentage;
+
+                    $date_updated_list = AmountUpdateLogs::where('generation_head_id','=',$al->generation_head_id)->where('generation_id','=',$al->generation_id)->where('quarter_month','=',$al->quarter_month)->get();
+                    $count_date_update=$date_updated_list->count();
+
+                    if($count_date_update == 0){
+                        $date_encoded = $gl->generation_head->date_encoded;
+                    }else{
+                        $date_encoded = AmountUpdateLogs::where('generation_head_id','=',$al->generation_head_id)
+                        ->where('generation_id','=',$al->generation_id)
+                        ->where('quarter_month','=',$al->quarter_month)
+                        ->orderBy('date_updated', 'DESC')->limit(1)->value('date_updated');
+                    }
+                    
+                    $genarray[]=[
+                        'generation_head_id'=>$gl->generation_head_id,
+                        'id'=>$gl->id,
+                        'payee_name'=>$gl->payee_name,
+                        'date_encoded'=>$date_encoded,
+                        'date_period'=>$gl->date_from . " to " . $gl->date_to,
+                        'tin'=>$gl->tin,
+                        'tax_type'=>$gl->tax_type,
+                        'atc_code'=>$gl->atc_code,
+                        'tax_base'=>$total_tax_base,
+                        'ewt'=>$ewt,
+                    ];
+                }
             }
             
              return response()->json($genarray);

@@ -9,6 +9,7 @@ use App\Models\generations;
 use App\Models\GenerationHead;
 use App\Models\accountant;
 use App\Models\GenerationAmount;
+use App\Models\AmountUpdateLogs;
 use App\Http\Requests\GenerationRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -118,8 +119,17 @@ class DashboardController extends Controller
 
     public function get_amount($detail_id){
         $user_id = Auth::id();
+        $genarray=array();
         $amount = GenerationAmount::where('generation_id','=', $detail_id)->where('user_id','=',$user_id)->get();
-        return response()->json($amount);
+        foreach($amount AS $a){
+            $genarray[]=[
+                'id'=>$a->id,
+                'quarter_month'=>$a->quarter_month,
+                'amount'=>$a->amount,
+                'old_amount'=>$a->amount,
+            ];
+        }
+        return response()->json($genarray);
 
     }
 
@@ -170,6 +180,7 @@ class DashboardController extends Controller
                 'accountant_position'=>$request->input('accountant_position'),
                 'accountant_tin'=>$request->input('accountant_tin'),
                 'accountant_sign'=>$request->input('accountant_sign'),
+                'user_id'=>$user_id,
             ]);
 
             foreach(json_decode($rows) AS $r){
@@ -232,6 +243,18 @@ class DashboardController extends Controller
                        'amount'=>$r->amount,
                        'user_id'=>$user_id
                    ]);
+
+                   if($r->amount != $r->old_amount){
+                        AmountUpdateLogs::create([
+                            'date_updated'=>date("Y-m-d H:i:s"),
+                            'generation_head_id'=>$head_id,
+                            'generation_id'=>$detail_id,
+                            'quarter_month'=>$r->quarter_month,
+                            'old_amount'=>$r->old_amount,
+                            'new_amount'=>$r->amount,
+                            'user_id'=>$user_id
+                        ]);
+                   }
                }
                
                return $head_id;
