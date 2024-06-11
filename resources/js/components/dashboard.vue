@@ -72,7 +72,6 @@ import { CanceledError } from 'axios';
 
 	
 	const getDrafts = async () => {
-
 		
 			const response = await axios.get(`/api/get_drafts/${props.id}/${props.detail_id}`);
 			head.value = response.data.head
