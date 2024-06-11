@@ -137,6 +137,7 @@ class ReportController extends Controller
                     $genarray[]=[
                         'generation_head_id'=>$gl->generation_head_id,
                         'id'=>$gl->id,
+                        'reference_number'=>$gl->reference_number,
                         'payee_name'=>$gl->payee_name,
                         'date_encoded'=>$date_encoded,
                         'quarter_month'=>$quarter_month,
