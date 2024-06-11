@@ -7,7 +7,6 @@
         <title>2307 GENERATOR</title>
 
           <?php echo app('Illuminate\Foundation\Vite')('resources/css/app.css'); ?>
-          <?php echo app('Illuminate\Foundation\Vite')('resources/css/figtreeFont.css'); ?>
     </head>
     
     <body >

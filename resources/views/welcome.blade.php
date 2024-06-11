@@ -7,7 +7,6 @@
         <title>2307 GENERATOR</title>
 
           @vite('resources/css/app.css')
-          @vite('resources/css/figtreeFont.css')
     </head>
     
     <body >

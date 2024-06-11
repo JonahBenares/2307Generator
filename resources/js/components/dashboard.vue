@@ -429,9 +429,9 @@ import { CanceledError } from 'axios';
 										<div class="flex justify-end space-x-2">
 											<a :href="'/print/'+ d.id" class="mt-1" target="_blank">
 												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PrinterIcon>
-											</a>
-											<a href="" @click="cancelGeneration(d.id)" class="mt-1 !text-red-500">
-												<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></XCircleIcon>
+											</a> 
+											<a href=" " @click="cancelGeneration(d.id)" class="mt-1 !text-red-500" >
+												<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" ></XCircleIcon>
 											</a>
 										</div>
 									</div>
