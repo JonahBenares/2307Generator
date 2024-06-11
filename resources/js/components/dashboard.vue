@@ -183,7 +183,7 @@ import { CanceledError } from 'axios';
 			form.value.id = response.data
 			getDrafts()
 			getAccountant()
-			router.push('/dashboard/'+response.data+'/0')
+			// router.push('/dashboard/'+response.data+'/0')
 			
 		}, function (err) {
 			error.value = err.response.data.message;
@@ -230,7 +230,7 @@ import { CanceledError } from 'axios';
 				error.value=''
 				form.value.generation_head_id = response.data
 				
-				router.push('/dashboard/'+response.data+'/0')
+				// router.push('/dashboard/'+response.data+'/0')
 				getDrafts()
 				getAccountant()
 				
@@ -453,7 +453,7 @@ import { CanceledError } from 'axios';
 						</div>
 						<div class="flex justify-between space-x-1  pb-4 px-4" v-else>
 							<span class="w-full"><a :href="'/dashboard/'+ props.id + '/0'" class="btn btn-danger btn-sm btn-block ">Cancel Update</a></span>
-							<span class="w-full"><button @click="onEdit(props.detail_id)"   class="btn btn-primary btn-sm btn-block ">Save Changes</button></span>
+							<span class="w-full"><a @click="onEdit(props.detail_id)"   class="btn btn-primary btn-sm btn-block ">Save Changes</a></span>
 						</div>
 					</div>
 				</div>
