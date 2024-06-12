@@ -5,6 +5,17 @@
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter()
+	import DataTable from 'datatables.net-vue3';
+	import DataTablesCore from 'datatables.net-bs5';
+	import 'datatables.net-responsive';
+	import 'datatables.net-select';
+	import 'datatables.net-buttons';
+	import 'datatables.net-buttons/js/buttons.html5';
+	import 'datatables.net-buttons/js/buttons.print.js';
+	import jszip from 'jszip';
+	import $ from 'jquery'
+	DataTablesCore.Buttons.jszip(jszip);
+	DataTable.use(DataTablesCore);
 	let rows = ref([])
 	let payees = ref([])
 	let form = ref({
@@ -14,6 +25,56 @@
 		payee:'',
 	})
 	let error = ref('')
+	const options = {
+		// dom: 'Bftip',
+		dom: "<'row'<'col-sm-3'><'col-sm-6 text-center'B><'col-sm-3'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-5'p>>",
+		select: true,	
+		lengthMenu: [
+			[10, 25, 50, -1],
+			['10 rows', '25 rows', '50 rows', 'Show all']
+		],
+		buttons: [
+			{
+				extend: 'copy',
+				exportOptions: {
+					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+					orthogonal: null
+				}
+			},
+			{
+				extend: 'excel',
+				title: '2307 Report',
+				customize: function(xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    $( 'row c', sheet ).attr( 's', '25' );
+					var clRow = $('row', sheet);
+                    clRow[0].children[0].remove(); // clear header cell
+                },
+				exportOptions: {
+					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+					orthogonal: null
+				}
+			},
+			// {
+			// 	extend: 'csv',
+			// 	exportOptions: {
+			// 		columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+			// 		orthogonal: null
+			// 	}
+			// },
+			{
+				extend: 'print',
+				exportOptions: {
+					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+					orthogonal: null
+				}
+			},
+			{
+				extend: 'pageLength'
+			}
+		]
+		// buttons: ['copy','excel','csv','pageLength']
+	};
 
 	onMounted(async () => {
 		getPayees()
@@ -33,7 +94,7 @@
 		formData.append('payee', form.value.payee)
 
 			axios.post("/api/search_generation/",formData).then(function (response) {
-				rows.value = response.data
+				rows.value = response.data.genarray
 			}, function (err) {
 				error.value = err.response.data.message;
 				
@@ -71,14 +132,14 @@
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
 								<h4 class="font-bold m-0 capitalize" >Report</h4>
-								<div class="flex justify-between space-x-1">
+								<!-- <div class="flex justify-between space-x-1">
 									<button class="btn btn-sm btn-success">
 										<div class="flex justify-center space-x-2">
 											<ArrowTopRightOnSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-5"></ArrowTopRightOnSquareIcon>
 											<span>Export</span>
 										</div>
 									</button>
-								</div>
+								</div> -->
 							</div>
 							<div class="flex justify-between space-x-2 mb-2 rounded border p-3 ">
 								<div class="w-2/12">
@@ -110,7 +171,8 @@
 									</a>
 								</div>
 							</div>
-							<table class="table table-bor table-hover rounded ">
+							<!-- <table class="table table-bor table-hover rounded "> -->
+							<DataTable :data="rows" :options="options" class="display" width="100%"> 
 								<thead>
 									<tr>
 										<th class="p-2 px-3 text-base" width="15%">Period</th>
@@ -130,7 +192,19 @@
 										</th>
 									</tr>
 								</thead>
-								<tbody v-if="rows.length>0">
+								<template #column-10="props">
+										<a @click="onEdit(props.rowData.generation_head_id, props.rowData.id)" class="btn btn-xs btn-info btn-rounded text-white" target='_blank' >
+											<PencilSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PencilSquareIcon>
+										</a>
+										<a :href="'/print/'+props.rowData.id" class="btn btn-xs btn-success btn-rounded text-white" target='_blank' >
+											<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></PrinterIcon>
+										</a>
+										<a href="" @click="cancelGeneration(props.rowData.id)" class="btn btn-xs btn-danger btn-rounded text-white"  >
+											<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></XCircleIcon>
+										</a>
+								</template>
+							</DataTable>
+								<!-- <tbody v-if="rows.length>0">
 									<tr v-for="r in rows">
 										<td class="p-1 px-3">{{ r.date_period }}</td>
 										<td class="p-1 px-3">{{ r.quarter_month }}</td>
@@ -163,7 +237,7 @@
 									</tr>
 
 								</tbody>
-							</table>
+							</table> -->
 						</div>
 					</div>
 				</div>
@@ -171,3 +245,8 @@
 		</div>
     </navigation>
 </template>
+<style>
+@import 'datatables.net-dt';
+@import 'datatables.net-buttons-dt';
+@import 'datatables.net-select-dt';
+</style>

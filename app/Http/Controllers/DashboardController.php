@@ -60,7 +60,7 @@ class DashboardController extends Controller
             $details=[];
         }
         
-
+        
         if($detail_id != 0){
             foreach(generations::where('generation_head_id','=',$head_id)->where('id','=',$detail_id)->where('cancelled','=','0')->get() AS $g){
                 $edit_details = [

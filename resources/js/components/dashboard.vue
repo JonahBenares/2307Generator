@@ -72,7 +72,6 @@ import { CanceledError } from 'axios';
 
 	
 	const getDrafts = async () => {
-
 		
 			const response = await axios.get(`/api/get_drafts/${props.id}/${props.detail_id}`);
 			head.value = response.data.head
@@ -183,7 +182,7 @@ import { CanceledError } from 'axios';
 			form.value.id = response.data
 			getDrafts()
 			getAccountant()
-			router.push('/dashboard/'+response.data+'/0')
+			// router.push('/dashboard/'+response.data+'/0')
 			
 		}, function (err) {
 			error.value = err.response.data.message;
@@ -230,7 +229,7 @@ import { CanceledError } from 'axios';
 				error.value=''
 				form.value.generation_head_id = response.data
 				
-				router.push('/dashboard/'+response.data+'/0')
+				// router.push('/dashboard/'+response.data+'/0')
 				getDrafts()
 				getAccountant()
 				
@@ -429,9 +428,9 @@ import { CanceledError } from 'axios';
 										<div class="flex justify-end space-x-2">
 											<a :href="'/print/'+ d.id" class="mt-1" target="_blank">
 												<PrinterIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></PrinterIcon>
-											</a>
-											<a href="" @click="cancelGeneration(d.id)" class="mt-1 !text-red-500">
-												<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"></XCircleIcon>
+											</a> 
+											<a href=" " @click="cancelGeneration(d.id)" class="mt-1 !text-red-500" >
+												<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" ></XCircleIcon>
 											</a>
 										</div>
 									</div>
@@ -453,7 +452,7 @@ import { CanceledError } from 'axios';
 						</div>
 						<div class="flex justify-between space-x-1  pb-4 px-4" v-else>
 							<span class="w-full"><a :href="'/dashboard/'+ props.id + '/0'" class="btn btn-danger btn-sm btn-block ">Cancel Update</a></span>
-							<span class="w-full"><button @click="onEdit(props.detail_id)"   class="btn btn-primary btn-sm btn-block ">Save Changes</button></span>
+							<span class="w-full"><a @click="onEdit(props.detail_id)"   class="btn btn-primary btn-sm btn-block ">Save Changes</a></span>
 						</div>
 					</div>
 				</div>
