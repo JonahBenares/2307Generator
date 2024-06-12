@@ -30,6 +30,7 @@ import { CanceledError } from 'axios';
 		remarks:'',
 		percentage:'',
 		amount:'',
+		old_amount:'',
 		include_sign:'',
 		reference_number:'',
 		accountant_id:'',
