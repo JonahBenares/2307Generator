@@ -134,28 +134,14 @@ class ReportController extends Controller
                     }
 
                     
-                    // $genarray[]=[
-                    //     'generation_head_id'=>$gl->generation_head_id,
-                    //     'id'=>$gl->id,
-                    //     $gl->date_from . " to " . $gl->date_to,
-                    //     $quarter_month,
-                    //     $date_encoded,
-                    //     $gl->reference_number,
-                    //     $gl->payee_name,
-                    //     $gl->tin,
-                    //     $gl->tax_type,
-                    //     $gl->atc_code,
-                    //     number_format($total_tax_base,2),
-                    //     number_format($ewt,2),
-                    // ];
                     $genarray[]=[
                         'generation_head_id'=>$gl->generation_head_id,
                         'id'=>$gl->id,
-                        'date'=>$gl->date_from . " to " . $gl->date_to,
-                        'quarter_month'=>$quarter_month,
-                        'date_encoded'=>$date_encoded,
                         'reference_number'=>$gl->reference_number,
                         'payee_name'=>$gl->payee_name,
+                        'date_encoded'=>$date_encoded,
+                        'quarter_month'=>$quarter_month,
+                        'date_period'=>$gl->date_from . " to " . $gl->date_to,
                         'tin'=>$gl->tin,
                         'tax_type'=>$gl->tax_type,
                         'atc_code'=>$gl->atc_code,
@@ -164,10 +150,8 @@ class ReportController extends Controller
                     ];
                 }
             }
-            return response()->json([
-                'genarray'=>$genarray,
-            ],200);
-            //  return response()->json($genarray);
+            
+             return response()->json($genarray);
       
     }
 
