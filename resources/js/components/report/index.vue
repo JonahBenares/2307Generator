@@ -5,17 +5,17 @@
 	import {onMounted, ref} from "vue";
 	import { useRouter } from "vue-router";
 	const router = useRouter()
-	import DataTable from 'datatables.net-vue3';
-	import DataTablesCore from 'datatables.net-bs5';
-	import 'datatables.net-responsive';
-	import 'datatables.net-select';
-	import 'datatables.net-buttons';
-	import 'datatables.net-buttons/js/buttons.html5';
-	import 'datatables.net-buttons/js/buttons.print.js';
-	import jszip from 'jszip';
-	import $ from 'jquery'
-	DataTablesCore.Buttons.jszip(jszip);
-	DataTable.use(DataTablesCore);
+	// import DataTable from 'datatables.net-vue3';
+	// import DataTablesCore from 'datatables.net-bs5';
+	// import 'datatables.net-responsive';
+	// import 'datatables.net-select';
+	// import 'datatables.net-buttons';
+	// import 'datatables.net-buttons/js/buttons.html5';
+	// import 'datatables.net-buttons/js/buttons.print.js';
+	// import jszip from 'jszip';
+	// import $ from 'jquery'
+	// DataTablesCore.Buttons.jszip(jszip);
+	// DataTable.use(DataTablesCore);
 	let rows = ref([])
 	let payees = ref([])
 	let form = ref({
@@ -25,56 +25,49 @@
 		payee:'',
 	})
 	let error = ref('')
-	const options = {
-		// dom: 'Bftip',
-		dom: "<'row'<'col-sm-3'><'col-sm-6 text-center'B><'col-sm-3'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-5'p>>",
-		select: true,	
-		lengthMenu: [
-			[10, 25, 50, -1],
-			['10 rows', '25 rows', '50 rows', 'Show all']
-		],
-		buttons: [
-			{
-				extend: 'copy',
-				exportOptions: {
-					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
-					orthogonal: null
-				}
-			},
-			{
-				extend: 'excel',
-				title: '2307 Report',
-				customize: function(xlsx) {
-                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                    $( 'row c', sheet ).attr( 's', '25' );
-					var clRow = $('row', sheet);
-                    clRow[0].children[0].remove(); // clear header cell
-                },
-				exportOptions: {
-					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
-					orthogonal: null
-				}
-			},
-			// {
-			// 	extend: 'csv',
-			// 	exportOptions: {
-			// 		columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
-			// 		orthogonal: null
-			// 	}
-			// },
-			{
-				extend: 'print',
-				exportOptions: {
-					columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
-					orthogonal: null
-				}
-			},
-			{
-				extend: 'pageLength'
-			}
-		]
-		// buttons: ['copy','excel','csv','pageLength']
-	};
+	// const options = {
+	// 	dom: "<'row'<'col-sm-3'><'col-sm-6 text-center'B><'col-sm-3'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-5'p>>",
+	// 	select: true,	
+	// 	lengthMenu: [
+	// 		[10, 25, 50, -1],
+	// 		['10 rows', '25 rows', '50 rows', 'Show all']
+	// 	],
+	// 	buttons: [
+	// 		{
+	// 			extend: 'copy',
+	// 			exportOptions: {
+	// 				columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+	// 				orthogonal: null
+	// 			}
+	// 		},
+	// 		{
+	// 			extend: 'excel',
+	// 			title: '2307 Report',
+	// 			customize: function(xlsx) {
+    //                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
+    //                 $( 'row c', sheet ).attr( 's', '25' );
+	// 				var clRow = $('row', sheet);
+    //                 clRow[0].children[0].remove(); 
+    //             },
+	// 			exportOptions: {
+	// 				columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+	// 				orthogonal: null
+	// 			}
+	// 		},
+		
+	// 		{
+	// 			extend: 'print',
+	// 			exportOptions: {
+	// 				columns: [ 0, 1, 2, 3, 4, 5,6,7,8,9],
+	// 				orthogonal: null
+	// 			}
+	// 		},
+	// 		{
+	// 			extend: 'pageLength'
+	// 		}
+	// 	]
+		
+	// };
 
 	onMounted(async () => {
 		getPayees()
@@ -265,8 +258,8 @@
 		</div>
     </navigation>
 </template>
-<style>
+<!-- <style>
 @import 'datatables.net-dt';
 @import 'datatables.net-buttons-dt';
 @import 'datatables.net-select-dt';
-</style>
+</style> -->
