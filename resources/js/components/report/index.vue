@@ -172,7 +172,7 @@
 								</div>
 							</div>
 							<!-- <table class="table table-bor table-hover rounded "> -->
-							<DataTable :data="rows" :options="options" class="display" width="100%"> 
+							<!-- <DataTable :data="rows" :options="options" class="display" width="100%"> 
 								<thead>
 									<tr>
 										<th class="p-2 px-3 text-base" width="15%">Period</th>
@@ -203,10 +203,30 @@
 											<XCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3"></XCircleIcon>
 										</a>
 								</template>
-							</DataTable>
-								<!-- <tbody v-if="rows.length>0">
+							</DataTable> -->
+							<table>
+								<thead>
+									<tr>
+										<th class="p-2 px-3 text-base" width="15%">Period</th>
+										<th class="p-2 px-3 text-base" width="10%">Month of the Quarter</th>
+										<th class="p-2 px-3 text-base" width="10%">Date Encoded</th>
+										<th class="p-2 px-3 text-base" width="10%">Reference Number</th>
+										<th class="p-2 px-3 text-base" width="35%">Payee's Name</th>
+										<th class="p-2 px-3 text-base" width="10%">TIN</th>
+										<th class="p-2 px-3 text-base" width="10%">Businees Tax</th>
+										<th class="p-2 px-3 text-base" width="10%">AT Code</th>
+										<th class="p-2 px-3 text-base" width="10%">Tax base</th>
+										<th class="p-2 px-3 text-base" width="10%">EWT</th>
+										<th class="p-2 px-3 text-base text-center" width="1%" align="center">
+											<center>
+												<Bars3Icon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"></Bars3Icon>
+											</center>
+										</th>
+									</tr>
+								</thead>
+								<tbody v-if="rows.length>0">
 									<tr v-for="r in rows">
-										<td class="p-1 px-3">{{ r.date_period }}</td>
+										<td class="p-1 px-3">{{ r.date }}</td>
 										<td class="p-1 px-3">{{ r.quarter_month }}</td>
 										<td class="p-1 px-3">{{ r.date_encoded }}</td>
 										<td class="p-1 px-3">{{ r.reference_number }}</td>
@@ -237,7 +257,7 @@
 									</tr>
 
 								</tbody>
-							</table> -->
+							</table>
 						</div>
 					</div>
 				</div>
