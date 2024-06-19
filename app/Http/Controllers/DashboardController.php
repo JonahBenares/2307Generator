@@ -234,7 +234,6 @@ class DashboardController extends Controller
                 $amount = GenerationAmount::where('generation_id', '=', $detail_id);
                 $amount->delete();
 
-
                foreach(json_decode($rows) AS $r){
                    GenerationAmount::create([
                        'generation_head_id'=>$head_id,
@@ -244,7 +243,7 @@ class DashboardController extends Controller
                        'user_id'=>$user_id
                    ]);
 
-                   if($r->amount != $r->old_amount){
+                   if($r->amount != $r->old_amount && $r->old_amount != 0){
                         AmountUpdateLogs::create([
                             'date_updated'=>date("Y-m-d H:i:s"),
                             'generation_head_id'=>$head_id,
