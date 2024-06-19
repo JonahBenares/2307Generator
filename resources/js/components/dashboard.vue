@@ -126,6 +126,7 @@ import { CanceledError } from 'axios';
 			id:"",
 			quarter_month:"",
             amount:"",
+            old_amount:0,
            }
        );
    }
@@ -230,8 +231,8 @@ import { CanceledError } from 'axios';
 				form.value.generation_head_id = response.data
 				
 				// router.push('/dashboard/'+response.data+'/0')
-				getDrafts()
-				getAccountant()
+				// getDrafts()
+				// getAccountant()
 				
 			}, function (err) {
 				error.value = err.response.data.message;
@@ -241,11 +242,13 @@ import { CanceledError } from 'axios';
 	}
 
 
-	const saveSet = () => {
+	const saveSet = (generation_head_id) => {
 
-		axios.get("/api/save_set/"+props.id).then(function (response) {
+		// axios.get("/api/save_set/"+props.id).then(function (response) {
+			axios.get("/api/save_set/"+generation_head_id).then(function (response) {
 			// alert("List of 2307 have been successfully saved!");
-			router.push('/print_all/'+props.id)
+			// router.push('/print_all/'+props.id)
+			router.push('/print_all/'+generation_head_id)
 			//window.location.href ='/dashboard/new'
 		});
 	}
@@ -459,7 +462,7 @@ import { CanceledError } from 'axios';
 				<div class="col-lg-6">
 					<div class="card !shadow-lg">
 						<div class="px-4 pb-4">
-							<a @click = "saveSet()" class="btn btn-sm btn-success btn-block text-white">Save Set and Print All</a>
+							<a @click = "saveSet(form.generation_head_id)" class="btn btn-sm btn-success btn-block text-white">Save Set and Print All</a>
 						</div>
 					</div>
 				</div>
