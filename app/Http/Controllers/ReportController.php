@@ -145,8 +145,8 @@ class ReportController extends Controller
                         'tin'=>$gl->tin,
                         'tax_type'=>$gl->tax_type,
                         'atc_code'=>$gl->atc_code,
-                        'tax_base'=>$total_tax_base,
-                        'ewt'=>$ewt,
+                        'tax_base'=>number_format($total_tax_base,2),
+                        'ewt'=>number_format($ewt,2),
                     ];
                 }
             }

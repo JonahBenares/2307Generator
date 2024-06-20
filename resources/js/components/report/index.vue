@@ -137,8 +137,8 @@
 										<td class="p-1 px-3">{{ r.tin }}</td>
 										<td class="p-1 px-3">{{ r.tax_type }}</td>
 										<td class="p-1 px-3">{{ r.atc_code }}</td>
-										<td class="p-1 px-3">{{ r.tax_base.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
-										<td class="p-1 px-3">{{ r.ewt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+										<td class="p-1 px-3">{{ r.tax_base }}</td>
+										<td class="p-1 px-3">{{ r.ewt }}</td>
 										<td class="p-1 px-3">
 											<div class="flex justify-center space-x-1">
 												<a @click="onEdit(r.generation_head_id, r.id)" class="btn btn-xs btn-info btn-rounded text-white" target='_blank' >
