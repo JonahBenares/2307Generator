@@ -88,7 +88,7 @@
 						subtotal_ewt.value.push(subtotalewt)
 			}
 			formItems.append('sub_total_ewt', JSON.stringify(subtotal_ewt.value))
-			axios.post("/api/update_generation_total/",formItems);
+			// axios.post("/api/update_generation_total/",formItems);
 			window.print()
 			getPrintDetails()
 	}
@@ -108,13 +108,15 @@
 				grandtotal += parseFloat(document.getElementsByClassName("subtotalamount")[t].value);
 			}
 			document.getElementById('overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
-			document.getElementById('printin_overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
+			document.getElementById('print_overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
 			document.getElementById("ewt_amount"+row).value = parseFloat(sub_t * percent).toFixed(2);
+			document.getElementById("ewt_amount1"+row).innerText = parseFloat(sub_t * percent).toFixed(2);
+			document.getElementById("sub_total1"+row).innerText = parseFloat(sub_t).toFixed(2);
 			CalculateTotalEwt();
 
 	}
 
-	const CalculateTotalEwt = () => {
+	const CalculateTotalEwt = (row) => {
 	var count_row = document.getElementsByClassName("ewtamount");
 	var ewttotal=0;
 			for(var e=0;e<count_row.length;e++){
@@ -122,6 +124,7 @@
 			}
 			document.getElementById('overallewt').value = parseFloat(ewttotal).toFixed(2);
 			document.getElementById('print_overallewt').value = parseFloat(ewttotal).toFixed(2);
+			document.getElementById("ewt_amount1"+row).innerText = parseFloat(document.getElementById("ewt_amount"+row).value).toFixed(2);s
 	}
 
 
@@ -175,7 +178,7 @@
 							<input type="number" id="firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_first" v-else>
 						</div>
 						<div class="first-total" id="firstmonthtotal" v-else>-</div>
-						<input type="hidden" id="original_firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_first">
+						<input type="hidden" id="original_firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_first">
 						<div class="first-total1" v-if="d.firstmonth !=0"> {{ (d.first_month_total != 0) ? parseFloat(d.first_month_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : parseFloat(d.subtotal_first).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}}</div>
 						<div class="first-total1" v-else>-</div>
 						
@@ -189,7 +192,7 @@
 							<input type="number" id="secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_second" v-else>
 						</div>
 						<div class="second-total" id="secondmonthtotal" v-else>-</div>
-						<input type="hidden" id="original_secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_second">
+						<input type="hidden" id="original_secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_second">
 						<div class="second-total1"  v-if="d.secondmonth !=0">{{ (d.second_month_total != 0) ? parseFloat(d.second_month_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : parseFloat(d.subtotal_second).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</div>
 						<div class="second-total1" v-else>-</div>
 
@@ -202,31 +205,29 @@
 							<input type="number" id="thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_third" v-else>
 						</div>
 						<div class="third-total" id="thirdmonthtotal" v-else>-</div>
-						<input type="hidden" id="original_thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_third">
+						<input type="hidden" id="original_thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_third">
 						<div class="third-total1" v-if="d.thirdmonth !=0">{{ (d.third_month_total != 0) ? parseFloat(d.third_month_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : parseFloat(d.subtotal_third).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</div>
 						<div class="third-total1" v-else>-</div>
 
 						<div class="sub-total" v-if="d.count_row == 0">
 							<span v-for="(s, row) in d.subtotal">
-								<!-- <span v-if="s != 0">{{ parseFloat(s).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
 								<input v-if="s != 0" type="number" :id="'sub_total'+ row" class="w-full text-right bg-transparent p-0 subtotalamount" :value="s" @change="CalculateGrandTotal(row)">
 							<br></span>
 						</div>
 						<div class="sub-total" v-else>
 							<span v-for="(s, row) in d.gen_total.sub_to">
-								<!-- <span v-if="s != 0">{{ parseFloat(s).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
 								<input v-if="s != 0" type="number" :id="'sub_total'+ row" class="w-full text-right bg-transparent p-0 subtotalamount" :value="s.sub_total" @change="CalculateGrandTotal(row)">
-							<br></span>
+								<br></span>
 						</div>
 						
 						<div class="sub-total1" v-if="d.count_row == 0">
 							<span v-for="(s, row) in d.subtotal" >
-								<span v-if="s != 0" :id="'sub_total'+ row">{{ parseFloat(s).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
+								<span v-if="s != 0" :id="'sub_total1'+ row">{{ parseFloat(s).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
 							<br></span>
 						</div>
 						<div class="sub-total1" v-else>
-							<span v-for="(s, row) in d.gen_total.sub_to">
-								<span v-if="s != 0" :id="'sub_total'+ row">{{ parseFloat(s.sub_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
+							<span v-for="(s, row1) in d.gen_total.sub_to">
+								<span v-if="s != 0" :id="'sub_total1'+ row">{{ parseFloat(s.sub_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
 							<br></span>
 						</div>
 						
@@ -235,31 +236,31 @@
 							<input type="number" id="overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.overall_total_amount" v-if="d.overall_total_amount != 0">
 							<input type="number" id="overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.grandtotal" v-else>
 						</div>
-						<input type="hidden" id="original_overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.grandtotal">
-						<div class="grand-total1" v-if="d.grandtotal !=0" id="printing_overalltotalamount">
+						<input type="hidden" id="original_overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.original_grandtotal">
+						<div class="grand-total1" v-if="d.grandtotal !=0" id="print_overalltotalamount">
 							{{ (d.overall_total_amount != 0) ? parseFloat(d.overall_total_amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') :  parseFloat(d.grandtotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}
 						</div>
 
 						<div class="tax-quarter" v-if="d.count_row == 0">
 							<span v-for="(t, row) in d.tax">
 								<!-- <span v-if="t != 0">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
-								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')" @change="CalculateTotalEwt()">
+								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')" @change="CalculateTotalEwt(row)">
 							<br></span>
 						</div>
 						<div class="tax-quarter" v-else>
 							<span v-for="(t, row) in d.gen_total.sub_to">
 								<!-- <span v-if="t != 0">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
-								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t.ewt_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')" @change="CalculateTotalEwt()">
+								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t.ewt_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')" @change="CalculateTotalEwt(row)">
 							<br></span>
 						</div>
 						<div class="tax-quarter1" v-if="d.count_row == 0">
 							<span v-for="(t, row) in d.tax">
-								<span v-if="t != 0" :id="'ewt_amount'+ row">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
+								<span v-if="t != 0" :id="'ewt_amount1'+ row">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
 							<br></span>
 						</div>
 						<div class="tax-quarter1" v-else>
 							<span v-for="(t, row) in d.gen_total.sub_to">
-								<span v-if="t != 0" :id="'ewt_amount'+ row">{{ parseFloat(t.ewt_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
+								<span v-if="t != 0" :id="'ewt_amount1'+ row">{{ parseFloat(t.ewt_total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span>
 							<br></span>
 						</div>
 
@@ -268,7 +269,7 @@
 							<!-- {{ parseFloat(d.totaltax).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
 							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" v-model="d.overall_ewt" v-if="d.overall_ewt != 0">
 							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" v-model="d.totaltax" v-else>
-							<input type="hidden" id="original_overallewt" class="w-full text-right bg-transparent p-0" v-model="d.totaltax">
+							<input type="hidden" id="original_overallewt" class="w-full text-right bg-transparent p-0" v-model="d.original_totaltax">
 						</div><!-- para ni ya sa view nga class-->
 						
 						<div class="esig-container">

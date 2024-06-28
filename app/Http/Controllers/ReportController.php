@@ -207,9 +207,10 @@ class ReportController extends Controller
                 if(GenerationTotal::where('generation_id','=',$id)->where('generation_head_id', '=', $generation_head_id)->where('row','=',$gt->row)->exists()){
                     $gentotal = GenerationTotal::where('generation_id','=',$id)->where('generation_head_id', '=', $generation_head_id)->where('row','=',$gt->row)->value('id');
                     $update_gentotal = GenerationTotal::find($gentotal);
-                    $update_gentotal->sub_total = $gt->subtotal_amount;
-                    $update_gentotal->ewt_amount = $gt->ewt_amount;
-                    $update_gentotal->save();
+                    $update_gentotal->update([
+                        'sub_total'=>$gt->subtotal_amount,
+                        'ewt_total'=>$gt->ewt_amount,
+                    ]);
                 } else {
                     $gentotal['generation_id']=$id;
                     $gentotal['generation_head_id']=$generation_head_id;
