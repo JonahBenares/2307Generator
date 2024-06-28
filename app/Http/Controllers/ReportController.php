@@ -6,7 +6,9 @@ use App\Models\GenerationHead;
 use App\Models\GenerationAmount;
 use App\Models\Payees;
 use App\Models\AmountUpdateLogs;
+use App\Models\GenerationTotal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -81,14 +83,14 @@ class ReportController extends Controller
                 $amount_list = GenerationAmount::where('generation_id',$gl->id)->groupBy('generation_id','quarter_month')->get();
 
                 foreach($amount_list AS $al){
-                    $total_amount = GenerationAmount::where('generation_id','=',$gl->id)->where('quarter_month','=',$al->quarter_month)->sum('amount');
-                    if($gl->tax_type == 'Vat'){
-                        $total_tax_base = $total_amount / 1.12;
-                    }else{
-                        $total_tax_base = $total_amount;
-                    }
+                    $total_amount = GenerationAmount::where('generation_id','=',$gl->id)->where('quarter_month','=',$al->quarter_month)->sum('tax_base_amount');
+                    // if($gl->tax_type == 'Vat'){
+                    //     $total_tax_base = $total_amount / 1.12;
+                    // }else{
+                    //     $total_tax_base = $total_amount;
+                    // }
 
-                    $ewt = $total_tax_base * $gl->atc_percentage;
+                    $ewt = $total_amount * $gl->atc_percentage;
 
                     $date_updated_list = AmountUpdateLogs::where('generation_head_id','=',$al->generation_head_id)->where('generation_id','=',$al->generation_id)->where('quarter_month','=',$al->quarter_month)->get();
                     $count_date_update=$date_updated_list->count();
@@ -145,8 +147,8 @@ class ReportController extends Controller
                         'tin'=>$gl->tin,
                         'tax_type'=>$gl->tax_type,
                         'atc_code'=>$gl->atc_code,
-                        'tax_base'=>$total_tax_base,
-                        'ewt'=>$ewt,
+                        'tax_base'=>number_format($total_amount,2),
+                        'ewt'=>number_format($ewt,2),
                     ];
                 }
             }
@@ -161,5 +163,63 @@ class ReportController extends Controller
         $update->update([
             'status'=>'0'
         ]);
+    }
+
+    public function update_generation_total(Request $request){
+        $user_id = Auth::id();
+        $id = $request->input('generations_id');
+        $generation_head_id = generations::where('id','=',$id)->value('generation_head_id');
+
+        $update_gen_total = generations::find($id);
+
+            if($request->input('first_month_total') != $request->input('original_first_month_total')){
+                $update_gen_total->update([
+                    'first_month_total'=>$request->input('first_month_total'),
+                ]);
+            }
+
+            if($request->input('second_month_total') != $request->input('original_second_month_total')){
+                $update_gen_total->update([
+                    'second_month_total'=>$request->input('second_month_total'),
+                ]);
+            }
+
+            if($request->input('third_month_total') != $request->input('original_third_month_total')){
+                $update_gen_total->update([
+                    'third_month_total'=>$request->input('third_month_total'),
+                ]);
+            }
+
+            if($request->input('overall_total_amount') != $request->input('original_overall_total_amount')){
+                $update_gen_total->update([
+                    'overall_total_amount'=>$request->input('overall_total_amount'),
+                ]);
+            }
+
+            if($request->input('overall_ewt') != $request->input('original_overall_ewt')){
+                $update_gen_total->update([
+                    'overall_ewt'=>$request->input('overall_ewt'),
+                ]);
+            }
+
+        $gen_totals = $request->input('sub_total_ewt');
+            foreach(json_decode($gen_totals) as $gt){
+                if(GenerationTotal::where('generation_id','=',$id)->where('generation_head_id', '=', $generation_head_id)->where('row','=',$gt->row)->exists()){
+                    $gentotal = GenerationTotal::where('generation_id','=',$id)->where('generation_head_id', '=', $generation_head_id)->where('row','=',$gt->row)->value('id');
+                    $update_gentotal = GenerationTotal::find($gentotal);
+                    $update_gentotal->update([
+                        'sub_total'=>$gt->subtotal_amount,
+                        'ewt_total'=>$gt->ewt_amount,
+                    ]);
+                } else {
+                    $gentotal['generation_id']=$id;
+                    $gentotal['generation_head_id']=$generation_head_id;
+                    $gentotal['row']=$gt->row;
+                    $gentotal['sub_total']=$gt->subtotal_amount;
+                    $gentotal['ewt_total']=$gt->ewt_amount;
+                    $gentotal['user_id']=$user_id;
+                    GenerationTotal::create($gentotal);
+                }
+            }
     }
 }

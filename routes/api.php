@@ -59,3 +59,4 @@ Route::post('/cancel_generation/{id}',[DashboardController::class,'cancel_genera
 Route::get('/get_payees',[ReportController::class,'get_payees']);
 Route::post('/search_generation',[ReportController::class,'search_generation']);
 Route::get('/edit_generation/{head_id}/{detail_id}',[ReportController::class,'edit_generation']);
+Route::post('/update_generation_total',[ReportController::class,'update_generation_total']);
