@@ -88,7 +88,7 @@
 						subtotal_ewt.value.push(subtotalewt)
 			}
 			formItems.append('sub_total_ewt', JSON.stringify(subtotal_ewt.value))
-			// axios.post("/api/update_generation_total/",formItems);
+			axios.post("/api/update_generation_total/",formItems);
 			window.print()
 			getPrintDetails()
 	}
