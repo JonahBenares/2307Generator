@@ -127,6 +127,8 @@ import { CanceledError } from 'axios';
 			quarter_month:"",
             amount:"",
             old_amount:0,
+            tax_base_amount:"",
+            old_tax_base_amount:0,
            }
        );
    }
@@ -261,6 +263,67 @@ import { CanceledError } from 'axios';
 					});
 		}
 	}
+
+	const CalculateTaxBase = (a) => {
+		var tax_type = form.value.tax_type;
+			
+		if(tax_type == 'Vat'){
+			rows.value[a].tax_base_amount = (rows.value[a].amount / 1.12).toFixed(2)
+		}else{
+			rows.value[a].tax_base_amount = (rows.value[a].amount).toFixed(2)
+		}
+	}
+
+	// const CalculateSecondTaxBase = (a) => {
+	// 	var tax_type = form.value.tax_type;
+	// 	var ewt_percentage = form.value.atc_percentage;
+			
+	// 	if(tax_type == 'Vat'){
+	// 		rows.value[a].second_tax_base_amount = (rows.value[a].second_amount / 1.12).toFixed(2)
+	// 	}else{
+	// 		rows.value[a].second_tax_base_amount = (rows.value[a].second_amount).toFixed(2)
+	// 	}
+
+	// 	if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount == 'undefined' && rows.value[a].third_amount == 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (rows.value[a].first_tax_base_amount * ewt_percentage).toFixed(2)
+	// 	}else if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount != 'undefined' && rows.value[a].third_amount == 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (((rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount) * ewt_percentage)).toFixed(2)
+	// 	}else if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount != 'undefined' && rows.value[a].third_amount != 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount + rows.value[a].third_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (((rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount + rows.value[a].third_tax_base_amount) * ewt_percentage)).toFixed(2)
+	// 	}
+	// }
+
+	// const CalculateThirdTaxBase = (a) => {
+	// 	var tax_type = form.value.tax_type;
+	// 	var ewt_percentage = form.value.atc_percentage;
+			
+	// 	if(tax_type == 'Vat'){
+	// 		rows.value[a].third_tax_base_amount = (rows.value[a].third_amount / 1.12).toFixed(2)
+	// 	}else{
+	// 		rows.value[a].third_tax_base_amount = (rows.value[a].third_amount).toFixed(2)
+	// 	}
+
+	// 	if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount == 'undefined' && rows.value[a].third_amount == 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (rows.value[a].first_tax_base_amount * ewt_percentage).toFixed(2)
+	// 	}else if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount != 'undefined' && rows.value[a].third_amount == 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (((rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount) * ewt_percentage)).toFixed(2)
+	// 	}else if(rows.value[a].first_amount != 'undefined' && rows.value[a].second_amount != 'undefined' && rows.value[a].third_amount != 'undefined'){
+	// 		rows.value[a].total_amount = (rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount + rows.value[a].third_tax_base_amount).toFixed(2)
+	// 		rows.value[a].ewt_total_amount = (((rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount + rows.value[a].third_tax_base_amount) * ewt_percentage)).toFixed(2)
+	// 	}
+	// }
+
+	// const CalculateTotalEwtAmount = (a) => {
+	// 	var ewt_percentage = form.value.atc_percentage;
+	// 	rows.value[a].ewt_total_amount = (((rows.value[a].first_tax_base_amount + rows.value[a].second_tax_base_amount + rows.value[a].third_tax_base_amount) * ewt_percentage)).toFixed(2)
+	// }
+
+
 </script>
 
 <template>
@@ -358,7 +421,8 @@ import { CanceledError } from 'axios';
 								<div class="col-lg-12">
 									<div class="flex justify-between space-x-1">
 										<label for="" class="pl-2 mb-0 text-sm w-[50%] ">Quarter of the Month</label>
-										<label for="" class=" mb-0 text-sm w-[50%] ">Amount</label>
+										<label for="" class=" mb-0 text-sm w-[50%] ">Gross</label>
+										<label for="" class=" mb-0 text-sm w-[50%] ">Tax Base</label>
 									</div>
 								</div>
 							</div>
@@ -374,8 +438,10 @@ import { CanceledError } from 'axios';
 												<option value="3">Third Month</option>
 											</select>
 											<input type="hidden" class="form-control border" v-model="r.id">
-											<input type="number" class="form-control border" maxlength="15" v-model="r.amount">
+											<input type="number" class="form-control border" maxlength="15" v-model="r.amount" @change="CalculateTaxBase(a)">
 											<input type="hidden" class="form-control border" maxlength="15" v-model="r.old_amount">
+											<input type="number" class="form-control border" maxlength="15" v-model="r.tax_base_amount">
+											<input type="hidden" class="form-control border" maxlength="15" v-model="r.old_tax_base_amount">
 											<button class="btn btn-xs btn-danger"  @click="removeRow(a, r.id)"  >
 												<XMarkIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"></XMarkIcon>
 											</button>
@@ -383,6 +449,54 @@ import { CanceledError } from 'axios';
 									</div>
 								</div>
 							</div>
+
+							<!-- <div class="row">
+								<div class="col-lg-12">
+									<div class="form-group mt-2">
+										<button @click="addRow()" class="btn btn-sm btn-warning text-white">Add Amount</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<table class=" border" >
+										<tr>
+											<td width="20%" class="text-center text-sm font-bold border">1st Month of Quarter</td>
+											<td width="20%" class="text-center text-sm font-bold border">2nd Month of Quarter</td>
+											<td width="20%" class="text-center text-sm font-bold border">3rd Month of Quarter</td>
+											<td width="20%" class="text-center text-sm font-bold border">Total</td>
+											<td width="20%" class="text-center text-sm font-bold border">Tax Withheld for the Quarter</td>
+											<td width="1%" class="text-center text-sm font-bold border"></td>
+										</tr>
+										<tr v-for="(r, a) in rows">
+											<td width="" class="text-center border">
+												<input type="text" class="w-full px-2 text-right text-sm" v-model="r.first_amount" @change="CalculateFirstTaxBase(a)">
+												<input type="text" class="w-full px-2 text-right text-sm border-t bg-violet-50" v-model="r.first_tax_base_amount" @change="CalculateFirstTotalAmount(a)">
+											</td>
+											<td width="" class="text-center border">
+												<input type="text" class="w-full px-2 text-right text-sm" v-model="r.second_amount" @change="CalculateSecondTaxBase(a)">
+												<input type="text" class="w-full px-2 text-right text-sm border-t bg-violet-50" v-model="r.second_tax_base_amount" @change="CalculateSecondTotalAmount(a)">
+											</td>
+											<td width="" class="text-center border">
+												<input type="text" class="w-full px-2 text-right text-sm" v-model="r.third_amount" @change="CalculateThirdTaxBase(a)">
+												<input type="text" class="w-full px-2 text-right text-sm border-t bg-violet-50" v-model="r.third_tax_base_amount" @change="CalculateThirdTotalAmount(a)">
+											</td>
+											<td width="" class="text-center border">
+												<input type="text" class="w-full px-2 text-right text-sm" v-model="r.total_amount">
+											</td>
+											<td width="" class="text-center border">
+												<input type="text" class="w-full px-2 text-right text-sm" v-model="r.ewt_total_amount">
+											</td>
+											<td width="" class="text-center border">
+												<button class="btn btn-xs btn-danger" @click="removeRow(a, r.id)">
+													<XMarkIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"></XMarkIcon>
+												</button>
+											</td>
+											<input type="hidden" class="form-control border" v-model="r.id">
+										</tr>
+									</table>
+								</div>
+							</div> -->
 							<br>
 							<div class="row">
 								<div class="col-lg-12">

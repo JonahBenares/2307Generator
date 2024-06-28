@@ -16,6 +16,8 @@ class AmountUpdateLogs extends Model
         'quarter_month',
         'old_amount',
         'new_amount',
+        'old_tax_base_amount',
+        'new_tax_base_amount',
         'user_id'
     ];
 }

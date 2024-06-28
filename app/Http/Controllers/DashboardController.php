@@ -9,6 +9,7 @@ use App\Models\generations;
 use App\Models\GenerationHead;
 use App\Models\accountant;
 use App\Models\GenerationAmount;
+use App\Models\GenerationTotal;
 use App\Models\AmountUpdateLogs;
 use App\Http\Requests\GenerationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -127,6 +128,8 @@ class DashboardController extends Controller
                 'quarter_month'=>$a->quarter_month,
                 'amount'=>$a->amount,
                 'old_amount'=>$a->amount,
+                'tax_base_amount'=>$a->tax_base_amount,
+                'old_tax_base_amount'=>$a->tax_base_amount,
             ];
         }
         return response()->json($genarray);
@@ -189,6 +192,7 @@ class DashboardController extends Controller
                     'generation_id'=>$gen_id,
                     'quarter_month'=>$r->quarter_month,
                     'amount'=>$r->amount,
+                    'tax_base_amount'=>$r->tax_base_amount,
                     'user_id'=>$user_id
                 ]);
             }
@@ -240,6 +244,7 @@ class DashboardController extends Controller
                        'generation_id'=>$detail_id,
                        'quarter_month'=>$r->quarter_month,
                        'amount'=>$r->amount,
+                       'tax_base_amount'=>$r->tax_base_amount,
                        'user_id'=>$user_id
                    ]);
 
@@ -251,6 +256,8 @@ class DashboardController extends Controller
                             'quarter_month'=>$r->quarter_month,
                             'old_amount'=>$r->old_amount,
                             'new_amount'=>$r->amount,
+                            'old_tax_base_amount'=>$r->old_tax_base_amount,
+                            'new_tax_base_amount'=>$r->tax_base_amount,
                             'user_id'=>$user_id
                         ]);
                    }
@@ -298,31 +305,34 @@ class DashboardController extends Controller
         $tlength=0;
         if(!empty($firstmonth)){
             foreach($firstmonth AS $f){
-                if($tax_type == 'Vat'){
-                    $subtotal_first[]=$f->amount / 1.12;
-                }else{
-                    $subtotal_first[]=$f->amount;
-                }
+                // if($tax_type == 'Vat'){
+                //     $subtotal_first[]=$f->amount / 1.12;
+                // }else{
+                //     $subtotal_first[]=$f->amount;
+                // }
+                $subtotal_first[]=$f->tax_base_amount;
                 $flength++;
             }
         }
         if(!empty($secondmonth)){
             foreach($secondmonth AS $s){
-                if($tax_type == 'Vat'){
-                    $subtotal_second[]=$s->amount / 1.12;
-                }else{
-                    $subtotal_second[]=$s->amount;
-                }
+                // if($tax_type == 'Vat'){
+                //     $subtotal_second[]=$s->amount / 1.12;
+                // }else{
+                //     $subtotal_second[]=$s->amount;
+                // }
+                $subtotal_second[]=$s->tax_base_amount;
                 $slength++;
             }
         }
         if(!empty($thirdmonth)){
             foreach($thirdmonth AS $t){
-                if($tax_type == 'Vat'){
-                    $subtotal_third[]=$t->amount / 1.12;
-                }else{
-                    $subtotal_third[]=$t->amount;
-                }
+                // if($tax_type == 'Vat'){
+                //     $subtotal_third[]=$t->amount / 1.12;
+                // }else{
+                //     $subtotal_third[]=$t->amount;
+                // }
+                $subtotal_third[]=$t->tax_base_amount;
                 $tlength++;
             }
         }
@@ -334,6 +344,8 @@ class DashboardController extends Controller
       
         
         foreach($details AS $d){
+            $generationtotal = GenerationTotal::where('generation_id','=',$d->id)->where('generation_head_id','=',$d->generation_head_id)->get();
+            $count_row=$generationtotal->count();
           
             if($d->include_sign == 1){
                 $sign = $d->accountant_sign;
@@ -359,7 +371,7 @@ class DashboardController extends Controller
 
             $total_tax = array_sum($tax);
             $data[] = [
-                'generation_head_id'=>$d->generation_head,
+                'generation_head_id'=>$d->generation_head_id,
                 'date_from'=>$d->date_from,
                 'date_to'=>$d->date_to,
                 'payee_name'=>$d->payee_name,
@@ -369,7 +381,13 @@ class DashboardController extends Controller
                 'zip_code'=>$d->zip_code,
                 'tax_type'=>$d->tax_type,
                 'atc_code'=>$d->atc_code,
+                'atc_percentage'=>$d->atc_percentage,
                 'atc_remarks'=>$d->atc_remarks,
+                'first_month_total'=>$d->first_month_total,
+                'second_month_total'=>$d->second_month_total,
+                'third_month_total'=>$d->third_month_total,
+                'overall_total_amount'=>$d->overall_total_amount,
+                'overall_ewt'=>$d->overall_ewt,
                 'firstmonth'=>$firstmonth,
                 'secondmonth'=>$secondmonth,
                 'thirdmonth'=>$thirdmonth,
@@ -379,12 +397,16 @@ class DashboardController extends Controller
                 'subtotal'=>$subtotal,
                 'grandtotal'=>$grandtotal,
                 'tax'=>$tax,
-                'totaltax'=>$total_tax,
+                'totaltax'=>number_format($total_tax,2),
                 'accountant_name'=>$d->accountant_name,
                 'accountant_tin'=>$d->accountant_tin,
                 'accountant_position'=>$d->accountant_position,
                 'accountant_signature'=>$sign,
                 'reference_number'=>$d->reference_number,
+                'gen_total'=> [
+                    'sub_to'=>$generationtotal,
+                ],
+                'count_row'=>$count_row,
                 'company_name'=>COMPANY_NAME,
                 'company_address'=>COMPANY_ADDRESS,
                 'company_tin'=>COMPANY_TIN,
@@ -421,31 +443,34 @@ class DashboardController extends Controller
              
             if(!empty($firstmonth)){
                 foreach($firstmonth AS $f){
-                    if($d->tax_type == 'Vat'){
-                        $subtotal_first[]=$f->amount / 1.12;
-                    }else{
-                        $subtotal_first[]=$f->amount;
-                    }
+                    // if($d->tax_type == 'Vat'){
+                    //     $subtotal_first[]=$f->amount / 1.12;
+                    // }else{
+                    //     $subtotal_first[]=$f->amount;
+                    // }
+                    $subtotal_first[]=$f->amount;
                     $flength++;
                 }
             }
             if(!empty($secondmonth)){
                 foreach($secondmonth AS $s){
-                    if($d->tax_type == 'Vat'){
-                        $subtotal_second[]=$s->amount / 1.12;
-                    }else{
-                        $subtotal_second[]=$s->amount;
-                    }
+                    // if($d->tax_type == 'Vat'){
+                    //     $subtotal_second[]=$s->amount / 1.12;
+                    // }else{
+                    //     $subtotal_second[]=$s->amount;
+                    // }
+                    $subtotal_second[]=$s->amount;
                     $slength++;
                 }
             }
             if(!empty($thirdmonth)){
                 foreach($thirdmonth AS $t){
-                    if($d->tax_type == 'Vat'){
-                        $subtotal_third[]=$t->amount / 1.12;
-                    }else{
-                        $subtotal_third[]=$t->amount;
-                    }
+                    // if($d->tax_type == 'Vat'){
+                    //     $subtotal_third[]=$t->amount / 1.12;
+                    // }else{
+                    //     $subtotal_third[]=$t->amount;
+                    // }
+                    $subtotal_third[]=$t->amount;
                     $tlength++;
                 }
             }
