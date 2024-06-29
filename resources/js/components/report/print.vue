@@ -123,7 +123,7 @@
 				ewttotal += parseFloat(document.getElementsByClassName("ewtamount")[e].value);
 			}
 			document.getElementById('overallewt').value = parseFloat(ewttotal).toFixed(2);
-			document.getElementById('print_overallewt').innerText = parseFloat(ewttotal).toFixed(2).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+			document.getElementById('print_overallewt').innerText = parseFloat(ewttotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 			document.getElementById("ewt_amount1"+row).innerText = parseFloat(document.getElementById("ewt_amount"+row).value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 	}
 
@@ -211,7 +211,7 @@
 
 						<div class="sub-total" v-if="d.count_row == 0">
 							<span v-for="(s, row) in d.subtotal">
-								<input v-if="s != 0" type="number" :id="'sub_total'+ row" class="w-full text-right bg-transparent p-0 subtotalamount" :value="s" @change="CalculateGrandTotal(row)">
+								<input v-if="s != 0" type="number" :id="'sub_total'+ row" class="w-full text-right bg-transparent p-0 subtotalamount" :value="parseFloat(s).toFixed(2)" @change="CalculateGrandTotal(row)">
 							<br></span>
 						</div>
 						<div class="sub-total" v-else>
