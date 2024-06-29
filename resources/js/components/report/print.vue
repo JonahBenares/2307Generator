@@ -110,7 +110,7 @@
 			document.getElementById('overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
 			document.getElementById('print_overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
 			document.getElementById("ewt_amount"+row).value = parseFloat(sub_t * percent).toFixed(2);
-			document.getElementById("ewt_amount1"+row).innerText = parseFloat(sub_t * percent).toFixed(2);
+			document.getElementById("ewt_amount1"+row).innerText = parseFloat(sub_t * percent).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 			document.getElementById("sub_total1"+row).innerText = parseFloat(sub_t).toFixed(2);
 			CalculateTotalEwt();
 
@@ -123,8 +123,8 @@
 				ewttotal += parseFloat(document.getElementsByClassName("ewtamount")[e].value);
 			}
 			document.getElementById('overallewt').value = parseFloat(ewttotal).toFixed(2);
-			document.getElementById('print_overallewt').value = parseFloat(ewttotal).toFixed(2);
-			document.getElementById("ewt_amount1"+row).innerText = parseFloat(document.getElementById("ewt_amount"+row).value).toFixed(2);
+			document.getElementById('print_overallewt').innerText = parseFloat(ewttotal).toFixed(2).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+			document.getElementById("ewt_amount1"+row).innerText = parseFloat(document.getElementById("ewt_amount"+row).value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 	}
 
 
@@ -244,13 +244,13 @@
 						<div class="tax-quarter" v-if="d.count_row == 0">
 							<span v-for="(t, row) in d.tax">
 								<!-- <span v-if="t != 0">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
-								<input v-if="t != 0" type="number" :minFractionDigits="2" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t).toFixed(2)" @change="CalculateTotalEwt(row)">
+								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t).toFixed(2)" @change="CalculateTotalEwt(row)">
 							<br></span>
 						</div>
 						<div class="tax-quarter" v-else>
 							<span v-for="(t, row) in d.gen_total.sub_to">
 								<!-- <span v-if="t != 0">{{ parseFloat(t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</span> -->
-								<input v-if="t != 0" type="number" :minFractionDigits="2" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t.ewt_total).toFixed(2)" @change="CalculateTotalEwt(row)">
+								<input v-if="t != 0" type="number" :id="'ewt_amount'+ row" class="w-full text-right bg-transparent p-0 ewtamount" :value="parseFloat(t.ewt_total).toFixed(2)" @change="CalculateTotalEwt(row)">
 							<br></span>
 						</div>
 						<div class="tax-quarter1" v-if="d.count_row == 0">
@@ -264,7 +264,7 @@
 							<br></span>
 						</div>
 
-						<div class="finaltax"  id="print_overallewt">{{ (d.overall_ewt != 0) ? parseFloat(d.overall_ewt).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : d.totaltax }}</div> <!-- para ni sa printing nga class naka-->
+						<div class="finaltax"  id="print_overallewt">{{ (d.overall_ewt != 0) ? parseFloat(d.overall_ewt).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : parseFloat(d.totaltax).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}</div> <!-- para ni sa printing nga class naka-->
 						<div class="final-tax ">
 							<!-- {{ parseFloat(d.totaltax).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
 							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" v-model="d.overall_ewt" v-if="d.overall_ewt != 0">
