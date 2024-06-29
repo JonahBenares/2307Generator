@@ -108,7 +108,7 @@
 				grandtotal += parseFloat(document.getElementsByClassName("subtotalamount")[t].value);
 			}
 			document.getElementById('overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
-			document.getElementById('print_overalltotalamount').value = parseFloat(grandtotal).toFixed(2);
+			document.getElementById('print_overalltotalamount').innerText = parseFloat(grandtotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 			document.getElementById("ewt_amount"+row).value = parseFloat(sub_t * percent).toFixed(2);
 			document.getElementById("ewt_amount1"+row).innerText = parseFloat(sub_t * percent).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 			document.getElementById("sub_total1"+row).innerText = parseFloat(sub_t).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
@@ -238,7 +238,7 @@
 						</div>
 						<input type="hidden" id="original_overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.original_grandtotal">
 						<div class="grand-total1" v-if="d.grandtotal !=0" id="print_overalltotalamount">
-							{{ (d.overall_total_amount != 0) ? parseFloat(d.overall_total_amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') :  parseFloat(d.grandtotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}
+							{{ (d.overall_total_amount != 0) ? parseFloat(d.overall_total_amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') : parseFloat(d.grandtotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }}
 						</div>
 
 						<div class="tax-quarter" v-if="d.count_row == 0">
