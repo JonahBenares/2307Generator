@@ -174,8 +174,8 @@
 						</div>
 						<div class="first-total" v-if="d.firstmonth !=0">
 							<!-- {{ parseFloat(d.subtotal_first).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
-							<input type="number" id="firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.first_month_total" v-if="d.first_month_total != 0">
-							<input type="number" id="firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_first" v-else>
+							<input type="number" id="firstmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.first_month_total" v-if="d.first_month_total != 0">
+							<input type="number" id="firstmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2"  v-model="d.subtotal_first" v-else>
 						</div>
 						<div class="first-total" id="firstmonthtotal" v-else>-</div>
 						<input type="hidden" id="original_firstmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_first">
@@ -188,8 +188,8 @@
 						</div>
 						<div class="second-total"  v-if="d.secondmonth !=0">
 							<!-- {{ parseFloat(d.subtotal_second).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
-							<input type="number" id="secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.second_month_total" v-if="d.second_month_total != 0">
-							<input type="number" id="secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_second" v-else>
+							<input type="number" id="secondmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.second_month_total" v-if="d.second_month_total != 0">
+							<input type="number" id="secondmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.subtotal_second" v-else>
 						</div>
 						<div class="second-total" id="secondmonthtotal" v-else>-</div>
 						<input type="hidden" id="original_secondmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_second">
@@ -201,8 +201,8 @@
 						</div>
 						<div class="third-total" v-if="d.thirdmonth !=0">
 							<!-- {{ parseFloat(d.subtotal_third).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
-							<input type="number" id="thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.third_month_total" v-if="d.third_month_total != 0">
-							<input type="number" id="thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.subtotal_third" v-else>
+							<input type="number" id="thirdmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.third_month_total" v-if="d.third_month_total != 0">
+							<input type="number" id="thirdmonthtotal" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.subtotal_third" v-else>
 						</div>
 						<div class="third-total" id="thirdmonthtotal" v-else>-</div>
 						<input type="hidden" id="original_thirdmonthtotal" class="w-full text-right bg-transparent p-0" v-model="d.original_subtotal_third">
@@ -234,7 +234,7 @@
 						<div class="grand-total" v-if="d.grandtotal !=0">
 							<!-- {{ parseFloat(d.grandtotal).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
 							<input type="number" id="overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.overall_total_amount" v-if="d.overall_total_amount != 0">
-							<input type="number" id="overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.grandtotal" v-else>
+							<input type="number" id="overalltotalamount" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.grandtotal" v-else>
 						</div>
 						<input type="hidden" id="original_overalltotalamount" class="w-full text-right bg-transparent p-0" v-model="d.original_grandtotal">
 						<div class="grand-total1" v-if="d.grandtotal !=0" id="print_overalltotalamount">
@@ -268,7 +268,7 @@
 						<div class="final-tax ">
 							<!-- {{ parseFloat(d.totaltax).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') }} -->
 							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" v-model="d.overall_ewt" v-if="d.overall_ewt != 0">
-							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" v-model="d.totaltax" v-else>
+							<input type="number" id="overallewt" class="w-full text-right bg-transparent p-0" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="2" v-model="d.totaltax" v-else>
 							<input type="hidden" id="original_overallewt" class="w-full text-right bg-transparent p-0" v-model="d.original_totaltax">
 						</div><!-- para ni ya sa view nga class-->
 						
