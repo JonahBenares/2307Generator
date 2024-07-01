@@ -398,7 +398,7 @@ class DashboardController extends Controller
                 'subtotal_third'=>array_sum($subtotal_third),
                 'original_subtotal_third'=>array_sum($subtotal_third),
                 'subtotal'=>$subtotal,
-                'grandtotal'=>$grandtotal,
+                'grandtotal'=> $grandtotal,
                 'original_grandtotal'=>$grandtotal,
                 'tax'=>$tax,
                 'totaltax'=>$total_tax,
