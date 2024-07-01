@@ -15,6 +15,7 @@ class GenerationAmount extends Model
         'quarter_month',
         'amount',
         'tax_base_amount',
+        'cancelled',
         'user_id'
     ];
 

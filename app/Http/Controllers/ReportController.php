@@ -83,7 +83,7 @@ class ReportController extends Controller
                 $amount_list = GenerationAmount::where('generation_id',$gl->id)->groupBy('generation_id','quarter_month')->get();
 
                 foreach($amount_list AS $al){
-                    $total_amount = GenerationAmount::where('generation_id','=',$gl->id)->where('quarter_month','=',$al->quarter_month)->sum('tax_base_amount');
+                    $total_amount = GenerationAmount::where('generation_id','=',$gl->id)->where('quarter_month','=',$al->quarter_month)->where('cancelled','=','0')->sum('tax_base_amount');
                     // if($gl->tax_type == 'Vat'){
                     //     $total_tax_base = $total_amount / 1.12;
                     // }else{

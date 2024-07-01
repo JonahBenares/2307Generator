@@ -292,9 +292,9 @@ class DashboardController extends Controller
     public function get_print_details($id){
         $details = generations::where('id','=',$id)->get();
         $tax_type = generations::where('id','=',$id)->value('tax_type');
-        $firstmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','1')->get();
-        $secondmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','2')->get();
-        $thirdmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','3')->get();
+        $firstmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','1')->where('cancelled','=','0')->get();
+        $secondmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','2')->where('cancelled','=','0')->get();
+        $thirdmonth = GenerationAmount::where('generation_id','=',$id)->where('quarter_month','=','3')->where('cancelled','=','0')->get();
 
         $subtotal_first=array();
         $subtotal_second=array();
@@ -550,5 +550,11 @@ class DashboardController extends Controller
             'cancelled'=>'1'
         ];
         $cancel_head->update($cancel_data);
+
+        $cancel_amount=GenerationAmount::where('generation_id',$id);
+        $cancelamount = [
+            'cancelled'=>'1'
+        ];
+        $cancel_amount->update($cancelamount);
     }
 }
