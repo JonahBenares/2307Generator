@@ -11330,7 +11330,7 @@ display: none;
     .esig-container{
         position: absolute;
         width: 97%!important;
-        bottom: 345px!important;   
+        bottom: 375px!important;   
         display: flex;
         justify-content: center;
         background: none!important;
@@ -11349,7 +11349,7 @@ display: none;
         position: absolute;
         width:400px!important;
         left: 340px!important;
-        top: 1360px!important;
+        top: 1330px!important;
         padding: 0px 8px!important;
         line-height: 30px!important;
         font-size: 15px!important;
@@ -11361,7 +11361,7 @@ display: none;
         position: absolute;
         width:400px!important;
         left: 340px!important;
-        top: 1377px!important;
+        top: 1347px!important;
         padding: 0px 8px!important;
         line-height: 30px!important;
         font-size: 15px!important;
@@ -11375,7 +11375,7 @@ display: none;
         position: absolute;
         width:400px!important;
         left: 340px!important;
-        top: 1393px!important;
+        top: 1363px!important;
         padding: 0px 8px!important;
         line-height: 30px!important;
         font-size: 15px!important;
@@ -11387,7 +11387,10 @@ display: none;
     }
     .ref-number{
         background: none!important;
+        position: absolute!important;
+        bottom: 50px!important;
     }
+
 }
 
 .date-from{
