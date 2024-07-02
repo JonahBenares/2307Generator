@@ -34,6 +34,7 @@
 
 			axios.post("/api/search_generation/",formData).then(function (response) {
 				rows.value = response.data
+				document.getElementById("showExport").style.display="block"
 			}, function (err) {
 				error.value = err.response.data.message;
 				
@@ -71,13 +72,15 @@
 						<div class="px-4 py-4">
 							<div class="flex justify-between pb-2 mt-2 mb-2">
 								<h4 class="font-bold m-0 capitalize" >Report</h4>
-								<div class="flex justify-between space-x-1">
-									<button class="btn btn-sm btn-success">
+								<div class="flex justify-between space-x-1" style="display: none;"  id="showExport">
+									<!-- <button class="btn btn-sm btn-success"> -->
+									<a :href="'/export-generation-report/'+((form.date_from!='') ? form.date_from : 'null')+'/'+((form.date_to!='') ? form.date_to : 'null')+'/'+((form.date_encoded!='') ? form.date_encoded : 'null')+'/'+((form.payee!='') ? form.payee : 0)" class="btn btn-sm btn-success">
 										<div class="flex justify-center space-x-2">
 											<ArrowTopRightOnSquareIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-5"></ArrowTopRightOnSquareIcon>
 											<span>Export</span>
 										</div>
-									</button>
+									</a>
+									<!-- </button> -->
 								</div>
 							</div>
 							<div class="flex justify-between space-x-2 mb-2 rounded border p-3 ">
@@ -115,6 +118,7 @@
 									<tr>
 										
 										<th class="p-2 px-3 text-base" width="10%">Date Encoded</th>
+										<th class="p-2 px-3 text-base" width="15%">Month of the Quarter</th>
 										<th class="p-2 px-3 text-base" width="15%">Period</th>
 										<th class="p-2 px-3 text-base" width="35%">Payee's Name</th>
 										<th class="p-2 px-3 text-base" width="10%">TIN</th>
@@ -132,6 +136,7 @@
 								<tbody v-if="rows.length>0">
 									<tr v-for="r in rows">
 										<td class="p-1 px-3">{{ r.date_encoded }}</td>
+										<td class="p-1 px-3">{{ r.quarter_month }}</td>
 										<td class="p-1 px-3">{{ r.date_period }}</td>
 										<td class="p-1 px-3">{{ r.payee_name }}</td>
 										<td class="p-1 px-3">{{ r.tin }}</td>

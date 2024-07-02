@@ -7,8 +7,10 @@ use App\Models\GenerationAmount;
 use App\Models\Payees;
 use App\Models\AmountUpdateLogs;
 use App\Models\GenerationTotal;
+use App\Exports\GenerationReportExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -221,5 +223,9 @@ class ReportController extends Controller
                     GenerationTotal::create($gentotal);
                 }
             }
+    }
+
+    public function export_generation_report($date_from,$date_to,$date_encoded,$payee){
+        return Excel::download(new GenerationReportExport($date_from,$date_to,$date_encoded,$payee), '2307 Generation Report.xlsx');
     }
 }
