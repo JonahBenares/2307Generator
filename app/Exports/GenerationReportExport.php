@@ -50,33 +50,6 @@ class GenerationReportExport implements FromQuery, WithMapping, ShouldAutoSize, 
         return 'A1';
     }
 
-    public function query()
-    {
-        $date_from=$this->date_from;
-        $date_to=$this->date_to;
-        $date_encoded=$this->date_encoded;
-        $payee=$this->payee;
-
-        $query=generations::query()->with(['generation_head'])->where('cancelled', '0');
-        $query->whereHas('generation_head', function ($query) {
-            $query->where('status', '1');
-        });
-
-        if ($date_encoded!='null') {
-            $query->where('date_encoded', $date_encoded);
-        }
-
-        if ($date_from!='null' && $date_to!='null') {
-            $query->whereBetween('date_from','date_to', [$date_from, $date_to]);
-        }
-
-        if ($payee!=0) {
-            $query->where('payee_id', $payee);
-        }
-
-        return $query;
-    }
-
     public function GetMonths($sStartDate, $sEndDate){  
         // Firstly, format the provided dates.  
         // This function works best with YYYY-MM-DD  
@@ -104,7 +77,34 @@ class GenerationReportExport implements FromQuery, WithMapping, ShouldAutoSize, 
        // Once the loop has finished, return the  
        // array of days.  
        return $aDays;  
-     }  
+     }
+
+    public function query()
+    {
+        $date_from=$this->date_from;
+        $date_to=$this->date_to;
+        $date_encoded=$this->date_encoded;
+        $payee=$this->payee;
+
+        $query=generations::query()->with(['generation_head'])->where('cancelled', '0');
+        $query->whereHas('generation_head', function ($query) {
+            $query->where('status', '1');
+        });
+
+        if ($date_encoded!='null') {
+            $query->where('date_encoded', $date_encoded)->orderBy('date_encoded', 'ASC');
+        }
+
+        if ($date_from!='null' && $date_to!='null') {
+            $query->whereBetween('date_from','date_to', [$date_from, $date_to]);
+        }
+
+        if ($payee!=0) {
+            $query->where('payee_id', $payee);
+        }
+
+        return $query->orderBy('date_from', 'ASC')->orderBy('date_to', 'ASC')->orderBy('payee_name', 'ASC');
+    }  
 
     public function map($gr): array
     {   
