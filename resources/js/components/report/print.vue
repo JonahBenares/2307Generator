@@ -102,7 +102,8 @@
 	const CalculateGrandTotal = (row) => {
 	var count_row = document.getElementsByClassName("subtotalamount");
 	const sub_t = document.getElementById("sub_total"+row).value;
-	const percent = document.getElementById('percentage').value
+	// const percent = document.getElementById('percentage').value
+	const percent = parseFloat(document.getElementById('percentage').value);
 	var grandtotal=0;
 			for(var t=0;t<count_row.length;t++){
 				grandtotal += parseFloat(document.getElementsByClassName("subtotalamount")[t].value);
